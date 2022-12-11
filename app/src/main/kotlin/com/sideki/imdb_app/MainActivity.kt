@@ -34,6 +34,6 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Фильм: $name")
+fun Greeting(title: String) {
+    Text(text = "Фильм: $title")
 }
