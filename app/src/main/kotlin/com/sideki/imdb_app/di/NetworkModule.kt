@@ -20,7 +20,7 @@ private const val TIMEOUT = 10L
 object NetworkModule {
 
     private val HTTP_SCHEME = "https://"
-    private val API_PATH = "imdb-api.com/en/API/"
+    private val API_PATH = "imdb-api.com/ru/API/"
 
     @Provides
     @Singleton
