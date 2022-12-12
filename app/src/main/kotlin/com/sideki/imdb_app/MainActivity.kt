@@ -2,41 +2,30 @@ package com.sideki.imdb_app
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.fragment.app.FragmentActivity
-import com.sideki.imdb_app.databinding.ActivityMainBinding
-import com.sideki.imdb_app.ui.theme.Imdb_appTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : FragmentActivity() {
+class MainActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityMainBinding
+    private val viewModel by viewModels<MainActivityViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-             /*setContent {
-            Imdb_appTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Greeting(viewModel.data)
-                }
-            }
-        }
-    }*/
-}
+        setContentView(R.layout.activity_main)
+        /*setContent {
+       Imdb_appTheme {
+           Surface(
+               modifier = Modifier.fillMaxSize(),
+               color = MaterialTheme.colors.background
+           ) {
+               Greeting(viewModel.data)
+           }
+       }
+   }
+}*/
+    }
 
 /*@Composable
 fun Greeting(title: String) {

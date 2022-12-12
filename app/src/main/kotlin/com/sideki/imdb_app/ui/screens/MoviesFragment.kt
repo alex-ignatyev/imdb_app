@@ -15,11 +15,11 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MoviesFragment: Fragment(R.layout.fragment_movies) {
 
-    val viewModel: MoviesFragmentViewModel by viewModels()
+    //val viewModel: MoviesFragmentViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+/*
        val binding = FragmentMoviesBinding.bind(view)
 
         val moviesAdapter = MoviesAdapter()
@@ -33,6 +33,6 @@ class MoviesFragment: Fragment(R.layout.fragment_movies) {
         }
         viewModel.movies.observe(viewLifecycleOwner, Observer{
             moviesAdapter.submitList(it)
-        })
+        })*/
     }
 }
