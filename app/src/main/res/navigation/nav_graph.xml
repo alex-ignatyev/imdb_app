@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/moviesFragment"
-        android:name="com.sideki.imdb_app.ui.screens.MoviesFragment"
+        android:name="com.sideki.imdb_app.ui.movies_list.MoviesFragment"
         android:label="fragment_movies"
         tools:layout="@layout/fragment_movies" />
 </navigation>

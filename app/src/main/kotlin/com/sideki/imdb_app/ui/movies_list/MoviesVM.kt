@@ -1,4 +1,4 @@
-package com.sideki.imdb_app.ui.screens
+package com.sideki.imdb_app.ui.movies_list
 
 
 import androidx.lifecycle.MutableLiveData
@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MoviesFragmentViewModel @Inject constructor(val api: ImdbApi): ViewModel() {
+class MoviesVM @Inject constructor(private val api: ImdbApi): ViewModel() {
 
      val movies= MutableLiveData<List<MovieResponse>>(null)
 
