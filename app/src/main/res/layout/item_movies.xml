@@ -1,44 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    >
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="60dp"
+        android:layout_height="120dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/movie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="@string/movie"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/image"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Название фильма"
-        android:textSize="14dp"
+        android:layout_marginStart="8dp"
+        android:textSize="16dp"
+        app:layout_constraintStart_toEndOf="@id/movie"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Movie title"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:singleLine="true"/>
+
+    <TextView
+        android:id="@+id/year_of_production"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/year"
+        android:textSize="16dp"
         android:textStyle="bold"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="4dp"/>
+        app:layout_constraintStart_toEndOf="@id/image"
+        app:layout_constraintTop_toBottomOf="@id/movie" />
 
     <TextView
         android:id="@+id/year"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:text="1999"
-        android:layout_below="@id/title"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="6dp"/>
-
-    <ImageView
-        android:id="@+id/image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/year"
-        android:layout_marginBottom="6dp"
-        android:layout_centerHorizontal="true"/>
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:textSize="16dp"
+        app:layout_constraintStart_toEndOf="@id/barrier"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        tools:text="1999" />
+
+    <TextView
+        android:id="@+id/crew_cast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/crew"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/image"
+        app:layout_constraintTop_toBottomOf="@id/year_of_production" />
+
+    <TextView
+        android:id="@+id/crew"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:textSize="16dp"
+
+        app:layout_constraintStart_toEndOf="@id/barrier"
+        app:layout_constraintTop_toBottomOf="@id/year"
+        tools:text="Some actor"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:singleLine="true"/>
+
+    <TextView
+        android:id="@+id/rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/imdb_rating"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/image"
+        app:layout_constraintTop_toBottomOf="@id/crew_cast" />
 
     <TextView
         android:id="@+id/imDbRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="9.0"
-        android:layout_below="@id/image"
-        android:layout_centerHorizontal="true"/>
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:textSize="16dp"
+        app:layout_constraintStart_toEndOf="@id/rating"
+        app:layout_constraintTop_toBottomOf="@id/crew"
+        tools:text="10.0" />
 
-</RelativeLayout>
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:barrierDirection="end"
+        app:constraint_referenced_ids="movie, year_of_production, crew_cast" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

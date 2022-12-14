@@ -13,6 +13,7 @@ class MovieViewHolder(
         binding.apply {
             title.text = movies.title
             year.text = movies.year
+            crew.text = movies.crew
             imDbRating.text = movies.imDbRating
             image.load(movies.image)
         }

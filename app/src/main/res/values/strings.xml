@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">imdb_app</string>
+    <string name="movie">Movie:</string>
+    <string name="year">Year:</string>
+    <string name="crew">Crew:</string>
+    <string name="imdb_rating">IMDb rating:</string>
 </resources>
