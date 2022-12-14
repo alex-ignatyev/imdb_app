@@ -10,15 +10,11 @@ class MovieViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(movies: MovieResponse) {
-        binding.apply {
+        with(binding) {
             title.text = movies.title
             year.text = movies.year
             imDbRating.text = movies.imDbRating
             image.load(movies.image)
         }
-
-
-
     }
-
 }
