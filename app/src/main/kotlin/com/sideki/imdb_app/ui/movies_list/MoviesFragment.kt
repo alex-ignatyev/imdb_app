@@ -19,7 +19,7 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentMoviesBinding.bind(view)
-        binding.recyclerViewMovies.adapter = adapter
+        binding.movies.adapter = adapter
         viewModel.movies.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
         })
