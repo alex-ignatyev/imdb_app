@@ -2,38 +2,32 @@ package com.sideki.imdb_app
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import com.sideki.imdb_app.ui.theme.Imdb_appTheme
+import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<MainActivityViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            Imdb_appTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Greeting(viewModel.data)
-                }
-            }
-        }
+        setContentView(R.layout.activity_main)
+        /*setContent {
+       Imdb_appTheme {
+           Surface(
+               modifier = Modifier.fillMaxSize(),
+               color = MaterialTheme.colors.background
+           ) {
+               Greeting(viewModel.data)
+           }
+       }
+   }
+}*/
     }
-}
 
-@Composable
+/*@Composable
 fun Greeting(title: String) {
-    Text(text = "Фильм: $title")
+    Text(text = "Фильм: $title")*/
 }
