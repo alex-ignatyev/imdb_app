@@ -26,10 +26,7 @@ class MovieInfoFragment : Fragment() {
 
         Imdb_appTheme {
             MovieInfo(
-                title = vm.data.title,
-                rating = vm.data.rating,
-                description = vm.data.description,
-                imageUrl = vm.data.imageUrl,
+                movie = vm.data,
                 onBackClick = { findNavController().popBackStack() }
             )
         }
