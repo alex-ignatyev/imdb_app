@@ -19,18 +19,17 @@ data class MovieInfoModel(
     val rating: String = "0.0",
     val ratingVotes: String = "0", //TODO Парсить количество
 
-    val directors: String = "",
+    val directors: String = "Информация отстутствует",
 
-    val actors: List<ActorModel> = emptyList(),
+    val actors: List<ActorModel> = listOf(ActorModel(), ActorModel()),
     val boxOffice: BoxOfficeModel = BoxOfficeModel(),
     val similarMovies: List<SimilarMovieModel> = emptyList()
-
 ) {
 
     data class ActorModel(
         val actorId: String = "",
-        val name: String = "",
-        val asCharacter: String = "",
+        val name: String = "Имя отсутствует",
+        val asCharacter: String = "Информация отстутствует",
         val image: String = "",
     )
 
