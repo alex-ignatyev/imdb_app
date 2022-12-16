@@ -9,12 +9,15 @@ interface ImdbApi {
 
     @GET("MostPopularMovies/{api_key}")
     suspend fun getMovies(
-        @Path(value = "api_key", encoded = true) apiKey: String = "k_ekjecmoc"
+        @Path(value = "api_key", encoded = true) apiKey: String = "k_zu9ilkcn"
     ): MovieDataResponse
+
+    //k_zu9ilkcn
+    //k_ekjecmoc
 
     @GET("Title/{api_key}/{title_id}")
     suspend fun getMovieInfo(
-        @Path(value = "api_key", encoded = true) apiKey: String = "k_ekjecmoc",
+        @Path(value = "api_key", encoded = true) apiKey: String = "k_zu9ilkcn",
         @Path(value = "title_id", encoded = true) titleId: String = "tt1375666"
     ): MovieInfoResponse
 }

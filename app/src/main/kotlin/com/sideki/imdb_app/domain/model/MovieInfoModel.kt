@@ -41,9 +41,9 @@ data class MovieInfoModel(
 
     data class SimilarMovieModel(
         val similarId: String = "",
-        val title: String = "",
+        val title: String = "Название фильма",
         val image: String = "",
-        val imDbRating: String = "",
+        val imDbRating: String = "0.0",
     )
 }
 
