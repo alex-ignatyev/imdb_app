@@ -27,7 +27,9 @@ data class MovieInfoResponse(
     @SerializedName("boxOffice") val boxOffice: BoxOfficeResponse?, // Бюджет и сборы
     @SerializedName("similars") val similars: List<SimilarResponse?>?, // Схожие фильмы
 
-    @SerializedName("trailer") val trailer: Any?, //TODO найти хоть 1 фильм с трейлером
+    @SerializedName("ratings") val ratings: RatingsResponse?,
+    @SerializedName("images") val images: ImagesResponse?,
+    @SerializedName("trailer") val trailer: TrailerResponse?,
 
     @SerializedName("errorMessage") val errorMessage: String?,
 ) {
@@ -50,5 +52,33 @@ data class MovieInfoResponse(
         @SerializedName("imDbRating") val imDbRating: String?,
         @SerializedName("image") val image: String?,
         @SerializedName("title") val title: String?
+    )
+
+    //Возможны косяки
+
+    data class RatingsResponse(
+        @SerializedName("imDb") val imDb: String?,
+        @SerializedName("metacritic") val metacritic: String?,
+        @SerializedName("theMovieDb") val theMovieDb: String?,
+        @SerializedName("rottenTomatoes") val rottenTomatoes: String?,
+        @SerializedName("filmAffinity") val filmAffinity: String?,
+    )
+
+    data class ImagesResponse(
+        @SerializedName("items") val image: List<Image>?
+    ) {
+        data class Image(
+            @SerializedName("title") val title: String?,
+            @SerializedName("image") val image: String?
+        )
+    }
+
+    data class TrailerResponse(
+        @SerializedName("videoId") val videoId: String?,
+        @SerializedName("videoTitle") val videoTitle: String?,
+        @SerializedName("videoDescription") val videoDescription: String?,
+        @SerializedName("thumbnailUrl") val thumbnailUrl: String?,
+        @SerializedName("link") val link: String?,
+        @SerializedName("linkEmbed") val linkEmbed: String?
     )
 }

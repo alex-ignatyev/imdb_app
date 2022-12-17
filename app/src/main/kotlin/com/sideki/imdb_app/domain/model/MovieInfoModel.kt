@@ -3,7 +3,10 @@ package com.sideki.imdb_app.domain.model
 import com.sideki.imdb_app.data.response.MovieInfoResponse
 import com.sideki.imdb_app.domain.model.MovieInfoModel.ActorModel
 import com.sideki.imdb_app.domain.model.MovieInfoModel.BoxOfficeModel
+import com.sideki.imdb_app.domain.model.MovieInfoModel.ImageModel
+import com.sideki.imdb_app.domain.model.MovieInfoModel.RatingsModel
 import com.sideki.imdb_app.domain.model.MovieInfoModel.SimilarMovieModel
+import com.sideki.imdb_app.domain.model.MovieInfoModel.TrailerModel
 
 data class MovieInfoModel(
     val movieId: String = "",
@@ -11,19 +14,16 @@ data class MovieInfoModel(
     val description: String = "Описание отсутствует",
     val year: String = "1900",
     val imageUrl: String = "",
-
     val genres: String = "боевик, комедия",
     val runtimeMins: String = "127",
     val countries: String = "США",
-
-    val rating: String = "0.0",
-    val ratingVotes: String = "0", //TODO Парсить количество
-
     val directors: String = "Информация отстутствует",
-
     val actors: List<ActorModel> = listOf(ActorModel(), ActorModel()),
     val boxOffice: BoxOfficeModel = BoxOfficeModel(),
-    val similarMovies: List<SimilarMovieModel> = emptyList()
+    val similarMovies: List<SimilarMovieModel> = emptyList(),
+    val ratings: RatingsModel = RatingsModel(),
+    val images: List<ImageModel> = emptyList(),
+    val trailer: TrailerModel = TrailerModel(),
 ) {
 
     data class ActorModel(
@@ -45,6 +45,29 @@ data class MovieInfoModel(
         val image: String = "",
         val imDbRating: String = "0.0",
     )
+
+    data class RatingsModel(
+        val imDb: String = "",
+        val imDbVotes: String = "0", //TODO Парсить количество
+        val metacritic: String = "",
+        val theMovieDb: String = "",
+        val rottenTomatoes: String = "",
+        val filmAffinity: String = ""
+    )
+
+    data class ImageModel(
+        val title: String = "",
+        val image: String = ""
+    )
+
+    data class TrailerModel(
+        val videoId: String = "",
+        val videoTitle: String = "",
+        val videoDescription: String = "",
+        val thumbnailUrl: String = "",
+        val link: String = "",
+        val linkEmbed: String = ""
+    )
 }
 
 fun MovieInfoResponse.toDomain() = MovieInfoModel(
@@ -57,10 +80,6 @@ fun MovieInfoResponse.toDomain() = MovieInfoModel(
     genres = genres ?: "Информация отсутствует",
     runtimeMins = runtimeMins ?: "0ч 0 мин", //TODO Спарсить минуты
     countries = countries ?: "Информация отсутствует",
-
-    rating = imDbRating ?: "0.0",
-    ratingVotes = imDbRatingVotes ?: "0",
-
     directors = directors ?: "Информация отсутствует",
 
     actors = actorList?.map { actor ->
@@ -86,4 +105,30 @@ fun MovieInfoResponse.toDomain() = MovieInfoModel(
             imDbRating = similar?.imDbRating ?: "0.0"
         )
     } ?: emptyList(),
+
+    ratings = RatingsModel(
+        imDb = ratings?.imDb ?: "0.0",
+        imDbVotes = imDbRatingVotes ?: "0",
+        metacritic = ratings?.metacritic ?: "0",
+        theMovieDb = ratings?.theMovieDb ?: "0.0",
+        rottenTomatoes = ratings?.rottenTomatoes ?: "0",
+        filmAffinity = ratings?.filmAffinity ?: "0.0"
+    ),
+
+    //TODO Добавлять в список только если image не пустой
+    images = images?.image?.map {
+        ImageModel(
+            title = it.title.orEmpty(),
+            image = it.image.orEmpty()
+        )
+    } ?: emptyList(),
+
+    trailer = TrailerModel(
+        videoId = trailer?.videoId ?: "",
+        videoTitle = trailer?.videoTitle ?: "",
+        videoDescription = trailer?.videoDescription ?: "",
+        thumbnailUrl = trailer?.thumbnailUrl ?: "",
+        link = trailer?.link ?: "",
+        linkEmbed = trailer?.linkEmbed ?: ""
+    ),
 )

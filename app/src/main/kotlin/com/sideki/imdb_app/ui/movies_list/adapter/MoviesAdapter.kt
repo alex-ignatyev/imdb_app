@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.sideki.imdb_app.data.response.MovieResponse
+import com.sideki.imdb_app.data.response.MovieDataResponse.MovieResponse
 import com.sideki.imdb_app.databinding.ItemMoviesBinding
 
 class MoviesAdapter(

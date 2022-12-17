@@ -84,10 +84,10 @@ fun MovieInfoBlock(
                 top.linkTo(titleRef.bottom)
             }) {
             Text(
-                text = movie.rating,
-                color = if (movie.rating.toFloat() >= 7.0) {
+                text = movie.ratings.imDb,
+                color = if (movie.ratings.imDb.toFloat() >= 7.0) {
                     Color.Green
-                } else if (movie.rating.toFloat() < 7.0 && movie.rating.toFloat() > 3.0) {
+                } else if (movie.ratings.imDb.toFloat() < 7.0 && movie.ratings.imDb.toFloat() > 3.0) {
                     Color.Gray
                 } else {
                     Color.Red
@@ -99,7 +99,7 @@ fun MovieInfoBlock(
             Spacer(modifier = Modifier.width(8.dp))
 
             Text(
-                text = movie.ratingVotes,
+                text = movie.ratings.imDbVotes,
                 color = Color.Gray,
                 fontSize = 12.sp,
                 maxLines = 1
