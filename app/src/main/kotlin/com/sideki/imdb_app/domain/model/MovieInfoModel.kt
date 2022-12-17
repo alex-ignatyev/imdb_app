@@ -47,12 +47,12 @@ data class MovieInfoModel(
     )
 
     data class RatingsModel(
-        val imDb: String = "",
+        val imDb: String = "0.0",
         val imDbVotes: String = "0", //TODO Парсить количество
-        val metacritic: String = "",
-        val theMovieDb: String = "",
-        val rottenTomatoes: String = "",
-        val filmAffinity: String = ""
+        val metacritic: String = "0",
+        val theMovieDb: String = "0.0",
+        val rottenTomatoes: String = "0",
+        val filmAffinity: String = "0.0"
     )
 
     data class ImageModel(
