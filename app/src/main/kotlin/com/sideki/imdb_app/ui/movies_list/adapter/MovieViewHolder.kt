@@ -10,11 +10,11 @@ class MovieViewHolder(
     val onMovieClick: (String) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(movies: MovieResponse) {
-        binding.apply {
-            image.load(movies.image)
-            imDbRating.text = movies.imDbRating
-            title.text = movies.title
+    fun bind(movie: MovieResponse) {
+        with(binding) {
+            image.load(movie.image)
+            imDbRating.text = movie.imDbRating
+            title.text = movie.title
 
             root.setOnClickListener {
                 onMovieClick(movie.id.orEmpty())
