@@ -13,7 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
-    private val viewModel: MoviesVM by viewModels()
+    private val viewModel by viewModels<MoviesVM>()
     private val adapter = MoviesAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

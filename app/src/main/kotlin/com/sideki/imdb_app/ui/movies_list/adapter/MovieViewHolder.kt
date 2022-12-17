@@ -15,9 +15,5 @@ class MovieViewHolder(
             imDbRating.text = movies.imDbRating
             title.text = movies.title
         }
-
-
-
     }
-
 }
