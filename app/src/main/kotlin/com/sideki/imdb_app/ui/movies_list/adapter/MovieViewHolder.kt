@@ -12,9 +12,9 @@ class MovieViewHolder(
 
     fun bind(movie: MovieResponse) {
         with(binding) {
-            image.load(movie.image)
-            imDbRating.text = movie.imDbRating
             title.text = movie.title
+            imDbRating.text = movie.imDbRating
+            image.load(movie.image)
 
             root.setOnClickListener {
                 onMovieClick(movie.id.orEmpty())
