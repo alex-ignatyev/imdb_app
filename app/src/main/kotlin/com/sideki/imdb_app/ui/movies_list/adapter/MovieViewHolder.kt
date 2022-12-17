@@ -13,7 +13,6 @@ class MovieViewHolder(
     fun bind(movie: MovieResponse) {
         with(binding) {
             title.text = movie.title
-            year.text = movie.year
             imDbRating.text = movie.imDbRating
             image.load(movie.image)
 
