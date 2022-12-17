@@ -7,11 +7,13 @@ import androidx.recyclerview.widget.ListAdapter
 import com.sideki.imdb_app.data.response.MovieResponse
 import com.sideki.imdb_app.databinding.ItemMoviesBinding
 
-class MoviesAdapter : ListAdapter<MovieResponse, MovieViewHolder>(Differ) {
+class MoviesAdapter(
+    private val onMovieClick: (String) -> Unit
+) : ListAdapter<MovieResponse, MovieViewHolder>(Differ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val binding = ItemMoviesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MovieViewHolder(binding)
+        return MovieViewHolder(binding, onMovieClick)
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {

@@ -9,5 +9,20 @@
         android:id="@+id/moviesFragment"
         android:name="com.sideki.imdb_app.ui.movies_list.MoviesFragment"
         android:label="fragment_movies"
-        tools:layout="@layout/fragment_movies" />
+        tools:layout="@layout/fragment_movies">
+
+        <action
+            android:id="@+id/to_movieInfoFragment"
+            app:destination="@id/movieInfoFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/movieInfoFragment"
+        android:name="com.sideki.imdb_app.ui.movie_info.MovieInfoFragment"
+        android:label="MovieInfoFragment">
+
+        <argument
+            android:name="movieId"
+            app:argType="string" />
+    </fragment>
 </navigation>
