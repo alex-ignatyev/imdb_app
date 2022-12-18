@@ -2,7 +2,6 @@ package com.sideki.imdb_app.ui.movies_list.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.sideki.imdb_app.data.response.MovieResponse
 import com.sideki.imdb_app.databinding.ItemMoviesBinding
 
 class MovieViewHolder(
@@ -10,7 +9,7 @@ class MovieViewHolder(
     val onMovieClick: (String) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(movie: MovieResponse) {
+    fun bind(movie: MovieDataModel) {
         with(binding) {
             title.text = movie.title
             imDbRating.text = movie.imDbRating
