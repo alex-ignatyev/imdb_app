@@ -5,8 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class MovieDataResponse(
     @SerializedName("items") val movies: List<MovieResponse>,
     @SerializedName("errorMessage") val errorMessage: String?
-) {
-
+){
     data class MovieResponse(
         @SerializedName("crew") val crew: String?,
         @SerializedName("fullTitle") val fullTitle: String?,
