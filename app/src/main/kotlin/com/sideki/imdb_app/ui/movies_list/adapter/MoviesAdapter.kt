@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.sideki.imdb_app.databinding.ItemMoviesBinding
-import com.sideki.imdb_app.domain.model.MovieDataModel
 import com.sideki.imdb_app.domain.model.MovieDataModel.MovieModel
 
 class MoviesAdapter(

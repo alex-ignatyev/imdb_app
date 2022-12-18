@@ -3,7 +3,6 @@ package com.sideki.imdb_app.ui.movies_list.adapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.sideki.imdb_app.databinding.ItemMoviesBinding
-import com.sideki.imdb_app.domain.model.MovieDataModel
 import com.sideki.imdb_app.domain.model.MovieDataModel.MovieModel
 
 class MovieViewHolder(
@@ -18,7 +17,7 @@ class MovieViewHolder(
             image.load(movie.image)
 
             root.setOnClickListener {
-                onMovieClick(movie.id.orEmpty())
+                onMovieClick(movie.id)
             }
         }
     }

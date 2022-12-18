@@ -5,11 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sideki.imdb_app.data.api.ImdbApi
 import com.sideki.imdb_app.domain.model.MovieDataModel
-import com.sideki.imdb_app.domain.model.MovieDataModel.MovieModel
 import com.sideki.imdb_app.domain.model.toDomain
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class MoviesVM @Inject constructor(private val api: ImdbApi): ViewModel() {
