@@ -23,7 +23,7 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
         val binding = FragmentMoviesBinding.bind(view)
         binding.movies.adapter = adapter
         vm.movies.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+            adapter.submitList(it.movies)
         }
     }
 }

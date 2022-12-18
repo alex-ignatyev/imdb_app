@@ -5,9 +5,8 @@ import com.sideki.imdb_app.data.response.MovieDataResponse.MovieResponse
 import com.sideki.imdb_app.domain.model.MovieDataModel.MovieModel
 
 data class MovieDataModel(
-    val movies: List<MovieModel> = listOf(MovieModel(), MovieModel())
-
-){
+    val movies: List<MovieModel> = emptyList()
+) {
     data class MovieModel(
         val id: String = "",
         val title: String = "Без названия",
