@@ -35,7 +35,7 @@ import com.sideki.imdb_app.util.debugPlaceholder
 
 @Preview
 @Composable
-fun ActorList(
+fun ActorsBlock(
     @PreviewParameter(ActorPreviewProvider::class, 1) actors: List<ActorModel>,
     modifier: Modifier = Modifier
 ) {
