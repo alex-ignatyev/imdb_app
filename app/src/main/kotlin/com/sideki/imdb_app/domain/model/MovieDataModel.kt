@@ -1,8 +1,8 @@
 package com.sideki.imdb_app.domain.model
 
 import com.sideki.imdb_app.data.response.MovieDataResponse
-import com.sideki.imdb_app.data.response.MovieDataResponse.MovieResponse
 import com.sideki.imdb_app.domain.model.MovieDataModel.MovieModel
+import com.sideki.imdb_app.util.recycler.AdapterItem
 
 data class MovieDataModel(
     val movies: List<MovieModel> = emptyList()
@@ -12,7 +12,7 @@ data class MovieDataModel(
         val title: String = "Без названия",
         val imDbRating: String = "0.0",
         val image: String = ""
-    )
+    ): AdapterItem
 }
 
 fun MovieDataResponse.toDomain() = MovieDataModel(

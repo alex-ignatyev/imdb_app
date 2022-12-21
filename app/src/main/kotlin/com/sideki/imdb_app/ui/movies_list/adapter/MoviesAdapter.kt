@@ -4,24 +4,46 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import com.sideki.imdb_app.databinding.ItemMovieGroupTitleBinding
 import com.sideki.imdb_app.databinding.ItemMoviesBinding
+import com.sideki.imdb_app.domain.model.MovieDataModel
 import com.sideki.imdb_app.domain.model.MovieDataModel.MovieModel
+import com.sideki.imdb_app.ui.movies_list.adapter.holder.MovieGroupTileViewHolder
+import com.sideki.imdb_app.ui.movies_list.adapter.holder.MovieViewHolder
+import com.sideki.imdb_app.util.recycler.AdapterItem
+import com.sideki.imdb_app.util.recycler.BaseViewHolder
+
+const val MOVIES_LIST = 0
+const val MOVIES_GROUP_TITLE = 1
 
 class MoviesAdapter(
     private val onMovieClick: (String) -> Unit
-) : ListAdapter<MovieModel, MovieViewHolder>(Differ) {
+) : ListAdapter<AdapterItem, BaseViewHolder>(Differ) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val binding = ItemMoviesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MovieViewHolder(binding, onMovieClick)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
+        return if (viewType == MOVIES_LIST) {
+            val binding = ItemMoviesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            MovieViewHolder(binding, onMovieClick)
+        } else {
+            val binding = ItemMovieGroupTitleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            MovieGroupTileViewHolder(binding)
+        }
     }
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    private object Differ : DiffUtil.ItemCallback<MovieModel>() {
-        override fun areItemsTheSame(oldItem: MovieModel, newItem: MovieModel) = oldItem.id == newItem.id
-        override fun areContentsTheSame(oldItem: MovieModel, newItem: MovieModel) = oldItem == newItem
+    override fun getItemViewType(position: Int): Int {
+        val item = getItem(position)
+        return when (item) {
+            is MovieModel -> MOVIES_LIST
+            else -> MOVIES_GROUP_TITLE
+        }
+    }
+
+    private object Differ : DiffUtil.ItemCallback<AdapterItem>() {
+        override fun areItemsTheSame(oldItem: AdapterItem, newItem: AdapterItem) = oldItem.id == newItem.id
+        override fun areContentsTheSame(oldItem: AdapterItem, newItem: AdapterItem) = oldItem.id == newItem.id
     }
 }
