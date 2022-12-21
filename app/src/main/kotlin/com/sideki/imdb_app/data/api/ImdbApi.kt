@@ -1,7 +1,13 @@
 package com.sideki.imdb_app.data.api
 
+import com.sideki.imdb_app.data.response.ComingSoonResponse
+import com.sideki.imdb_app.data.response.MetacriticReviewsResponse
 import com.sideki.imdb_app.data.response.MovieDataResponse
 import com.sideki.imdb_app.data.response.MovieInfoResponse
+import com.sideki.imdb_app.data.response.NameResponse
+import com.sideki.imdb_app.data.response.ReviewsResponse
+import com.sideki.imdb_app.data.response.Top250MoviesResponse
+import com.sideki.imdb_app.data.response.Top250TVsResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -28,4 +34,37 @@ interface ImdbApi {
         @Path(value = "api_key", encoded = true) apiKey: String = "k_zu9ilkcn",
         @Path(value = "title_id", encoded = true) titleId: String = "tt1375666"
     ): MovieInfoResponse
+
+    @GET("Top250Movies/{api_key}")
+    suspend fun getTop250Movies(
+        @Path(value = "api_key", encoded = true) apiKey: String = "k_zu9ilkcn"
+    ): Top250MoviesResponse
+
+    @GET("Top250TVs/{api_key}")
+    suspend fun getTop250TVs(
+        @Path(value = "api_key", encoded = true) apiKey: String = "k_zu9ilkcn"
+    ): Top250TVsResponse
+
+    @GET("ComingSoon/{api_key}")
+    suspend fun getComingSoonMovies(
+        @Path(value = "api_key", encoded = true) apiKey: String = "k_zu9ilkcn"
+    ): ComingSoonResponse
+
+    @GET("Name/{api_key}/{name_id}")
+    suspend fun getName(
+        @Path(value = "api_key", encoded = true) apiKey: String = "k_zu9ilkcn",
+        @Path(value = "name_id", encoded = true) titleId: String = "nm0000154"
+    ): NameResponse
+
+    @GET("Reviews/{api_key}/{title_id}")
+    suspend fun getReviews(
+        @Path(value = "api_key", encoded = true) apiKey: String = "k_zu9ilkcn",
+        @Path(value = "reviews_id", encoded = true) titleId: String = "tt1375666"
+    ): ReviewsResponse
+
+    @GET("MetacriticReviews/{api_key}/{title_id}")
+    suspend fun getMetacriticReviews(
+        @Path(value = "api_key", encoded = true) apiKey: String = "k_zu9ilkcn",
+        @Path(value = "metacriticReviews_id", encoded = true) titleId: String = "tt1375666"
+    ): MetacriticReviewsResponse
 }
