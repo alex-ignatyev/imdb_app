@@ -5,7 +5,8 @@
     android:layout_width="144dp"
     android:layout_height="270dp"
     android:background="@color/black"
-    tools:ignore="SpUsage">
+    tools:ignore="SpUsage"
+    android:padding="4dp">
 
     <ImageView
         android:id="@+id/image"
