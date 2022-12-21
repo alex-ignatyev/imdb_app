@@ -1,13 +1,10 @@
 package com.sideki.imdb_app.data.api
 
-import com.sideki.imdb_app.data.response.ComingSoonResponse
 import com.sideki.imdb_app.data.response.MetacriticReviewsResponse
 import com.sideki.imdb_app.data.response.MovieDataResponse
 import com.sideki.imdb_app.data.response.MovieInfoResponse
-import com.sideki.imdb_app.data.response.NameResponse
+import com.sideki.imdb_app.data.response.ActorResponse
 import com.sideki.imdb_app.data.response.ReviewsResponse
-import com.sideki.imdb_app.data.response.Top250MoviesResponse
-import com.sideki.imdb_app.data.response.Top250TVsResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -38,23 +35,23 @@ interface ImdbApi {
     @GET("Top250Movies/{api_key}")
     suspend fun getTop250Movies(
         @Path(value = "api_key", encoded = true) apiKey: String = "k_zu9ilkcn"
-    ): Top250MoviesResponse
+    ): MovieDataResponse
 
     @GET("Top250TVs/{api_key}")
     suspend fun getTop250TVs(
         @Path(value = "api_key", encoded = true) apiKey: String = "k_zu9ilkcn"
-    ): Top250TVsResponse
+    ): MovieDataResponse
 
     @GET("ComingSoon/{api_key}")
     suspend fun getComingSoonMovies(
         @Path(value = "api_key", encoded = true) apiKey: String = "k_zu9ilkcn"
-    ): ComingSoonResponse
+    ): MovieDataResponse
 
     @GET("Name/{api_key}/{name_id}")
-    suspend fun getName(
+    suspend fun getActor(
         @Path(value = "api_key", encoded = true) apiKey: String = "k_zu9ilkcn",
         @Path(value = "name_id", encoded = true) titleId: String = "nm0000154"
-    ): NameResponse
+    ): ActorResponse
 
     @GET("Reviews/{api_key}/{title_id}")
     suspend fun getReviews(

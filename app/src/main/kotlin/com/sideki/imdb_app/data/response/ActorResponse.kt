@@ -1,22 +1,21 @@
 package com.sideki.imdb_app.data.response
 
-
 import com.google.gson.annotations.SerializedName
 
-data class NameResponse(
+data class ActorResponse(
     @SerializedName("awards") val awards: String?,
     @SerializedName("birthDate") val birthDate: String?,
-    @SerializedName("castMovies") val castMovies: List<CastMovy?>?,
+    @SerializedName("castMovies") val castMovies: List<CastMovie>?,
     @SerializedName("deathDate") val deathDate: Any?,
     @SerializedName("errorMessage") val errorMessage: String?,
     @SerializedName("height") val height: String?,
     @SerializedName("id") val id: String?,
     @SerializedName("image") val image: String?,
-    @SerializedName("knownFor") val knownFor: List<KnownFor?>?,
+    @SerializedName("knownFor") val knownFor: List<KnownFor>?,
     @SerializedName("name") val name: String?,
     @SerializedName("role") val role: String?,
     @SerializedName("summary") val summary: String?
-){
+) {
     data class KnownFor(
         @SerializedName("fullTitle") val fullTitle: String?,
         @SerializedName("id") val id: String?,
@@ -26,7 +25,7 @@ data class NameResponse(
         @SerializedName("year") val year: String?
     )
 
-    data class CastMovy(
+    data class CastMovie(
         @SerializedName("description") val description: String?,
         @SerializedName("id") val id: String?,
         @SerializedName("role") val role: String?,
