@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">imdb_app</string>
+    <string name="most_popular_movies">Most popular movies</string>
 </resources>
