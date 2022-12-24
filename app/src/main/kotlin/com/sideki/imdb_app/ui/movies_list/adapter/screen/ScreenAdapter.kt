@@ -34,7 +34,7 @@ class ScreenAdapter(
     override fun getItemViewType(position: Int): Int {
         val item = getItem(position)
         return when (item) {
-            is List<MovieDataModel> -> MOVIES_LIST
+            is MovieDataModel -> MOVIES_LIST
             else -> MOVIES_GROUP_TITLE
         }
     }

@@ -22,7 +22,6 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentMoviesBinding.bind(view)
         binding.screenRv.adapter = adapter
-
         vm.movies.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
