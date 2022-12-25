@@ -23,11 +23,17 @@ class MoviesVM @Inject constructor(
         viewModelScope.launch {
             val responseTopMovies = api.getMovies().toDomain()
             val response250Movies = api.getTop250Movies().toDomain()
+            val response250Tvs = api.getTop250TVs().toDomain()
+            val responseComingSoon = api.getComingSoonMovies().toDomain()
             val list = mutableListOf<AdapterItem>()
             list.add(MoviesGroupTitleModel("Most popular movies"))
             list.add(MovieDataModel(movies = responseTopMovies.movies))
             list.add(MoviesGroupTitleModel("Top 250 movies"))
             list.add(MovieDataModel(movies = response250Movies.movies))
+            list.add(MoviesGroupTitleModel("Top 250 TVs"))
+            list.add(MovieDataModel(movies = response250Tvs.movies))
+            list.add(MoviesGroupTitleModel("Coming soon"))
+            list.add(MovieDataModel(movies = responseComingSoon.movies))
             movies.value = list
         }
     }
