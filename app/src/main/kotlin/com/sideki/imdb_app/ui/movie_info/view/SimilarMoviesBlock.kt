@@ -32,7 +32,7 @@ import com.sideki.imdb_app.util.debugPlaceholder
 
 @Preview
 @Composable
-fun SimilarList(
+fun SimilarMoviesBlock(
     @PreviewParameter(SimilarPreviewProvider::class, 1) similars: List<SimilarMovieModel>,
     modifier: Modifier = Modifier
 ) {

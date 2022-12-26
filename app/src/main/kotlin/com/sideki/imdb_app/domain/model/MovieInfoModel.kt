@@ -14,15 +14,16 @@ data class MovieInfoModel(
     val description: String = "Описание отсутствует",
     val year: String = "1900",
     val imageUrl: String = "",
-    val genres: String = "боевик, комедия",
-    val runtimeMins: String = "127",
-    val countries: String = "США",
+    val genres: String = "Информация отстутствует",
+    val runtimeMins: String = "0",
+    val countries: String = "Информация отстутствует",
     val directors: String = "Информация отстутствует",
-    val actors: List<ActorModel> = listOf(ActorModel(), ActorModel()),
-    val boxOffice: BoxOfficeModel = BoxOfficeModel(),
+    val images: List<ImageModel> = emptyList(),
+    val actors: List<ActorModel> = emptyList(),
     val similarMovies: List<SimilarMovieModel> = emptyList(),
     val ratings: RatingsModel = RatingsModel(),
-    val images: List<ImageModel> = emptyList(),
+
+    val boxOffice: BoxOfficeModel = BoxOfficeModel(),
     val trailer: TrailerModel = TrailerModel(),
 ) {
 
@@ -34,9 +35,9 @@ data class MovieInfoModel(
     )
 
     data class BoxOfficeModel(
-        val budget: String = "",
-        val worldwideGross: String = "",
-        val grossUSA: String = ""
+        val budget: String = "0",
+        val worldwideGross: String = "0",
+        val grossUSA: String = "0"
     )
 
     data class SimilarMovieModel(
@@ -57,13 +58,13 @@ data class MovieInfoModel(
 
     data class ImageModel(
         val title: String = "",
-        val image: String = ""
+        val imageUrl: String = ""
     )
 
     data class TrailerModel(
         val videoId: String = "",
-        val videoTitle: String = "",
-        val videoDescription: String = "",
+        val videoTitle: String = "Информация отсутствует",
+        val videoDescription: String = "Информация отсутствует",
         val thumbnailUrl: String = "",
         val link: String = "",
         val linkEmbed: String = ""
@@ -92,9 +93,9 @@ fun MovieInfoResponse.toDomain() = MovieInfoModel(
     } ?: emptyList(),
 
     boxOffice = BoxOfficeModel(
-        budget = boxOffice?.budget.orEmpty(),
-        grossUSA = boxOffice?.grossUSA.orEmpty(),
-        worldwideGross = boxOffice?.cumulativeWorldwideGross.orEmpty()
+        budget = boxOffice?.budget ?: "0",
+        grossUSA = boxOffice?.grossUSA ?: "0",
+        worldwideGross = boxOffice?.cumulativeWorldwideGross ?: "0"
     ),
 
     similarMovies = similars?.map { similar ->
@@ -119,14 +120,14 @@ fun MovieInfoResponse.toDomain() = MovieInfoModel(
     images = images?.image?.map {
         ImageModel(
             title = it.title.orEmpty(),
-            image = it.image.orEmpty()
+            imageUrl = it.image.orEmpty()
         )
     } ?: emptyList(),
 
     trailer = TrailerModel(
         videoId = trailer?.videoId ?: "",
-        videoTitle = trailer?.videoTitle ?: "",
-        videoDescription = trailer?.videoDescription ?: "",
+        videoTitle = trailer?.videoTitle ?: "Информация отсутствует",
+        videoDescription = trailer?.videoDescription ?: "Информация отсутствует",
         thumbnailUrl = trailer?.thumbnailUrl ?: "",
         link = trailer?.link ?: "",
         linkEmbed = trailer?.linkEmbed ?: ""

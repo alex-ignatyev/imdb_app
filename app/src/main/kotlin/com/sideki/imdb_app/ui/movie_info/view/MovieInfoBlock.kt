@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -22,10 +23,11 @@ import com.sideki.imdb_app.domain.model.MovieInfoModel
 import com.sideki.imdb_app.util.compose_view.GradientView
 import com.sideki.imdb_app.util.debugPlaceholder
 
+@Preview
 @Composable
 fun MovieInfoBlock(
     modifier: Modifier = Modifier,
-    movie: MovieInfoModel
+    movie: MovieInfoModel = MovieInfoModel()
 ) {
     ConstraintLayout(
         modifier = modifier
@@ -40,6 +42,8 @@ fun MovieInfoBlock(
         val deviderRef = createRef()
         val actorsRef = createRef()
         val similarsRef = createRef()
+        val imagesRef = createRef()
+        val ratingsRef = createRef()
 
         AsyncImage(
             model = movie.imageUrl,
@@ -83,27 +87,30 @@ fun MovieInfoBlock(
                 end.linkTo(titleRef.end)
                 top.linkTo(titleRef.bottom)
             }) {
-            Text(
-                text = movie.ratings.imDb,
-                color = if (movie.ratings.imDb.toFloat() >= 7.0) {
-                    Color.Green
-                } else if (movie.ratings.imDb.toFloat() < 7.0 && movie.ratings.imDb.toFloat() > 3.0) {
-                    Color.Gray
-                } else {
-                    Color.Red
-                },
-                fontSize = 12.sp,
-                maxLines = 1
-            )
 
-            Spacer(modifier = Modifier.width(8.dp))
+            if (movie.ratings.imDb.isNotBlank()) {
+                Text(
+                    text = movie.ratings.imDb,
+                    color = if (movie.ratings.imDb.toFloat() >= 7.0) {
+                        Color.Green
+                    } else if (movie.ratings.imDb.toFloat() < 7.0 && movie.ratings.imDb.toFloat() > 3.0) {
+                        Color.Gray
+                    } else {
+                        Color.Red
+                    },
+                    fontSize = 12.sp,
+                    maxLines = 1
+                )
 
-            Text(
-                text = movie.ratings.imDbVotes,
-                color = Color.Gray,
-                fontSize = 12.sp,
-                maxLines = 1
-            )
+                Spacer(modifier = Modifier.width(8.dp))
+
+                Text(
+                    text = movie.ratings.imDbVotes,
+                    color = Color.Gray,
+                    fontSize = 12.sp,
+                    maxLines = 1
+                )
+            }
         }
 
         Text(
@@ -163,16 +170,36 @@ fun MovieInfoBlock(
             fontSize = 14.sp,
         )
 
-        ActorList(
-            actors = movie.actors, modifier = Modifier
-                .constrainAs(actorsRef) {
+        if (movie.images.isNotEmpty()) {
+            ImagesBlock(
+                images = movie.images,
+                modifier = Modifier.constrainAs(imagesRef) {
                     top.linkTo(descriptionRef.bottom)
-                })
+                }
+            )
+        }
 
-        SimilarList(
-            similars = movie.similarMovies, modifier = Modifier.constrainAs(similarsRef) {
-                top.linkTo(actorsRef.bottom)
-            }
-        )
+        RatingsBlock(
+            ratings = movie.ratings,
+            modifier = Modifier.constrainAs(ratingsRef) {
+                top.linkTo(imagesRef.bottom)
+            })
+
+        if (movie.actors.isNotEmpty()) {
+            ActorsBlock(
+                actors = movie.actors,
+                modifier = Modifier.constrainAs(actorsRef) {
+                    top.linkTo(ratingsRef.bottom)
+                })
+        }
+
+        if (movie.similarMovies.isNotEmpty()) {
+            SimilarMoviesBlock(
+                similars = movie.similarMovies,
+                modifier = Modifier.constrainAs(similarsRef) {
+                    top.linkTo(actorsRef.bottom)
+                }
+            )
+        }
     }
 }
