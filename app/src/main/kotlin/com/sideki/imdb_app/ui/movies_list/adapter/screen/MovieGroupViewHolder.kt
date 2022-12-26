@@ -2,6 +2,9 @@ package com.sideki.imdb_app.ui.movies_list.adapter.screen
 
 import com.sideki.imdb_app.databinding.ItemMoviesGroupBinding
 import com.sideki.imdb_app.domain.model.MovieDataModel
+import com.sideki.imdb_app.ui.movies_list.adapter.movie.MovieAdapter
+import com.sideki.imdb_app.util.recycler.AdapterItem
+import com.sideki.imdb_app.util.recycler.BaseViewHolder
 
 class MovieGroupViewHolder(
     private val binding: ItemMoviesGroupBinding,

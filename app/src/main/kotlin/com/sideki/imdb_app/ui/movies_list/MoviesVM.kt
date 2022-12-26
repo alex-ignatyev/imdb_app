@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sideki.imdb_app.data.api.ImdbApi
 import com.sideki.imdb_app.domain.model.MovieDataModel
+import com.sideki.imdb_app.domain.model.MoviesGroupTitleModel
 import com.sideki.imdb_app.domain.model.toDomain
+import com.sideki.imdb_app.util.recycler.AdapterItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
