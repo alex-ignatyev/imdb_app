@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">imdb_app</string>
-    <string name="most_popular_movies">Most popular movies</string>
-    <string name="home">Home</string>
-    <string name="profile">Profile</string>
-</resources>

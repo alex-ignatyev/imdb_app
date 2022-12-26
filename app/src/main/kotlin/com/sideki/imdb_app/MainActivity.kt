@@ -8,6 +8,8 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.sideki.imdb_app.databinding.ActivityMainBinding
 import com.sideki.imdb_app.ui.movies_list.MoviesFragment
@@ -23,18 +25,8 @@ class MainActivity : FragmentActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentNavHost) as NavHostFragment
-        navController = navHostFragment.findNavController()
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentNavHost)
+        navController = navHostFragment!!.findNavController()
         binding.bottomNavigation.setupWithNavController(navController)
-    }
-
-    override fun onMenuItemSelected(featureId: Int, item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.moviesFragment -> {
-
-            }
-        }
-        return true
     }
 }

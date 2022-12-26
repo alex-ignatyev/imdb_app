@@ -4,6 +4,6 @@ import com.sideki.imdb_app.util.recycler.AdapterItem
 import java.util.UUID
 
 data class MoviesGroupTitleModel(
-    val titleName: String,
-    override var id: String =  UUID.randomUUID().toString()
+    override var id: String =  UUID.randomUUID().toString(),
+    val titleName: String
 ): AdapterItem()
