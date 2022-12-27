@@ -15,7 +15,9 @@ class MovieGroupViewHolder(
 
     override fun bind(item: AdapterItem) {
         if (item !is MovieDataModel) return
-        binding.moviesGroupRv.adapter = adapter
+        if (binding.moviesGroupRv.adapter == null){
+            binding.moviesGroupRv.adapter = adapter
+        }
         adapter.submitList(item.movies)
     }
 }
