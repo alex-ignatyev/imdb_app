@@ -1,4 +1,4 @@
-package com.sideki.imdb_app.data.api
+package com.sideki.imdb_app.ui.profile
 
 import androidx.fragment.app.Fragment
 import com.sideki.imdb_app.R

@@ -25,8 +25,9 @@
             android:name="movieId"
             app:argType="string" />
     </fragment>
+
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.sideki.imdb_app.data.api.ProfileFragment"
+        android:name="com.sideki.imdb_app.ui.profile.ProfileFragment"
         android:label="ProfileFragment" />
 </navigation>
