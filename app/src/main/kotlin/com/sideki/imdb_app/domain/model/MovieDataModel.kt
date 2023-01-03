@@ -1,6 +1,7 @@
 package com.sideki.imdb_app.domain.model
 
 import com.sideki.imdb_app.data.response.MovieDataResponse
+import com.sideki.imdb_app.db.entity.MovieEntity
 import com.sideki.imdb_app.domain.model.MovieDataModel.MovieModel
 import com.sideki.imdb_app.util.recycler.AdapterItem
 import java.util.UUID
@@ -17,13 +18,11 @@ data class MovieDataModel(
     ) : AdapterItem()
 }
 
-fun MovieDataResponse.toDomain() = MovieDataModel(
-    movies = movies.map { movie ->
-        MovieModel(
-            id = movie.id.orEmpty(),
-            title = movie.title ?: "Без названия",
-            imDbRating = movie.imDbRating ?: "0.0",
-            image = movie.image ?: ""
-        )
-    }
-)
+fun List<MovieEntity>.toModel() = this.map {
+    MovieModel(
+        id = it.id,
+        title = it.title,
+        imDbRating = it.imDbRating,
+        image = it.image
+    )
+}
