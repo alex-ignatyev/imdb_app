@@ -8,5 +8,13 @@ data class MovieEntity(
     @PrimaryKey val id: String,
     val title: String,
     val image: String,
-    val imDbRating: String
+    val imDbRating: String,
+    val type: MovieType
 )
+
+enum class MovieType {
+    MOST_POPULAR_MOVIES,
+    TOP_250_MOVIES,
+    TOP_250_TVS,
+    COMING_SOON_MOVIES
+}

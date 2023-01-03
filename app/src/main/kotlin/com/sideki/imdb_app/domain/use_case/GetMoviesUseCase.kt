@@ -12,11 +12,26 @@ class GetMoviesUseCase @Inject constructor(
 ) {
 
     suspend fun getMovies(): List<AdapterItem> {
-        val topMoviesFromRepo = repository.getMovies()
+        val mostPopularMoviesFromRepo = repository.getMostPopularMovies()
+        val top250MoviesFromRepo = repository.getTop250Movies()
+        val top250TVsFromRepo = repository.getTop250TVs()
+        val comingSoonMoviesFromRepo = repository.getComingSoonMovies()
         val list = mutableListOf<AdapterItem>()
-        if (topMoviesFromRepo.isNotEmpty()) {
+        if (mostPopularMoviesFromRepo.isNotEmpty()) {
             list.add(MoviesGroupTitleModel(titleName = "Most popular movies"))
-            list.add(MovieDataModel(movies = topMoviesFromRepo.toModel()))
+            list.add(MovieDataModel(movies = mostPopularMoviesFromRepo.toModel()))
+        }
+        if (top250MoviesFromRepo.isNotEmpty()) {
+            list.add(MoviesGroupTitleModel(titleName = "Top 250 movies"))
+            list.add(MovieDataModel(movies = top250MoviesFromRepo.toModel()))
+        }
+        if (top250TVsFromRepo.isNotEmpty()) {
+            list.add(MoviesGroupTitleModel(titleName = "Top 250 TVs"))
+            list.add(MovieDataModel(movies = top250TVsFromRepo.toModel()))
+        }
+        if (comingSoonMoviesFromRepo.isNotEmpty()) {
+            list.add(MoviesGroupTitleModel(titleName = "Coming soon"))
+            list.add(MovieDataModel(movies = comingSoonMoviesFromRepo.toModel()))
         }
         return list
     }

@@ -6,12 +6,13 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.sideki.imdb_app.db.entity.MovieEntity
+import com.sideki.imdb_app.db.entity.MovieType
 
 @Dao
 interface MoviesDao {
 
-    @Query("SELECT * FROM movie_table")
-    suspend fun getMovies(): List<MovieEntity>
+    @Query("SELECT * FROM movie_table WHERE type LIKE :type")
+    suspend fun getMovies(type: MovieType): List<MovieEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(movies: List<MovieEntity>)

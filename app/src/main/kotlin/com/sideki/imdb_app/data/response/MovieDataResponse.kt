@@ -3,6 +3,8 @@ package com.sideki.imdb_app.data.response
 import com.google.gson.annotations.SerializedName
 import com.sideki.imdb_app.data.response.MovieDataResponse.MovieResponse
 import com.sideki.imdb_app.db.entity.MovieEntity
+import com.sideki.imdb_app.db.entity.MovieType
+import com.sideki.imdb_app.db.entity.MovieType.MOST_POPULAR_MOVIES
 
 data class MovieDataResponse(
     @SerializedName("items") val movies: List<MovieResponse>,
@@ -22,11 +24,12 @@ data class MovieDataResponse(
     )
 }
 
-fun List<MovieResponse>.toEntity() = this.map { response ->
+fun List<MovieResponse>.toEntity(type: MovieType) = this.map { response ->
     MovieEntity(
         id = response.id.orEmpty(),
         title = response.title ?: "Без названия",
         image = response.image ?: "",
-        imDbRating = response.imDbRating ?: "0.0"
+        imDbRating = response.imDbRating ?: "0.0",
+        type = type
     )
 }
