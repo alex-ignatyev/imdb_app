@@ -22,7 +22,7 @@ import retrofit2.http.Path
 interface ImdbApi {
 
     @GET("MostPopularMovies/{api_key}")
-    suspend fun getMovies(
+    suspend fun getMostPopularMovies(
         @Path(value = "api_key", encoded = true) apiKey: String = "k_zu9ilkcn"
     ): MovieDataResponse
 
