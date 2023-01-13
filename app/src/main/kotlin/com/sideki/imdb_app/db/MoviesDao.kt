@@ -19,4 +19,7 @@ interface MoviesDao {
 
     @Delete
     suspend fun delete(movies: List<MovieEntity>)
+
+    @Query("DELETE FROM movie_table")
+    suspend fun clearTable()
 }

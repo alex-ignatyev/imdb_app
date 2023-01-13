@@ -3,18 +3,24 @@ package com.sideki.imdb_app
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.sideki.imdb_app.databinding.ActivityMainBinding
+import com.sideki.imdb_app.di.DataStorePreferences
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDate
+import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : FragmentActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+    @Inject lateinit var dataStorePreferences: DataStorePreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +34,10 @@ class MainActivity : FragmentActivity() {
                 R.id.profileFragment -> bottomNavigation(R.id.profileFragment, it)
             }
             return@setOnItemSelectedListener true
+        }
+        val date = LocalDate.now().toString()
+        lifecycleScope.launch {
+            dataStorePreferences.save(date)
         }
     }
 
