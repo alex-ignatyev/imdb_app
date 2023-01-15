@@ -1,11 +1,13 @@
 package com.sideki.imdb_app.data.response
 
 import com.google.gson.annotations.SerializedName
+import com.sideki.imdb_app.data.response.MovieDataResponse.MovieResponse
+import com.sideki.imdb_app.db.entity.MovieEntity
 
 data class MovieDataResponse(
     @SerializedName("items") val movies: List<MovieResponse>,
     @SerializedName("errorMessage") val errorMessage: String?
-){
+) {
     data class MovieResponse(
         @SerializedName("crew") val crew: String?,
         @SerializedName("fullTitle") val fullTitle: String?,
