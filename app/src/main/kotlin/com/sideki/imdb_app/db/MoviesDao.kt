@@ -17,5 +17,5 @@ interface MoviesDao {
     suspend fun insertMovies(movies: List<MovieEntity>)
 
     @Query("DELETE FROM movie_table")
-    suspend fun deleteAllMovies()
+    suspend fun clearAllMovies()
 }

@@ -12,24 +12,27 @@ import javax.inject.Singleton
 import kotlinx.coroutines.flow.first
 
 @Singleton
-class DataStorePreferences @Inject constructor(@ApplicationContext context: Context) {
+class DataStorePreferences @Inject constructor(
+    @ApplicationContext context: Context
+) {
+
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "date")
     private val dataStore = context.dataStore
 
-    private object PreferencesKeys {
-        val CURRENT_DATE_KEY = stringPreferencesKey("CURRENT_DATE")
-    }
-
-    suspend fun save(value: String) {
+    suspend fun saveDate(value: String) {
         val dataStoreKey = PreferencesKeys.CURRENT_DATE_KEY
         dataStore.edit { date ->
             date[dataStoreKey] = value
         }
     }
 
-    suspend fun read(): String? {
+    suspend fun getDate(): String? {
         val dataStoreKey = PreferencesKeys.CURRENT_DATE_KEY
         val preferences = dataStore.data.first()
         return preferences[dataStoreKey]
+    }
+
+    private object PreferencesKeys {
+        val CURRENT_DATE_KEY = stringPreferencesKey("CURRENT_DATE")
     }
 }

@@ -46,9 +46,10 @@ class MoviesRepository @Inject constructor(
 
     suspend fun clearAllMovies(){
         val currentDate = LocalDate.now().toString()
-        val dateFromPreferences = preferences.read()
+        val dateFromPreferences = preferences.getDate()
         if (currentDate != dateFromPreferences) {
-            moviesDao.deleteAllMovies()
+            moviesDao.clearAllMovies()
+            preferences.saveDate(currentDate)
         }
     }
 

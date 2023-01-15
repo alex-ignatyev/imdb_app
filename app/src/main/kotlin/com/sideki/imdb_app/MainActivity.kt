@@ -20,7 +20,6 @@ class MainActivity : FragmentActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
-    @Inject lateinit var dataStorePreferences: DataStorePreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,10 +32,6 @@ class MainActivity : FragmentActivity() {
                 R.id.profileFragment -> bottomNavigation(R.id.profileFragment, it)
             }
             return@setOnItemSelectedListener true
-        }
-        val date = LocalDate.now().toString()
-        lifecycleScope.launch {
-            dataStorePreferences.save(date)
         }
     }
 
