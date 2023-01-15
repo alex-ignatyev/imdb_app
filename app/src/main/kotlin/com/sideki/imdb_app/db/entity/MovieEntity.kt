@@ -17,7 +17,7 @@ data class MovieEntity(
         MOST_POPULAR_MOVIES,
         TOP_250_MOVIES,
         TOP_250_TVS,
-        COMING_SOON_MOVIES
+        COMING_SOON_MOVIES;
     }
 }
 
