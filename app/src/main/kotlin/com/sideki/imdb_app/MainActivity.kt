@@ -21,7 +21,6 @@ class MainActivity : FragmentActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initNavHost()
-        binding.bottomNavigation.setupWithNavController(navController)
         binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.moviesFragment -> bottomNavigation(R.id.moviesFragment, it)
@@ -35,7 +34,10 @@ class MainActivity : FragmentActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentNavHost)
         if (navHostFragment != null) {
             navController = navHostFragment.findNavController()
+        } else {
+            throw IllegalStateException("Couldn't find navigation controller.")
         }
+        binding.bottomNavigation.setupWithNavController(navController)
     }
 
     private fun bottomNavigation(fragmentId: Int, item: MenuItem) {
