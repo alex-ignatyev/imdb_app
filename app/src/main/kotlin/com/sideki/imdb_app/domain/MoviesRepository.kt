@@ -2,7 +2,6 @@ package com.sideki.imdb_app.domain
 
 import com.sideki.imdb_app.data.api.ImdbApi
 import com.sideki.imdb_app.data.response.MovieDataResponse
-import com.sideki.imdb_app.data.response.MovieDataResponse.MovieResponse
 import com.sideki.imdb_app.db.MoviesDao
 import com.sideki.imdb_app.db.entity.MovieEntity
 import com.sideki.imdb_app.db.entity.MovieEntity.MovieType
@@ -11,11 +10,14 @@ import com.sideki.imdb_app.db.entity.MovieEntity.MovieType.MOST_POPULAR_MOVIES
 import com.sideki.imdb_app.db.entity.MovieEntity.MovieType.TOP_250_MOVIES
 import com.sideki.imdb_app.db.entity.MovieEntity.MovieType.TOP_250_TVS
 import com.sideki.imdb_app.db.entity.toEntity
+import com.sideki.imdb_app.di.DataStorePreferences
+import java.time.LocalDate
 import javax.inject.Inject
 
 class MoviesRepository @Inject constructor(
     private val moviesDao: MoviesDao,
-    private val imdbApi: ImdbApi
+    private val imdbApi: ImdbApi,
+    private val preferences: DataStorePreferences
 ) {
 
     suspend fun getMostPopularMovies(): List<MovieEntity> {
@@ -39,6 +41,14 @@ class MoviesRepository @Inject constructor(
     suspend fun getComingSoonMovies(): List<MovieEntity> {
         return getMoviesByType(COMING_SOON_MOVIES) {
             imdbApi.getComingSoonMovies()
+        }
+    }
+
+    suspend fun clearAllMovies(){
+        val currentDate = LocalDate.now().toString()
+        val dateFromPreferences = preferences.read()
+        if (currentDate != dateFromPreferences) {
+            moviesDao.deleteAllMovies()
         }
     }
 
