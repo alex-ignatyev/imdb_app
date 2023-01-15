@@ -21,12 +21,3 @@ data class MovieDataResponse(
         @SerializedName("year") val year: String?
     )
 }
-
-fun List<MovieResponse>.toEntity() = this.map { response ->
-    MovieEntity(
-        id = response.id.orEmpty(),
-        title = response.title ?: "Без названия",
-        image = response.image ?: "",
-        imDbRating = response.imDbRating ?: "0.0"
-    )
-}

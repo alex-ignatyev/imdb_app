@@ -11,11 +11,11 @@ import com.sideki.imdb_app.db.entity.MovieEntity
 interface MoviesDao {
 
     @Query("SELECT * FROM movie_table")
-    suspend fun getMovies(): List<MovieEntity>
+    suspend fun getMostPopularMovies(): List<MovieEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(movies: List<MovieEntity>)
+    suspend fun insertMostPopularMovies(movies: List<MovieEntity>)
 
     @Delete
-    suspend fun delete(movies: List<MovieEntity>)
+    suspend fun deleteAllMovies(movies: List<MovieEntity>)
 }
