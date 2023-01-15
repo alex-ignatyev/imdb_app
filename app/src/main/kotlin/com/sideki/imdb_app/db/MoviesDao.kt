@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.sideki.imdb_app.db.entity.MovieEntity
+import com.sideki.imdb_app.db.entity.MovieEntity.MovieType
 
 @Dao
 interface MoviesDao {
