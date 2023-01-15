@@ -1,7 +1,6 @@
 package com.sideki.imdb_app.db
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -17,6 +16,6 @@ interface MoviesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMovies(movies: List<MovieEntity>)
 
-    @Delete
-    suspend fun deleteAllMovies(movies: List<MovieEntity>)
+    @Query("DELETE FROM movie_table")
+    suspend fun clearAllMovies()
 }
