@@ -1,10 +1,6 @@
 package com.sideki.imdb_app.data.response
 
 import com.google.gson.annotations.SerializedName
-import com.sideki.imdb_app.data.response.MovieDataResponse.MovieResponse
-import com.sideki.imdb_app.db.entity.MovieEntity
-import com.sideki.imdb_app.db.entity.MovieType
-import com.sideki.imdb_app.db.entity.MovieType.MOST_POPULAR_MOVIES
 
 data class MovieDataResponse(
     @SerializedName("items") val movies: List<MovieResponse>,
@@ -21,15 +17,5 @@ data class MovieDataResponse(
         @SerializedName("rankUpDown") val rankUpDown: String?,
         @SerializedName("title") val title: String?,
         @SerializedName("year") val year: String?
-    )
-}
-
-fun List<MovieResponse>.toEntity(type: MovieType) = this.map { response ->
-    MovieEntity(
-        id = response.id.orEmpty(),
-        title = response.title ?: "Без названия",
-        image = response.image ?: "",
-        imDbRating = response.imDbRating ?: "0.0",
-        type = type
     )
 }
