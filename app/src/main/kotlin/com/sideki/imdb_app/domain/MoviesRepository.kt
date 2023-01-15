@@ -1,59 +1,63 @@
 package com.sideki.imdb_app.domain
 
 import com.sideki.imdb_app.data.api.ImdbApi
-import com.sideki.imdb_app.data.response.toEntity
+import com.sideki.imdb_app.data.response.MovieDataResponse
 import com.sideki.imdb_app.db.MoviesDao
 import com.sideki.imdb_app.db.entity.MovieEntity
-import com.sideki.imdb_app.db.entity.MovieType.COMING_SOON_MOVIES
-import com.sideki.imdb_app.db.entity.MovieType.MOST_POPULAR_MOVIES
-import com.sideki.imdb_app.db.entity.MovieType.TOP_250_MOVIES
-import com.sideki.imdb_app.db.entity.MovieType.TOP_250_TVS
+import com.sideki.imdb_app.db.entity.MovieEntity.MovieType
+import com.sideki.imdb_app.db.entity.MovieEntity.MovieType.COMING_SOON_MOVIES
+import com.sideki.imdb_app.db.entity.MovieEntity.MovieType.MOST_POPULAR_MOVIES
+import com.sideki.imdb_app.db.entity.MovieEntity.MovieType.TOP_250_MOVIES
+import com.sideki.imdb_app.db.entity.MovieEntity.MovieType.TOP_250_TVS
+import com.sideki.imdb_app.db.entity.toEntity
 import com.sideki.imdb_app.di.DataStorePreferences
+import java.time.LocalDate
 import javax.inject.Inject
 
 class MoviesRepository @Inject constructor(
     private val moviesDao: MoviesDao,
-    private val imdbApi: ImdbApi
+    private val imdbApi: ImdbApi,
+    private val preferences: DataStorePreferences
 ) {
 
     suspend fun getMostPopularMovies(): List<MovieEntity> {
-        val moviesFromDb = moviesDao.getMovies(MOST_POPULAR_MOVIES)
-        return if (moviesFromDb.isEmpty()) {
-            val moviesFromInternet = imdbApi.getMostPopularMovies().movies.toEntity(MOST_POPULAR_MOVIES)
-            moviesDao.insert(moviesFromInternet)
-            moviesFromInternet
-        } else {
-            moviesFromDb
+        return getMoviesByType(MOST_POPULAR_MOVIES) {
+            imdbApi.getMostPopularMovies()
         }
     }
 
     suspend fun getTop250Movies(): List<MovieEntity> {
-        val moviesFromDb = moviesDao.getMovies(TOP_250_MOVIES)
-        return if (moviesFromDb.isEmpty()) {
-            val moviesFromInternet = imdbApi.getTop250Movies().movies.toEntity(TOP_250_MOVIES)
-            moviesDao.insert(moviesFromInternet)
-            moviesFromInternet
-        } else {
-            moviesFromDb
+        return getMoviesByType(TOP_250_MOVIES) {
+            imdbApi.getTop250Movies()
         }
     }
 
     suspend fun getTop250TVs(): List<MovieEntity> {
-        val moviesFromDb = moviesDao.getMovies(TOP_250_TVS)
-        return if (moviesFromDb.isEmpty()) {
-            val moviesFromInternet = imdbApi.getTop250TVs().movies.toEntity(TOP_250_TVS)
-            moviesDao.insert(moviesFromInternet)
-            moviesFromInternet
-        } else {
-            moviesFromDb
+        return getMoviesByType(TOP_250_TVS) {
+            imdbApi.getTop250TVs()
         }
     }
 
     suspend fun getComingSoonMovies(): List<MovieEntity> {
-        val moviesFromDb = moviesDao.getMovies(COMING_SOON_MOVIES)
+        return getMoviesByType(COMING_SOON_MOVIES) {
+            imdbApi.getComingSoonMovies()
+        }
+    }
+
+    suspend fun clearAllMovies(){
+        val currentDate = LocalDate.now().toString()
+        val dateFromPreferences = preferences.getDate()
+        if (currentDate != dateFromPreferences) {
+            moviesDao.clearAllMovies()
+            preferences.saveDate(currentDate)
+        }
+    }
+
+    private suspend inline fun getMoviesByType(type: MovieType, request: () -> MovieDataResponse): List<MovieEntity> {
+        val moviesFromDb = moviesDao.getMoviesByType(type)
         return if (moviesFromDb.isEmpty()) {
-            val moviesFromInternet = imdbApi.getComingSoonMovies().movies.toEntity(COMING_SOON_MOVIES)
-            moviesDao.insert(moviesFromInternet)
+            val moviesFromInternet = request.invoke().movies.toEntity(type)
+            moviesDao.insertMovies(moviesFromInternet)
             moviesFromInternet
         } else {
             moviesFromDb
