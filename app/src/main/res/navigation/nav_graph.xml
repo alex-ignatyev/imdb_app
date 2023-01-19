@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/moviesFragment">
+    app:startDestination="@id/loginFragment2">
 
     <fragment
         android:id="@+id/moviesFragment"
@@ -29,22 +29,22 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.sideki.imdb_app.ui.profile.ProfileFragment"
-        android:label="ProfileFragment" >
+        android:label="ProfileFragment" />
+    <fragment
+        android:id="@+id/loginFragment2"
+        android:name="com.sideki.imdb_app.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_profileFragment_to_registrationFragment"
+            android:id="@+id/action_loginFragment2_to_registrationFragment"
             app:destination="@id/registrationFragment" />
         <action
-            android:id="@+id/action_profileFragment_to_userFragment"
-            app:destination="@id/userFragment" />
+            android:id="@+id/action_loginFragment2_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
         android:name="com.sideki.imdb_app.ui.registration.RegistrationFragment"
         android:label="fragment_registration"
         tools:layout="@layout/fragment_registration" />
-    <fragment
-        android:id="@+id/userFragment"
-        android:name="com.sideki.imdb_app.ui.user.UserFragment"
-        android:label="fragment_user"
-        tools:layout="@layout/fragment_user" />
 </navigation>

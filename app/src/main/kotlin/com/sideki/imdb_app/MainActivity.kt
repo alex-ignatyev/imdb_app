@@ -2,6 +2,7 @@ package com.sideki.imdb_app
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -28,6 +29,7 @@ class MainActivity : FragmentActivity() {
             }
             return@setOnItemSelectedListener true
         }
+        visibilityNavElements(navController)
     }
 
     private fun initNavHost() {
@@ -43,5 +45,15 @@ class MainActivity : FragmentActivity() {
     private fun bottomNavigation(fragmentId: Int, item: MenuItem) {
         NavigationUI.onNavDestinationSelected(item, navController)
         navController.navigate(fragmentId)
+    }
+
+    private fun visibilityNavElements(navController: NavController) {
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.loginFragment2 -> binding.bottomNavigation?.visibility = View.GONE
+                R.id.registrationFragment -> binding.bottomNavigation?.visibility = View.GONE
+                else -> binding.bottomNavigation?.visibility = View.VISIBLE
+            }
+        }
     }
 }

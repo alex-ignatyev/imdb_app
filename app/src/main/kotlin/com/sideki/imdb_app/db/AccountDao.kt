@@ -14,6 +14,6 @@ interface AccountDao {
     @Query("SELECT * FROM account_table ORDER BY userId DESC")
     fun getAllUsers(): LiveData<List<AccountEntity>>?
 
-    @Query("SELECT * FROM account_table WHERE userName LIKE :userName")
-    suspend fun getUsername(userName: String): AccountEntity?
+    @Query("SELECT * FROM account_table WHERE login LIKE :login")
+    suspend fun getUsername(login: String): AccountEntity?
 }

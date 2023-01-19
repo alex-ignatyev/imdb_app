@@ -9,6 +9,6 @@ data class AccountEntity(
     val userId: Int,
     val firstName: String,
     val lastName: String,
-    val userName: String,
+    val login: String,
     val password: String
 )
