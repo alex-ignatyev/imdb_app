@@ -2,7 +2,7 @@ package com.sideki.imdb_app.di
 
 import android.content.Context
 import androidx.room.Room
-import com.sideki.imdb_app.db.AccountDao
+import com.sideki.imdb_app.db.AccountsDao
 import com.sideki.imdb_app.db.MoviesDao
 import com.sideki.imdb_app.db.MoviesDB
 import dagger.Module
@@ -31,5 +31,5 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideAccountDao(accountDb: MoviesDB): AccountDao = accountDb.accountDao()
+    fun provideAccountDao(accountDb: MoviesDB): AccountsDao = accountDb.accountsDao()
 }
