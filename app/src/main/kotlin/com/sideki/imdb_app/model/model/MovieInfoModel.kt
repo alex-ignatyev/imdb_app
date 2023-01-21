@@ -1,12 +1,12 @@
-package com.sideki.imdb_app.domain.model
+package com.sideki.imdb_app.model.model
 
-import com.sideki.imdb_app.data.response.MovieInfoResponse
-import com.sideki.imdb_app.domain.model.MovieInfoModel.ActorModel
-import com.sideki.imdb_app.domain.model.MovieInfoModel.BoxOfficeModel
-import com.sideki.imdb_app.domain.model.MovieInfoModel.ImageModel
-import com.sideki.imdb_app.domain.model.MovieInfoModel.RatingsModel
-import com.sideki.imdb_app.domain.model.MovieInfoModel.SimilarMovieModel
-import com.sideki.imdb_app.domain.model.MovieInfoModel.TrailerModel
+import com.sideki.imdb_app.model.model.MovieInfoModel.ActorModel
+import com.sideki.imdb_app.model.model.MovieInfoModel.BoxOfficeModel
+import com.sideki.imdb_app.model.model.MovieInfoModel.ImageModel
+import com.sideki.imdb_app.model.model.MovieInfoModel.RatingsModel
+import com.sideki.imdb_app.model.model.MovieInfoModel.SimilarMovieModel
+import com.sideki.imdb_app.model.model.MovieInfoModel.TrailerModel
+import com.sideki.imdb_app.model.response.MovieInfoResponse
 
 data class MovieInfoModel(
     val movieId: String = "",

@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImage
 import com.sideki.imdb_app.R.drawable
-import com.sideki.imdb_app.domain.model.MovieInfoModel
+import com.sideki.imdb_app.model.model.MovieInfoModel
 import com.sideki.imdb_app.util.compose_view.GradientView
 import com.sideki.imdb_app.util.debugPlaceholder
 

@@ -1,8 +1,8 @@
-package com.sideki.imdb_app.db
+package com.sideki.imdb_app.data.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.sideki.imdb_app.db.entity.MovieEntity
+import com.sideki.imdb_app.model.entity.MovieEntity
 
 @Database(entities = [MovieEntity::class], version = 1)
 abstract class MoviesDB: RoomDatabase() {

@@ -1,8 +1,7 @@
-package com.sideki.imdb_app.domain.model
+package com.sideki.imdb_app.model.model
 
-import com.sideki.imdb_app.data.response.MovieDataResponse
-import com.sideki.imdb_app.db.entity.MovieEntity
-import com.sideki.imdb_app.domain.model.MovieDataModel.MovieModel
+import com.sideki.imdb_app.model.model.MovieDataModel.MovieModel
+import com.sideki.imdb_app.model.entity.MovieEntity
 import com.sideki.imdb_app.util.recycler.AdapterItem
 import java.util.UUID
 
@@ -10,6 +9,7 @@ data class MovieDataModel(
     override var id: String = UUID.randomUUID().toString(),
     val movies: List<MovieModel> = emptyList()
 ) : AdapterItem() {
+
     data class MovieModel(
         override var id: String = "",
         val title: String = "Без названия",

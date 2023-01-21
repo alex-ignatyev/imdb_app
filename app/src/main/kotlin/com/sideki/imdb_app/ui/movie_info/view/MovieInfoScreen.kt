@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.sideki.imdb_app.domain.model.MovieInfoModel
+import com.sideki.imdb_app.model.model.MovieInfoModel
 import com.sideki.imdb_app.util.compose_view.GradientView
 
 @Preview

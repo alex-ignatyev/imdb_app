@@ -1,9 +1,9 @@
 package com.sideki.imdb_app.domain.use_case
 
 import com.sideki.imdb_app.domain.MoviesRepository
-import com.sideki.imdb_app.domain.model.MovieDataModel
-import com.sideki.imdb_app.domain.model.MoviesGroupTitleModel
-import com.sideki.imdb_app.domain.model.toModel
+import com.sideki.imdb_app.model.model.MovieDataModel
+import com.sideki.imdb_app.model.model.MoviesGroupTitleModel
+import com.sideki.imdb_app.model.model.toModel
 import com.sideki.imdb_app.util.recycler.AdapterItem
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
