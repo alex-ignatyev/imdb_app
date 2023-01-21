@@ -10,8 +10,8 @@ import com.sideki.imdb_app.db.entity.AccountEntity
 interface AccountsDao {
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun insert(account: AccountEntity)
+    suspend fun insertAccount(account: AccountEntity)
 
     @Query("SELECT * FROM account_table WHERE login LIKE :login")
-    suspend fun getUsername(login: String): AccountEntity?
+    suspend fun getLogin(login: String): AccountEntity?
 }

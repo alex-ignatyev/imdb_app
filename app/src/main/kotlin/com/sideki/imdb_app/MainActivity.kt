@@ -2,7 +2,7 @@ package com.sideki.imdb_app
 
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
@@ -24,13 +24,10 @@ class MainActivity : FragmentActivity() {
         setContentView(binding.root)
         initNavHost()
         binding.bottomNavigation.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.moviesFragment -> bottomNavigation(R.id.moviesFragment, it)
-                R.id.profileFragment -> bottomNavigation(R.id.profileFragment, it)
-            }
+            bottomNavigation(it.itemId, it)
             return@setOnItemSelectedListener true
         }
-        removeBottomNavView(navController)
+        showBottomNavBar(navController)
     }
 
     private fun initNavHost() {
@@ -48,13 +45,10 @@ class MainActivity : FragmentActivity() {
         navController.navigate(fragmentId)
     }
 
-    private fun removeBottomNavView(navController: NavController) {
+    private fun showBottomNavBar(navController: NavController) {
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.loginFragment -> binding.bottomNavigation.isVisible = false
-                R.id.registrationFragment -> binding.bottomNavigation.isVisible = false
-                else -> binding.bottomNavigation.isVisible = true
-            }
+            binding.bottomNavigation.isGone =
+                destination.id == R.id.loginFragment || destination.id == R.id.registrationFragment
         }
     }
 }

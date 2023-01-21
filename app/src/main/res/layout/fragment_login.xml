@@ -20,9 +20,11 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/loginField"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="350dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="35dp"
         android:textColorHint="@color/white"
         app:boxStrokeColor="@color/white"
         app:endIconMode="clear_text"
@@ -33,19 +35,20 @@
         app:startIconDrawable="@drawable/ic_person">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/login_input"
+            android:id="@+id/loginInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/login" />
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordField"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="350dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="35dp"
         android:textColorHint="@color/white"
         app:boxStrokeColor="@color/black"
         app:endIconMode="password_toggle"
@@ -56,16 +59,15 @@
         app:startIconDrawable="@drawable/ic_lock">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/password_input"
+            android:id="@+id/passwordInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
             android:inputType="textPassword" />
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_sign_in"
+        android:id="@+id/buttonSignIn"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -78,6 +80,7 @@
         app:layout_constraintTop_toBottomOf="@id/passwordField" />
 
     <TextView
+        android:id="@+id/signUpTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -85,8 +88,8 @@
         android:textColor="@color/white"
         android:textSize="16dp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/button_sign_in"
-        app:layout_constraintStart_toStartOf="@id/button_sign_in"
-        app:layout_constraintTop_toBottomOf="@id/button_sign_in" />
+        app:layout_constraintEnd_toEndOf="@id/buttonSignIn"
+        app:layout_constraintStart_toStartOf="@id/buttonSignIn"
+        app:layout_constraintTop_toBottomOf="@id/buttonSignIn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,7 +6,6 @@ class RegistrationVM (
 
 ) {
     val firstName = MutableLiveData<String>()
-    val lastName = MutableLiveData<String>()
     val login = MutableLiveData<String>()
     val password = MutableLiveData<String>()
 }

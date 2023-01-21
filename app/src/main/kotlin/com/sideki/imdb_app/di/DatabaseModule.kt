@@ -31,5 +31,5 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideAccountDao(accountDb: MoviesDB): AccountsDao = accountDb.accountsDao()
+    fun provideAccountsDao(accountsDb: MoviesDB): AccountsDao = accountsDb.accountsDao()
 }

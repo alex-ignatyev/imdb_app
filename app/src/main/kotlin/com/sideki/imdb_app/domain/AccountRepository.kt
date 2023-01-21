@@ -9,10 +9,10 @@ class AccountRepository @Inject constructor(
 ) {
 
     suspend fun insertUser(user: AccountEntity) {
-        return accountsDao.insert(user)
+        return accountsDao.insertAccount(user)
     }
 
     suspend fun getLogin(login: String): AccountEntity? {
-        return accountsDao.getUsername(login)
+        return accountsDao.getLogin(login)
     }
 }
