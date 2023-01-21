@@ -63,7 +63,7 @@ fun MovieInfoBlock(
             },
             Color.Transparent,
             Color.Black,
-            height = 100
+            height = 100.dp
         )
 
         Text(
@@ -170,14 +170,12 @@ fun MovieInfoBlock(
             fontSize = 14.sp,
         )
 
-        if (movie.images.isNotEmpty()) {
-            ImagesBlock(
-                images = movie.images,
-                modifier = Modifier.constrainAs(imagesRef) {
-                    top.linkTo(descriptionRef.bottom)
-                }
-            )
-        }
+        ImagesBlock(
+            images = movie.images,
+            modifier = Modifier.constrainAs(imagesRef) {
+                top.linkTo(descriptionRef.bottom)
+            }
+        )
 
         RatingsBlock(
             ratings = movie.ratings,
@@ -185,21 +183,17 @@ fun MovieInfoBlock(
                 top.linkTo(imagesRef.bottom)
             })
 
-        if (movie.actors.isNotEmpty()) {
-            ActorsBlock(
-                actors = movie.actors,
-                modifier = Modifier.constrainAs(actorsRef) {
-                    top.linkTo(ratingsRef.bottom)
-                })
-        }
+        ActorsBlock(
+            actors = movie.actors,
+            modifier = Modifier.constrainAs(actorsRef) {
+                top.linkTo(ratingsRef.bottom)
+            })
 
-        if (movie.similarMovies.isNotEmpty()) {
-            SimilarMoviesBlock(
-                similars = movie.similarMovies,
-                modifier = Modifier.constrainAs(similarsRef) {
-                    top.linkTo(actorsRef.bottom)
-                }
-            )
-        }
+        SimilarMoviesBlock(
+            similars = movie.similarMovies,
+            modifier = Modifier.constrainAs(similarsRef) {
+                top.linkTo(actorsRef.bottom)
+            }
+        )
     }
 }

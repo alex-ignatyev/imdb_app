@@ -3,6 +3,8 @@ package com.sideki.imdb_app.ui.movie_info
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -24,8 +26,9 @@ class MovieInfoFragment : Fragment() {
     ) = setContent {
         vm.getMovieInfo(args.movieId)
         Imdb_appTheme {
+            val movieInfo by vm.movieInfo.collectAsState()
             MovieInfoScreen(
-                movie = vm.data,
+                movie = movieInfo,
                 onBackClick = { findNavController().popBackStack() }
             )
         }

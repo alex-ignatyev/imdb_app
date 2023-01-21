@@ -1,6 +1,5 @@
 package com.sideki.imdb_app.ui.movies_list.adapter.screen
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -9,6 +8,7 @@ import com.sideki.imdb_app.databinding.ItemMoviesGroupBinding
 import com.sideki.imdb_app.model.model.MovieDataModel
 import com.sideki.imdb_app.util.recycler.AdapterItem
 import com.sideki.imdb_app.util.recycler.BaseViewHolder
+import com.sideki.imdb_app.util.recycler.viewBinding
 
 const val MOVIES_LIST = 0
 const val MOVIES_GROUP_TITLE = 1
@@ -18,12 +18,9 @@ class ScreenAdapter(
 ) : ListAdapter<AdapterItem, BaseViewHolder>(Differ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-        return if (viewType == MOVIES_LIST) {
-            val binding = ItemMoviesGroupBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            MovieGroupViewHolder(binding, onMovieClick)
-        } else {
-            val binding = ItemMovieGroupTitleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            MovieGroupTileViewHolder(binding)
+        return when (viewType) {
+            MOVIES_LIST -> MovieGroupViewHolder(parent.viewBinding(ItemMoviesGroupBinding::inflate), onMovieClick)
+            else -> MovieGroupTileViewHolder(parent.viewBinding(ItemMovieGroupTitleBinding::inflate))
         }
     }
 
@@ -32,8 +29,7 @@ class ScreenAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        val item = getItem(position)
-        return when (item) {
+        return when (getItem(position)) {
             is MovieDataModel -> MOVIES_LIST
             else -> MOVIES_GROUP_TITLE
         }

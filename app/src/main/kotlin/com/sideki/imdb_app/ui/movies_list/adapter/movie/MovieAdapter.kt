@@ -1,20 +1,19 @@
 package com.sideki.imdb_app.ui.movies_list.adapter.movie
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.sideki.imdb_app.databinding.ItemMovieBinding
 import com.sideki.imdb_app.model.model.MovieDataModel.MovieModel
 import com.sideki.imdb_app.util.recycler.BaseViewHolder
+import com.sideki.imdb_app.util.recycler.viewBinding
 
 class MovieAdapter(
     private val onMovieClick: (String) -> Unit
 ) : ListAdapter<MovieModel, BaseViewHolder>(Differ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-        val binding = ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MovieViewHolder(binding, onMovieClick)
+        return MovieViewHolder(parent.viewBinding(ItemMovieBinding::inflate), onMovieClick)
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
