@@ -1,6 +1,12 @@
 package com.sideki.imdb_app.domain.use_case
 
 import com.sideki.imdb_app.domain.MoviesRepository
+import com.sideki.imdb_app.model.entity.MovieEntity
+import com.sideki.imdb_app.model.entity.MovieEntity.MovieType
+import com.sideki.imdb_app.model.entity.MovieEntity.MovieType.COMING_SOON_MOVIES
+import com.sideki.imdb_app.model.entity.MovieEntity.MovieType.MOST_POPULAR_MOVIES
+import com.sideki.imdb_app.model.entity.MovieEntity.MovieType.TOP_250_MOVIES
+import com.sideki.imdb_app.model.entity.MovieEntity.MovieType.TOP_250_TVS
 import com.sideki.imdb_app.model.model.MovieDataModel
 import com.sideki.imdb_app.model.model.MoviesGroupTitleModel
 import com.sideki.imdb_app.model.model.toModel
@@ -15,28 +21,23 @@ class GetMoviesUseCase @Inject constructor(
 
     suspend fun getMovies(): List<AdapterItem> {
         return withContext(Dispatchers.IO) {
-            val mostPopularMovies = repository.getMostPopularMovies()
-            val top250Movies = repository.getTop250Movies()
-            val top250TVs = repository.getTop250TVs()
-            val comingSoonMovies = repository.getComingSoonMovies()
-            val list = mutableListOf<AdapterItem>()
-            if (mostPopularMovies.isNotEmpty()) {
-                list.add(MoviesGroupTitleModel(titleName = "Most popular movies"))
-                list.add(MovieDataModel(movies = mostPopularMovies.toModel()))
+            mutableListOf<AdapterItem>().apply {
+                getMoviesByType(MOST_POPULAR_MOVIES) { repository.getMostPopularMovies() }
+                getMoviesByType(TOP_250_MOVIES) { repository.getTop250Movies() }
+                getMoviesByType(TOP_250_TVS) { repository.getTop250TVs() }
+                getMoviesByType(COMING_SOON_MOVIES) { repository.getComingSoonMovies() }
             }
-            if (top250Movies.isNotEmpty()) {
-                list.add(MoviesGroupTitleModel(titleName = "Top 250 movies"))
-                list.add(MovieDataModel(movies = top250Movies.toModel()))
-            }
-            if (top250TVs.isNotEmpty()) {
-                list.add(MoviesGroupTitleModel(titleName = "Top 250 TVs"))
-                list.add(MovieDataModel(movies = top250TVs.toModel()))
-            }
-            if (comingSoonMovies.isNotEmpty()) {
-                list.add(MoviesGroupTitleModel(titleName = "Coming soon"))
-                list.add(MovieDataModel(movies = comingSoonMovies.toModel()))
-            }
-            list
+        }
+    }
+
+    private inline fun MutableList<AdapterItem>.getMoviesByType(
+        type: MovieType,
+        moviesFromRepo: () -> List<MovieEntity>
+    ) {
+        val movies = moviesFromRepo.invoke()
+        if (movies.isNotEmpty()) {
+            this.add(MoviesGroupTitleModel(titleName = type.name))
+            this.add(MovieDataModel(movies = movies.toModel()))
         }
     }
 }

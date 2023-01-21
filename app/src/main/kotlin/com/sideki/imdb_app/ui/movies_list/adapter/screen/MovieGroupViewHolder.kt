@@ -8,7 +8,7 @@ import com.sideki.imdb_app.util.recycler.BaseViewHolder
 
 class MovieGroupViewHolder(
     private val binding: ItemMoviesGroupBinding,
-    private val onMovieClick: (String) -> Unit
+    onMovieClick: (String) -> Unit
 ) : BaseViewHolder(binding.root) {
 
     private val adapter = MovieAdapter(onMovieClick)

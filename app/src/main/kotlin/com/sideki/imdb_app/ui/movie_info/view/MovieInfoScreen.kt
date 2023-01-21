@@ -41,7 +41,6 @@ fun MovieInfoScreen(
         )
 
         GradientView(
-            height = 80,
             modifier = Modifier.constrainAs(gradientRef) {
                 top.linkTo(parent.top)
             })

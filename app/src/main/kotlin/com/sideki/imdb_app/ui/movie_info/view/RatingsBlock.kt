@@ -91,13 +91,13 @@ private fun getRatingColor(rating: String): Color {
         }
     } else {
         Color.Green
-        /*val ratingInt = rating.toInt()
+        val ratingInt = rating.toInt()
         if (ratingInt <= 40) {
             Color.Red
         } else if (ratingInt in 41..69) {
             Color.DarkGray
         } else {
             Color.Green
-        }*/
+        }
     }
 }
