@@ -6,8 +6,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sideki.imdb_app.data.api.ImdbApi
-import com.sideki.imdb_app.domain.model.MovieInfoModel
-import com.sideki.imdb_app.domain.model.toDomain
+import com.sideki.imdb_app.model.model.MovieInfoModel
+import com.sideki.imdb_app.model.model.toDomain
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch

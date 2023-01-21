@@ -1,4 +1,4 @@
-package com.sideki.imdb_app.data.response
+package com.sideki.imdb_app.model.response
 
 import com.google.gson.annotations.SerializedName
 

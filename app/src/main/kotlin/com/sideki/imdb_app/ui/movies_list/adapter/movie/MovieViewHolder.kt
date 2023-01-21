@@ -2,7 +2,7 @@ package com.sideki.imdb_app.ui.movies_list.adapter.movie
 
 import coil.load
 import com.sideki.imdb_app.databinding.ItemMovieBinding
-import com.sideki.imdb_app.domain.model.MovieDataModel.MovieModel
+import com.sideki.imdb_app.model.model.MovieDataModel.MovieModel
 import com.sideki.imdb_app.util.recycler.AdapterItem
 import com.sideki.imdb_app.util.recycler.BaseViewHolder
 

@@ -1,9 +1,9 @@
-package com.sideki.imdb_app.db.entity
+package com.sideki.imdb_app.model.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.sideki.imdb_app.data.response.MovieDataResponse.MovieResponse
-import com.sideki.imdb_app.db.entity.MovieEntity.MovieType
+import com.sideki.imdb_app.model.response.MovieDataResponse.MovieResponse
+import com.sideki.imdb_app.model.entity.MovieEntity.MovieType
 
 @Entity(tableName = "movie_table")
 data class MovieEntity(
