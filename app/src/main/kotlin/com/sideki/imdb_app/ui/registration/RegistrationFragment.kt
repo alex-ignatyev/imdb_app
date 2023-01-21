@@ -14,17 +14,38 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentRegistrationBinding.inflate(inflater, container, false)
-        passwordEqualityCheck()
+        validLogin()
+        validPassword()
         return binding.root
     }
 
-    private fun passwordEqualityCheck(){
-        if (binding.passwordInput.text != binding.repeatPasswordInput.text) {
-            binding.passwordField.helperText = "пароли не совпадают"
-            binding.repeatPasswordField.helperText = "пароли не совпадают"
-        } else {
-            binding.passwordField.helperText = ""
-            binding.repeatPasswordField.helperText = ""
+    private fun validLogin() {
+        val loginText = binding.loginInput.text.toString()
+        if (loginText.length < 8) binding.loginField.helperText = "Minimum 8 Character Login"
+    }
+
+    private fun validPassword() {
+        val passwordText = binding.passwordInput.text.toString()
+        val repeatPasswordText = binding.repeatPasswordInput.text.toString()
+        if (passwordText.length < 8 || repeatPasswordText.length < 8) {
+            binding.passwordField.helperText = "Minimum 8 Character Password"
+            binding.repeatPasswordField.helperText = "Minimum 8 Character Password"
+        }
+        if (!passwordText.matches(".*[A-Z].*".toRegex()) || !repeatPasswordText.matches(".*[A-Z].*".toRegex())) {
+            binding.passwordField.helperText = "Must Contain 1 Upper-case Character"
+            binding.repeatPasswordField.helperText = "Must Contain 1 Upper-case Character"
+        }
+        if (!passwordText.matches(".*[a-z].*".toRegex()) || !repeatPasswordText.matches(".*[a-z].*".toRegex())) {
+            binding.passwordField.helperText = "Must Contain 1 Lower-case Character"
+            binding.repeatPasswordField.helperText = "Must Contain 1 Lower-case Character"
+        }
+        if (!passwordText.matches(".*[@#\$%^&+=].*".toRegex()) || !repeatPasswordText.matches(".*[@#\$%^&+=].*".toRegex())) {
+            binding.passwordField.helperText = "Must Contain 1 Special Character (@#\$%^&+=)"
+            binding.repeatPasswordField.helperText = "Must Contain 1 Special Character (@#\$%^&+=)"
+        }
+        if (passwordText != repeatPasswordText) {
+            binding.passwordField.helperText = "Passwords do not match"
+            binding.repeatPasswordField.helperText = "Passwords do not match"
         }
     }
 }

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.registration.RegistrationFragment"
-    android:background="@drawable/background">
-
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".ui.registration.RegistrationFragment">
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -17,20 +16,23 @@
         android:layout_marginTop="20dp"
         android:textColorHint="@color/white"
         app:boxStrokeColor="@color/white"
+        app:counterEnabled="true"
+        app:counterMaxLength="20"
         app:endIconMode="clear_text"
+        app:helperText="Required"
         app:hintTextColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:startIconDrawable="@drawable/ic_person"
         app:layout_constraintTop_toTopOf="parent"
-        app:counterEnabled="true"
-        app:counterMaxLength="20">
+        app:startIconDrawable="@drawable/ic_person">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/login_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/login" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/login_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/login"
+            android:maxLength="20"
+            android:maxLines="1" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -42,20 +44,23 @@
         android:layout_marginTop="30dp"
         android:textColorHint="@color/white"
         app:boxStrokeColor="@color/white"
+        app:counterEnabled="true"
+        app:counterMaxLength="20"
         app:endIconMode="clear_text"
+        app:helperText="Required"
         app:hintTextColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:startIconDrawable="@drawable/ic_person"
         app:layout_constraintTop_toBottomOf="@id/loginField"
-        app:counterEnabled="true"
-        app:counterMaxLength="20">
+        app:startIconDrawable="@drawable/ic_person">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/first_name_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="First Name" />
+            android:hint="First Name"
+            android:maxLength="20"
+            android:maxLines="1" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -67,20 +72,23 @@
         android:layout_marginTop="30dp"
         android:textColorHint="@color/white"
         app:boxStrokeColor="@color/white"
+        app:counterEnabled="true"
+        app:counterMaxLength="20"
         app:endIconMode="clear_text"
+        app:helperText="Required"
         app:hintTextColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:startIconDrawable="@drawable/ic_person"
         app:layout_constraintTop_toBottomOf="@id/firstNameField"
-        app:counterEnabled="true"
-        app:counterMaxLength="20">
+        app:startIconDrawable="@drawable/ic_person">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/last_name_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Last Name" />
+            android:hint="Last Name"
+            android:maxLength="20"
+            android:maxLines="1" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -92,21 +100,24 @@
         android:layout_marginTop="30dp"
         android:textColorHint="@color/white"
         app:boxStrokeColor="@color/white"
+        app:counterEnabled="true"
+        app:counterMaxLength="20"
         app:endIconMode="password_toggle"
+        app:helperText="Required"
         app:hintTextColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:startIconDrawable="@drawable/ic_lock"
         app:layout_constraintTop_toBottomOf="@id/lastNameField"
-        app:counterEnabled="true"
-        app:counterMaxLength="20">
+        app:startIconDrawable="@drawable/ic_lock">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:maxLength="20"
+            android:maxLines="1" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -118,21 +129,24 @@
         android:layout_marginTop="30dp"
         android:textColorHint="@color/white"
         app:boxStrokeColor="@color/white"
+        app:counterEnabled="true"
+        app:counterMaxLength="20"
         app:endIconMode="password_toggle"
+        app:helperText="Required"
         app:hintTextColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:startIconDrawable="@drawable/ic_lock"
         app:layout_constraintTop_toBottomOf="@id/passwordField"
-        app:counterEnabled="true"
-        app:counterMaxLength="20">
+        app:startIconDrawable="@drawable/ic_lock">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/repeat_password_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Repeat Password"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:maxLength="20"
+            android:maxLines="1" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
