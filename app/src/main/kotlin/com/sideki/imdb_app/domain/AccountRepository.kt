@@ -12,7 +12,7 @@ class AccountRepository @Inject constructor(
         return accountsDao.insertAccount(account)
     }
 
-    suspend fun getAccount(account: String): String? {
+    suspend fun getAccount(account: String): AccountEntity? {
         return accountsDao.getAccount(account)
     }
 }
