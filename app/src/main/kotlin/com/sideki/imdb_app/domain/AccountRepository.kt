@@ -8,11 +8,11 @@ class AccountRepository @Inject constructor(
     private val accountsDao: AccountsDao
 ) {
 
-    suspend fun insertUser(user: AccountEntity) {
-        return accountsDao.insertAccount(user)
+    suspend fun insertAccount(account: AccountEntity) {
+        return accountsDao.insertAccount(account)
     }
 
-    suspend fun getLogin(login: String): AccountEntity? {
-        return accountsDao.getLogin(login)
+    suspend fun getAccount(account: String): String? {
+        return accountsDao.getAccount(account)
     }
 }

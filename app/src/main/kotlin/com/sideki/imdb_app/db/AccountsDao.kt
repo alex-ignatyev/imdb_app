@@ -12,6 +12,6 @@ interface AccountsDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertAccount(account: AccountEntity)
 
-    @Query("SELECT * FROM account_table WHERE login LIKE :login")
-    suspend fun getLogin(login: String): AccountEntity?
+    @Query("SELECT * FROM account_table WHERE login LIKE :account")
+    suspend fun getAccount(account: String): String?
 }

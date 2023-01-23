@@ -30,6 +30,7 @@
         android:id="@+id/profileFragment"
         android:name="com.sideki.imdb_app.ui.profile.ProfileFragment"
         android:label="ProfileFragment" />
+
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.sideki.imdb_app.ui.login.LoginFragment"
@@ -41,7 +42,7 @@
             app:destination="@id/registrationFragment" />
 
         <action
-            android:id="@+id/action_loginFragment2_to_profileFragment"
+            android:id="@+id/actionLoginFragment2ToProfileFragment"
             app:destination="@id/profileFragment" />
     </fragment>
 

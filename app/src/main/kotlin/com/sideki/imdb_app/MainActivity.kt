@@ -3,7 +3,6 @@ package com.sideki.imdb_app
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController

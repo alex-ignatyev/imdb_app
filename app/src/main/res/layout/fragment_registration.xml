@@ -1,69 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".ui.registration.RegistrationFragment">
 
     <EditText
-        android:id="@+id/editTextRegFirstName"
+        android:id="@+id/editTextRegistrationFirstName"
         android:layout_width="0dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
         android:layout_height="wrap_content"
-        android:hint="Имя"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="180dp"
+        android:layout_marginEnd="36dp"
+        android:hint="@string/first_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="180dp"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:layout_width="0dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
-        android:layout_height="wrap_content"
         android:id="@+id/editTextRegLogin"
-        android:hint="Логин"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextRegFirstName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="36dp"
+        android:hint="@string/login"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="10dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextRegistrationFirstName" />
 
     <EditText
-        android:layout_width="0dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
-        android:layout_height="wrap_content"
         android:id="@+id/editTextRegPassword"
-        android:hint="Пароль"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextRegLogin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="36dp"
+        android:hint="@string/password"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="10dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextRegLogin" />
 
     <EditText
-        android:layout_width="0dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
-        android:layout_height="wrap_content"
         android:id="@+id/editTextRegPasswordRepeat"
-        android:hint="Повторите пароль"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextRegPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="36dp"
+        android:hint="@string/repeat_password"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="10dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextRegPassword" />
 
     <Button
-        android:layout_width="0dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
-        android:layout_height="wrap_content"
         android:id="@+id/button_registration"
-        app:layout_constraintStart_toStartOf="@id/editTextRegPasswordRepeat"
-        app:layout_constraintTop_toBottomOf="@id/editTextRegPasswordRepeat"
-        app:layout_constraintEnd_toEndOf="@id/editTextRegPasswordRepeat"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="10dp"
-        android:text="Зарегестрироваться"/>
+        android:layout_marginEnd="36dp"
+        android:text="@string/create_account"
+        app:layout_constraintEnd_toEndOf="@id/editTextRegPasswordRepeat"
+        app:layout_constraintStart_toStartOf="@id/editTextRegPasswordRepeat"
+        app:layout_constraintTop_toBottomOf="@id/editTextRegPasswordRepeat" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
