@@ -1,51 +1,48 @@
 package com.sideki.imdb_app.ui.registration
 
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
-import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.sideki.imdb_app.R
-import com.sideki.imdb_app.databinding.FragmentLoginBinding
 import com.sideki.imdb_app.databinding.FragmentRegistrationBinding
+import com.sideki.imdb_app.ui.movie_info.MovieInfoVM
 
 class RegistrationFragment : Fragment(R.layout.fragment_registration) {
-    private lateinit var binding: FragmentRegistrationBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FragmentRegistrationBinding.inflate(inflater, container, false)
-        validLogin()
-        validPassword()
-        return binding.root
-    }
+    private val vm by viewModels<RegistrationVM>()
 
-    private fun validLogin() {
-        val loginText = binding.loginInput.text.toString()
-        if (loginText.length < 8) binding.loginField.helperText = "Minimum 8 Character Login"
-    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val binding = FragmentRegistrationBinding.bind(view)
+        val loginInput = binding.loginInput.text.toString()
+        val passwordInput = binding.passwordInput.text.toString()
+        vm.loginError.observe(viewLifecycleOwner) {
+            binding.loginInput.addTextChangedListener(object : TextWatcher{
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                    TODO("Not yet implemented")
+                }
 
-    private fun validPassword() {
-        val passwordText = binding.passwordInput.text.toString()
-        val repeatPasswordText = binding.repeatPasswordInput.text.toString()
-        if (passwordText.length < 8 || repeatPasswordText.length < 8) {
-            binding.passwordField.helperText = "Minimum 8 Character Password"
-            binding.repeatPasswordField.helperText = "Minimum 8 Character Password"
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    vm.loginError.observe(viewLifecycleOwner){
+                        binding.loginField.helperText = vm.loginValidation(s).toString()
+                    }
+                }
+
+            })
+            vm.passwordError.observe(viewLifecycleOwner) {
+                binding.passwordField.helperText = vm.passwordValidation(passwordInput).toString()
+            }
+
         }
-        if (!passwordText.matches(".*[A-Z].*".toRegex()) || !repeatPasswordText.matches(".*[A-Z].*".toRegex())) {
-            binding.passwordField.helperText = "Must Contain 1 Upper-case Character"
-            binding.repeatPasswordField.helperText = "Must Contain 1 Upper-case Character"
-        }
-        if (!passwordText.matches(".*[a-z].*".toRegex()) || !repeatPasswordText.matches(".*[a-z].*".toRegex())) {
-            binding.passwordField.helperText = "Must Contain 1 Lower-case Character"
-            binding.repeatPasswordField.helperText = "Must Contain 1 Lower-case Character"
-        }
-        if (!passwordText.matches(".*[@#\$%^&+=].*".toRegex()) || !repeatPasswordText.matches(".*[@#\$%^&+=].*".toRegex())) {
-            binding.passwordField.helperText = "Must Contain 1 Special Character (@#\$%^&+=)"
-            binding.repeatPasswordField.helperText = "Must Contain 1 Special Character (@#\$%^&+=)"
-        }
-        if (passwordText != repeatPasswordText) {
-            binding.passwordField.helperText = "Passwords do not match"
-            binding.repeatPasswordField.helperText = "Passwords do not match"
-        }
+
+
     }
 }
