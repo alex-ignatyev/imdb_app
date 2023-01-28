@@ -7,31 +7,31 @@
     tools:context=".ui.registration.RegistrationFragment">
 
     <EditText
-        android:id="@+id/editTextFirstName"
+        android:id="@+id/loginInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginTop="180dp"
         android:layout_marginEnd="36dp"
-        android:hint="@string/first_name"
+        android:hint="@string/login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextLogin"
+        android:id="@+id/nameInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="36dp"
-        android:hint="@string/login"
+        android:hint="@string/name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextFirstName" />
+        app:layout_constraintTop_toBottomOf="@id/loginInput" />
 
     <EditText
-        android:id="@+id/editTextPassword"
+        android:id="@+id/passwordInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
@@ -40,10 +40,10 @@
         android:hint="@string/password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextLogin" />
+        app:layout_constraintTop_toBottomOf="@id/nameInput" />
 
     <EditText
-        android:id="@+id/editTextPasswordRepeat"
+        android:id="@+id/passwordRepeatInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
@@ -52,18 +52,18 @@
         android:hint="@string/repeat_password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextPassword" />
+        app:layout_constraintTop_toBottomOf="@id/passwordInput" />
 
     <Button
-        android:id="@+id/buttonCreateAccount"
+        android:id="@+id/createAccount"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="36dp"
         android:text="@string/create_account"
-        app:layout_constraintEnd_toEndOf="@id/editTextPasswordRepeat"
-        app:layout_constraintStart_toStartOf="@id/editTextPasswordRepeat"
-        app:layout_constraintTop_toBottomOf="@id/editTextPasswordRepeat" />
+        app:layout_constraintEnd_toEndOf="@id/passwordRepeatInput"
+        app:layout_constraintStart_toStartOf="@id/passwordRepeatInput"
+        app:layout_constraintTop_toBottomOf="@id/passwordRepeatInput" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
