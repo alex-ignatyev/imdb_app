@@ -11,9 +11,11 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/loginField"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="350dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="36dp"
         android:textColorHint="@color/white"
         app:boxStrokeColor="@color/white"
         app:counterEnabled="true"
@@ -39,9 +41,11 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nameField"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="350dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="30dp"
+        android:layout_marginEnd="36dp"
         android:textColorHint="@color/white"
         app:boxStrokeColor="@color/white"
         app:counterEnabled="true"
@@ -58,7 +62,7 @@
             android:id="@+id/nameInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name"
+            android:hint="@string/name"
             android:maxLength="20"
             android:maxLines="1" />
 
@@ -67,9 +71,11 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordField"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="350dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="30dp"
+        android:layout_marginEnd="36dp"
         android:textColorHint="@color/white"
         app:boxStrokeColor="@color/white"
         app:counterEnabled="true"
@@ -83,7 +89,7 @@
         app:startIconDrawable="@drawable/ic_lock">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/password_input"
+            android:id="@+id/passwordInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
@@ -96,9 +102,11 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/repeatPasswordField"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="350dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="30dp"
+        android:layout_marginEnd="36dp"
         android:textColorHint="@color/white"
         app:boxStrokeColor="@color/white"
         app:counterEnabled="true"
@@ -112,10 +120,10 @@
         app:startIconDrawable="@drawable/ic_lock">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/repeat_password_input"
+            android:id="@+id/repeatPasswordInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Repeat Password"
+            android:hint="@string/repeat_password"
             android:inputType="textPassword"
             android:maxLength="20"
             android:maxLines="1" />
@@ -123,12 +131,12 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_log_in"
+        android:id="@+id/createAccount"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Create account"
+        android:text="@string/create_account"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="@id/passwordField"
