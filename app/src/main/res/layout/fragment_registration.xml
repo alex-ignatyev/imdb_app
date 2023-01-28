@@ -27,7 +27,7 @@
         app:startIconDrawable="@drawable/ic_person">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/login_input"
+            android:id="@+id/loginInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/login"
@@ -55,7 +55,7 @@
         app:startIconDrawable="@drawable/ic_person">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/first_name_input"
+            android:id="@+id/nameInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Name"
