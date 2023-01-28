@@ -67,7 +67,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/buttonSignIn"
+        android:id="@+id/buttonLogIn"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -88,8 +88,8 @@
         android:textColor="@color/white"
         android:textSize="16dp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/buttonSignIn"
-        app:layout_constraintStart_toStartOf="@id/buttonSignIn"
-        app:layout_constraintTop_toBottomOf="@id/buttonSignIn" />
+        app:layout_constraintEnd_toEndOf="@id/buttonLogIn"
+        app:layout_constraintStart_toStartOf="@id/buttonLogIn"
+        app:layout_constraintTop_toBottomOf="@id/buttonLogIn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

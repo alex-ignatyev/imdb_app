@@ -23,7 +23,7 @@ class MainActivity : FragmentActivity() {
         setContentView(binding.root)
         initNavHost()
         binding.bottomNavigation.setOnItemSelectedListener {
-            bottomNavigation(it.itemId, it)
+            bottomMenuNavigate(it.itemId, it)
             return@setOnItemSelectedListener true
         }
         showBottomNavBar(navController)
@@ -39,7 +39,7 @@ class MainActivity : FragmentActivity() {
         binding.bottomNavigation.setupWithNavController(navController)
     }
 
-    private fun bottomNavigation(fragmentId: Int, item: MenuItem) {
+    private fun bottomMenuNavigate(fragmentId: Int, item: MenuItem) {
         NavigationUI.onNavDestinationSelected(item, navController)
         navController.navigate(fragmentId)
     }

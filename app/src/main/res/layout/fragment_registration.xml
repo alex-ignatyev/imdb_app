@@ -7,7 +7,7 @@
     tools:context=".ui.registration.RegistrationFragment">
 
     <EditText
-        android:id="@+id/editTextRegistrationFirstName"
+        android:id="@+id/editTextFirstName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextRegLogin"
+        android:id="@+id/editTextLogin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
@@ -28,10 +28,10 @@
         android:hint="@string/login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextRegistrationFirstName" />
+        app:layout_constraintTop_toBottomOf="@id/editTextFirstName" />
 
     <EditText
-        android:id="@+id/editTextRegPassword"
+        android:id="@+id/editTextPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
@@ -40,10 +40,10 @@
         android:hint="@string/password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextRegLogin" />
+        app:layout_constraintTop_toBottomOf="@id/editTextLogin" />
 
     <EditText
-        android:id="@+id/editTextRegPasswordRepeat"
+        android:id="@+id/editTextPasswordRepeat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
@@ -52,18 +52,18 @@
         android:hint="@string/repeat_password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextRegPassword" />
+        app:layout_constraintTop_toBottomOf="@id/editTextPassword" />
 
     <Button
-        android:id="@+id/button_registration"
+        android:id="@+id/buttonCreateAccount"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="36dp"
         android:text="@string/create_account"
-        app:layout_constraintEnd_toEndOf="@id/editTextRegPasswordRepeat"
-        app:layout_constraintStart_toStartOf="@id/editTextRegPasswordRepeat"
-        app:layout_constraintTop_toBottomOf="@id/editTextRegPasswordRepeat" />
+        app:layout_constraintEnd_toEndOf="@id/editTextPasswordRepeat"
+        app:layout_constraintStart_toStartOf="@id/editTextPasswordRepeat"
+        app:layout_constraintTop_toBottomOf="@id/editTextPasswordRepeat" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
