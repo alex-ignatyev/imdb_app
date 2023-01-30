@@ -16,16 +16,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class GetMoviesUseCase @Inject constructor(
-    private val repository: MoviesRepository
+    private val repo: MoviesRepository
 ) {
 
     suspend fun getMovies(): List<AdapterItem> {
         return withContext(Dispatchers.IO) {
             mutableListOf<AdapterItem>().apply {
-                getMoviesByType(MOST_POPULAR_MOVIES) { repository.getMostPopularMovies() }
-                getMoviesByType(TOP_250_MOVIES) { repository.getTop250Movies() }
-                getMoviesByType(TOP_250_TVS) { repository.getTop250TVs() }
-                getMoviesByType(COMING_SOON_MOVIES) { repository.getComingSoonMovies() }
+                getMoviesByType(MOST_POPULAR_MOVIES) { repo.getMostPopularMovies() }
+                getMoviesByType(TOP_250_MOVIES) { repo.getTop250Movies() }
+                getMoviesByType(TOP_250_TVS) { repo.getTop250TVs() }
+                getMoviesByType(COMING_SOON_MOVIES) { repo.getComingSoonMovies() }
             }
         }
     }

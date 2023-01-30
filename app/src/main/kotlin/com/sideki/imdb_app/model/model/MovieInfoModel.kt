@@ -71,7 +71,7 @@ data class MovieInfoModel(
     )
 }
 
-fun MovieInfoResponse.toDomain() = MovieInfoModel(
+fun MovieInfoResponse.toModel() = MovieInfoModel(
     movieId = id.orEmpty(),
     title = title ?: "Без названия",
     description = descriptionRus ?: descriptionEng ?: "Описание отсутствует",

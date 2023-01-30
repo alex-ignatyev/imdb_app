@@ -29,6 +29,7 @@ class MovieInfoFragment : Fragment() {
             val movieInfo by vm.movieInfo.collectAsState()
             MovieInfoScreen(
                 movie = movieInfo,
+                onActorClick = { findNavController().navigate(MovieInfoFragmentDirections.toActorInfoFragment(it)) },
                 onBackClick = { findNavController().popBackStack() }
             )
         }

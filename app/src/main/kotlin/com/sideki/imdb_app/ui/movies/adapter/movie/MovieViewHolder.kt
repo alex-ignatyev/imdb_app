@@ -1,4 +1,4 @@
-package com.sideki.imdb_app.ui.movies_list.adapter.movie
+package com.sideki.imdb_app.ui.movies.adapter.movie
 
 import coil.load
 import com.sideki.imdb_app.databinding.ItemMovieBinding

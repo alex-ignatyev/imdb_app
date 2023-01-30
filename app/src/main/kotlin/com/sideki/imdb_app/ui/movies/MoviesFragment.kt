@@ -1,4 +1,4 @@
-package com.sideki.imdb_app.ui.movies_list
+package com.sideki.imdb_app.ui.movies
 
 import android.os.Bundle
 import android.view.View
@@ -7,7 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.sideki.imdb_app.R
 import com.sideki.imdb_app.databinding.FragmentMoviesBinding
-import com.sideki.imdb_app.ui.movies_list.adapter.screen.ScreenAdapter
+import com.sideki.imdb_app.ui.movies.adapter.screen.ScreenAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

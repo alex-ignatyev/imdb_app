@@ -6,7 +6,7 @@ data class ActorResponse(
     @SerializedName("awards") val awards: String?,
     @SerializedName("birthDate") val birthDate: String?,
     @SerializedName("castMovies") val castMovies: List<CastMovie>?,
-    @SerializedName("deathDate") val deathDate: Any?,
+    @SerializedName("deathDate") val deathDate: String?,
     @SerializedName("errorMessage") val errorMessage: String?,
     @SerializedName("height") val height: String?,
     @SerializedName("id") val id: String?,
