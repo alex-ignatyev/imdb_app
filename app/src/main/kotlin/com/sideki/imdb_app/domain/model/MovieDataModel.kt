@@ -1,6 +1,5 @@
 package com.sideki.imdb_app.domain.model
 
-import com.sideki.imdb_app.data.response.MovieDataResponse
 import com.sideki.imdb_app.db.entity.MovieEntity
 import com.sideki.imdb_app.domain.model.MovieDataModel.MovieModel
 import com.sideki.imdb_app.util.recycler.AdapterItem
