@@ -1,4 +1,4 @@
-package com.sideki.imdb_app.ui.movies_list.adapter.screen
+package com.sideki.imdb_app.ui.movies.adapter.screen
 
 import com.sideki.imdb_app.databinding.ItemMovieGroupTitleBinding
 import com.sideki.imdb_app.model.model.MoviesGroupTitleModel

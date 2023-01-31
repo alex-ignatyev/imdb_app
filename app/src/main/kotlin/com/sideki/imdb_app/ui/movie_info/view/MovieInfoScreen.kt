@@ -22,6 +22,7 @@ import com.sideki.imdb_app.util.compose_view.GradientView
 @Composable
 fun MovieInfoScreen(
     movie: MovieInfoModel = MovieInfoModel(),
+    onActorClick: (String) -> Unit = { },
     onBackClick: () -> Unit = { }
 ) {
     ConstraintLayout() {
@@ -37,7 +38,8 @@ fun MovieInfoScreen(
                 .constrainAs(contentRef) {
                     top.linkTo(parent.top)
                 },
-            movie = movie
+            movie = movie,
+            onActorClick = onActorClick
         )
 
         GradientView(

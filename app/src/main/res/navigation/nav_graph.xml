@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/moviesFragment"
-        android:name="com.sideki.imdb_app.ui.movies_list.MoviesFragment"
+        android:name="com.sideki.imdb_app.ui.movies.MoviesFragment"
         android:label="fragment_movies"
         tools:layout="@layout/fragment_movies">
 
@@ -24,10 +24,24 @@
         <argument
             android:name="movieId"
             app:argType="string" />
+
+        <action
+            android:id="@+id/to_actorInfoFragment"
+            app:destination="@id/actorInfoFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.sideki.imdb_app.ui.profile.ProfileFragment"
         android:label="ProfileFragment" />
+
+    <fragment
+        android:id="@+id/actorInfoFragment"
+        android:name="com.sideki.imdb_app.ui.actor_info.ActorInfoFragment"
+        android:label="ActorInfoFragment">
+
+        <argument
+            android:name="actorId"
+            app:argType="string" />
+    </fragment>
 </navigation>

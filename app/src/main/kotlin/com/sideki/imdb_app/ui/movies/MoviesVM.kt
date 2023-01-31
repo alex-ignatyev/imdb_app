@@ -1,4 +1,4 @@
-package com.sideki.imdb_app.ui.movies_list
+package com.sideki.imdb_app.ui.movies
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

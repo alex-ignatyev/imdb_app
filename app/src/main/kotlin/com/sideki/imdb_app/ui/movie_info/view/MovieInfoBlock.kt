@@ -27,7 +27,8 @@ import com.sideki.imdb_app.util.debugPlaceholder
 @Composable
 fun MovieInfoBlock(
     modifier: Modifier = Modifier,
-    movie: MovieInfoModel = MovieInfoModel()
+    movie: MovieInfoModel = MovieInfoModel(),
+    onActorClick: (String) -> Unit = { }
 ) {
     ConstraintLayout(
         modifier = modifier
@@ -185,6 +186,7 @@ fun MovieInfoBlock(
 
         ActorsBlock(
             actors = movie.actors,
+            onActorClick = onActorClick,
             modifier = Modifier.constrainAs(actorsRef) {
                 top.linkTo(ratingsRef.bottom)
             })

@@ -1,4 +1,4 @@
-package com.sideki.imdb_app.ui.movies_list.adapter.movie
+package com.sideki.imdb_app.ui.movies.adapter.movie
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
