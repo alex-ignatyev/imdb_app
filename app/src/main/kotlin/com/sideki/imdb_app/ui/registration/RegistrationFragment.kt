@@ -42,14 +42,11 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
         vm.repeatPasswordError.observe(viewLifecycleOwner) {
             binding.repeatPasswordField.error = it
         }
-
-        vm.disableButton(binding.loginInput.toString(), binding.nameInput.toString(), binding.passwordInput.toString(), binding.repeatPasswordInput.toString())
-        vm.isButtonEnabled.observe(viewLifecycleOwner) {
-            binding.createAccount.isEnabled = it
-        }
-
+       vm.isButtonEnabled.observe(viewLifecycleOwner){
+           binding.createAccount.isEnabled = it
+       }
         binding.createAccount.setOnClickListener {
-            Toast.makeText(requireContext(), "Registrate", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Account created", Toast.LENGTH_SHORT).show()
         }
     }
 }
