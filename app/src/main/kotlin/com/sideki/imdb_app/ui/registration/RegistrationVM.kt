@@ -2,12 +2,17 @@ package com.sideki.imdb_app.ui.registration
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.sideki.imdb_app.domain.AccountRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 
 @HiltViewModel
-class RegistrationVM @Inject constructor() : ViewModel() {
+class RegistrationVM @Inject constructor(
+    private val accountRepository: AccountRepository
+) : ViewModel() {
 
     val isButtonEnabled = MutableLiveData<Boolean>()
     val login = MutableStateFlow("")
@@ -47,5 +52,12 @@ class RegistrationVM @Inject constructor() : ViewModel() {
         isButtonEnabled.value =
             login.value.trim().isNotEmpty() && name.value.trim().isNotEmpty() && password.value.trim()
                 .isNotEmpty() && repeatPassword.value.trim().isNotEmpty() && password.value == repeatPassword.value
+    }
+
+    fun createAccount(){
+        viewModelScope.launch {
+            val userAccount = accountRepository.getUserName()
+
+        }
     }
 }
