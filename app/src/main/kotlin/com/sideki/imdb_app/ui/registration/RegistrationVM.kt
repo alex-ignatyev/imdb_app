@@ -17,7 +17,7 @@ class RegistrationVM @Inject constructor(
     private val accountRepository: AccountRepository
 ) : ViewModel() {
 
-    val isButtonEnabled = MutableLiveData<Boolean>()
+
     val login = MutableStateFlow("")
     val loginError = MutableLiveData<String?>()
     val name = MutableStateFlow("")
@@ -26,6 +26,8 @@ class RegistrationVM @Inject constructor(
     val passwordError = MutableLiveData<String?>()
     val repeatPassword = MutableStateFlow("")
     val repeatPasswordError = MutableLiveData<String?>()
+    val isButtonEnabled = MutableLiveData<Boolean>()
+    val isAccountCreated = MutableLiveData<Boolean>()
 
     fun loginValidation(input: String) {
         login.value = input
@@ -42,13 +44,25 @@ class RegistrationVM @Inject constructor(
     fun passwordValidation(input: String) {
         password.value = input
         disableButton()
+        passwordEqualityCheck()
         passwordError.value = if (input.length < 8) "Minimum 8 character" else null
     }
 
     fun repeatPasswordValidation(input: String) {
         repeatPassword.value = input
         disableButton()
+        passwordEqualityCheck()
         repeatPasswordError.value = if (input.length < 8) "Minimum 8 character" else null
+    }
+
+    private fun passwordEqualityCheck() {
+        if (password.value != repeatPassword.value) {
+            passwordError.value = "Password mismatch"
+            repeatPasswordError.value = "Password mismatch"
+        } else {
+            passwordError.value = null
+            repeatPasswordError.value = null
+        }
     }
 
     private fun disableButton() {
@@ -57,15 +71,16 @@ class RegistrationVM @Inject constructor(
                 .isNotEmpty() && repeatPassword.value.trim().isNotEmpty() && password.value == repeatPassword.value
     }
 
-    fun createAccount(){
+    fun createAccount() {
         viewModelScope.launch {
-            withContext(Dispatchers.IO){
-                val userAccount = accountRepository.getAccount(login.value)
-                if (userAccount != null){
-                    //Todo
-                } else {
+            val userAccount = accountRepository.getAccount(login.value)
+            if (userAccount != null) {
+                loginError.value = "Account already exist"
+            } else {
+                withContext(Dispatchers.IO) {
                     accountRepository.insertAccount(AccountEntity(0, name.value, login.value, password.value))
                 }
+                isAccountCreated.value = true
             }
         }
     }

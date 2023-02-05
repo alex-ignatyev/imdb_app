@@ -43,12 +43,16 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
         vm.repeatPasswordError.observe(viewLifecycleOwner) {
             binding.repeatPasswordField.error = it
         }
-       vm.isButtonEnabled.observe(viewLifecycleOwner){
-           binding.createAccount.isEnabled = it
-       }
+        vm.isButtonEnabled.observe(viewLifecycleOwner) {
+            binding.createAccount.isEnabled = it
+        }
         binding.createAccount.setOnClickListener {
-            Toast.makeText(requireContext(), "Account created", Toast.LENGTH_SHORT).show()
             vm.createAccount()
+            vm.isAccountCreated.observe(viewLifecycleOwner) {
+                if (it == true) findNavController().popBackStack()
+            }
+        }
+        binding.back.setOnClickListener {
             findNavController().popBackStack()
         }
     }

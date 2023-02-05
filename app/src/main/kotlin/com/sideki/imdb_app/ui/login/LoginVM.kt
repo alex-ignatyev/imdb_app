@@ -18,6 +18,7 @@ class LoginVM @Inject constructor(
     val password = MutableStateFlow("")
     val loginError = MutableLiveData<String?>()
     val passwordError = MutableLiveData<String?>()
+    val userName = MutableLiveData<String>()
 
     fun loginValidation(input: String) {
         login.value = input
@@ -32,9 +33,9 @@ class LoginVM @Inject constructor(
             val userAccount = accountRepository.getAccount(login.value)
             if (userAccount != null) {
                 if (userAccount.password == password.value) {
-                    //Todo
+                    userName.value = userAccount.firstName
                 } else {
-                   //Todo
+
                 }
             } else {
                 //Todo
