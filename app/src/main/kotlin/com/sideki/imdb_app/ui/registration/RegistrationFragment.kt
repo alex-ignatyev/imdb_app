@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.sideki.imdb_app.R
 import com.sideki.imdb_app.databinding.FragmentRegistrationBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,6 +48,8 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
        }
         binding.createAccount.setOnClickListener {
             Toast.makeText(requireContext(), "Account created", Toast.LENGTH_SHORT).show()
+            vm.createAccount()
+            findNavController().popBackStack()
         }
     }
 }

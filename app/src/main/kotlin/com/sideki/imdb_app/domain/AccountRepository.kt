@@ -7,13 +7,12 @@ import javax.inject.Inject
 class AccountRepository @Inject constructor(
     private val accountDao: AccountDao
 ) {
-    val users = accountDao.getAllUsers()
 
-    suspend fun insert(user: AccountEntity) {
-        return accountDao.insert(user)
+    suspend fun insertAccount(account: AccountEntity) {
+        return accountDao.insertAccount(account)
     }
 
-    suspend fun getUserName(userName: String): AccountEntity? {
-        return accountDao.getUsername(userName)
+    suspend fun getAccount(account: String): AccountEntity? {
+        return accountDao.getAccount(account)
     }
 }

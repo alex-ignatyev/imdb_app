@@ -3,11 +3,14 @@ package com.sideki.imdb_app.ui.registration
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sideki.imdb_app.db.entity.AccountEntity
 import com.sideki.imdb_app.domain.AccountRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @HiltViewModel
 class RegistrationVM @Inject constructor(
@@ -56,8 +59,14 @@ class RegistrationVM @Inject constructor(
 
     fun createAccount(){
         viewModelScope.launch {
-            val userAccount = accountRepository.getUserName()
-
+            withContext(Dispatchers.IO){
+                val userAccount = accountRepository.getAccount(login.value)
+                if (userAccount != null){
+                    //Todo
+                } else {
+                    accountRepository.insertAccount(AccountEntity(0, name.value, login.value, password.value))
+                }
+            }
         }
     }
 }
