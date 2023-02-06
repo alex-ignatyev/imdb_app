@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.sideki.imdb_app.R
 import com.sideki.imdb_app.databinding.FragmentRegistrationBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,30 +22,20 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
         binding.loginInput.doAfterTextChanged {
             vm.loginValidation(it.toString())
         }
-        vm.loginError.observe(viewLifecycleOwner) {
-            binding.loginField.error = it
-        }
-        binding.nameInput.doAfterTextChanged {
-            vm.nameValidation(it.toString())
-        }
-        vm.nameError.observe(viewLifecycleOwner) {
-            binding.nameField.error = it
-        }
         binding.passwordInput.doAfterTextChanged {
             vm.passwordValidation(it.toString())
-        }
-        vm.passwordError.observe(viewLifecycleOwner) {
-            binding.passwordField.error = it
         }
         binding.repeatPasswordInput.doAfterTextChanged {
             vm.repeatPasswordValidation(it.toString())
         }
-        vm.repeatPasswordError.observe(viewLifecycleOwner) {
-            binding.repeatPasswordField.error = it
+        lifecycleScope.launchWhenStarted {
+            vm.state.collect {
+                binding.createAccount.isEnabled = vm.disableButton()
+                binding.loginField.error = it.loginError
+                binding.passwordField.error = it.passwordError
+                binding.repeatPasswordField.error = it.repeatPasswordError
+            }
         }
-       vm.isButtonEnabled.observe(viewLifecycleOwner){
-           binding.createAccount.isEnabled = it
-       }
         binding.createAccount.setOnClickListener {
             Toast.makeText(requireContext(), "Account created", Toast.LENGTH_SHORT).show()
         }
