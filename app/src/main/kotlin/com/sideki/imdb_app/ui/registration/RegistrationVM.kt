@@ -12,17 +12,17 @@ class RegistrationVM @Inject constructor() : ViewModel() {
 
     fun loginValidation(input: String) {
         state.value =
-            state.value.copy(login = input, loginError = if (input.length < 8) "Minimum 8 character" else null)
+            state.value.copy(login = input, loginError = showError(input))
     }
 
     fun passwordValidation(input: String) {
         state.value =
-            state.value.copy(password = input, passwordError = if (input.length < 8) "Minimum 8 character" else null)
+            state.value.copy(password = input, passwordError = showError(input))
     }
 
     fun repeatPasswordValidation(input: String) {
         state.value =
-            state.value.copy(repeatPassword = input, repeatPasswordError = if (input.length < 8) "Minimum 8 character" else null)
+            state.value.copy(repeatPassword = input, repeatPasswordError = showError(input))
     }
 
     fun disableButton(): Boolean {
@@ -31,6 +31,8 @@ class RegistrationVM @Inject constructor() : ViewModel() {
                 .isNotEmpty() && password == repeatPassword
         }
     }
+
+    private fun showError(input: String) = if (input.length < 8) "Minimum 8 character" else null
 }
 
 data class RegistrationState(
