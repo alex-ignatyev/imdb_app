@@ -15,5 +15,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         binding.logIn.setOnClickListener {
             findNavController().navigate(LoginFragmentDirections.toMoviesFragment())
         }
+        binding.signUp.setOnClickListener {
+            findNavController().navigate(LoginFragmentDirections.toRegistrationFragment())
+        }
     }
 }
