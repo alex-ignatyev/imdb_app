@@ -18,27 +18,36 @@ class LoginVM @Inject constructor(
     val password = MutableStateFlow("")
     val loginError = MutableLiveData<String?>()
     val passwordError = MutableLiveData<String?>()
-    val userName = MutableLiveData<String>()
+    val isButtonEnabled = MutableLiveData<Boolean>()
+    val isFilledCorrectly = MutableLiveData<Boolean>()
 
     fun loginValidation(input: String) {
         login.value = input
+        disableButton()
     }
 
     fun passwordValidation(input: String) {
         password.value = input
+        disableButton()
+    }
+
+    private fun disableButton() {
+        isButtonEnabled.value =
+            login.value.trim().isNotEmpty() && password.value.trim().isNotEmpty()
     }
 
     fun logIn() {
         viewModelScope.launch {
             val userAccount = accountRepository.getAccount(login.value)
             if (userAccount != null) {
+                loginError.value = null
                 if (userAccount.password == password.value) {
-                    userName.value = userAccount.firstName
+                    isFilledCorrectly.value = true
                 } else {
-
+                    passwordError.value = "Invalid password"
                 }
             } else {
-                //Todo
+                loginError.value = "Account with this name does not exist"
             }
         }
     }
