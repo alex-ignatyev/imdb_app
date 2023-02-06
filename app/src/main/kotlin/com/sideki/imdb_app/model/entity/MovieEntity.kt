@@ -14,7 +14,7 @@ data class MovieEntity(
     val type: MovieType
 ) {
 
-    enum class MovieType(title: String) {
+    enum class MovieType(val title: String) {
         MOST_POPULAR_MOVIES("Most popular movies"),
         TOP_250_MOVIES("Top 250 movies"),
         TOP_250_TVS("Top 250 TVs"),

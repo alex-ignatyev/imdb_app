@@ -1,7 +1,7 @@
 package com.sideki.imdb_app.domain
 
-import com.sideki.imdb_app.db.AccountsDao
-import com.sideki.imdb_app.db.entity.AccountEntity
+import com.sideki.imdb_app.data.db.AccountsDao
+import com.sideki.imdb_app.model.entity.AccountEntity
 import javax.inject.Inject
 
 class AccountRepository @Inject constructor(

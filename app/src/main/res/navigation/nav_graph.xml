@@ -6,6 +6,27 @@
     app:startDestination="@id/loginFragment">
 
     <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.sideki.imdb_app.ui.login.LoginFragment"
+        android:label="fragmentLogin"
+        tools:layout="@layout/fragment_login">
+
+        <action
+            android:id="@+id/to_RegistrationFragment"
+            app:destination="@id/registrationFragment" />
+        <action
+            android:id="@+id/to_moviesFragment"
+            app:destination="@id/moviesFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.sideki.imdb_app.ui.registration.RegistrationFragment"
+        android:label="fragment_registration"
+        tools:layout="@layout/fragment_registration" />
+
+    <fragment
         android:id="@+id/moviesFragment"
         android:name="com.sideki.imdb_app.ui.movies.MoviesFragment"
         android:label="fragment_movies"
@@ -31,33 +52,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.sideki.imdb_app.ui.profile.ProfileFragment"
-        android:label="ProfileFragment" />
-
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.sideki.imdb_app.ui.login.LoginFragment"
-        android:label="fragmentLogin"
-        tools:layout="@layout/fragment_login">
-
-        <action
-            android:id="@+id/actionLoginFragment2ToRegistrationFragment"
-            app:destination="@id/registrationFragment" />
-
-        <action
-            android:id="@+id/actionLoginFragment2ToProfileFragment"
-            app:destination="@id/profileFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/registrationFragment"
-        android:name="com.sideki.imdb_app.ui.registration.RegistrationFragment"
-        android:label="fragment_registration"
-        tools:layout="@layout/fragment_registration" />
-
-
-    <fragment
         android:id="@+id/actorInfoFragment"
         android:name="com.sideki.imdb_app.ui.actor_info.ActorInfoFragment"
         android:label="ActorInfoFragment">
@@ -66,4 +60,10 @@
             android:name="actorId"
             app:argType="string" />
     </fragment>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.sideki.imdb_app.ui.profile.ProfileFragment"
+        android:label="ProfileFragment" />
+
 </navigation>

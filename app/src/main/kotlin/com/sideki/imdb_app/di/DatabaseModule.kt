@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.sideki.imdb_app.data.DataStoreImpl
 import com.sideki.imdb_app.data.DataStorePref
+import com.sideki.imdb_app.data.db.AccountsDao
 import com.sideki.imdb_app.data.db.MoviesDB
 import com.sideki.imdb_app.data.db.MoviesDao
 import dagger.Module

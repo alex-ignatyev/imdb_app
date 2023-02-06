@@ -36,7 +36,7 @@ class GetMoviesUseCase @Inject constructor(
     ) {
         val movies = moviesFromRepo.invoke()
         if (movies.isNotEmpty()) {
-            this.add(MoviesGroupTitleModel(titleName = type.name))
+            this.add(MoviesGroupTitleModel(titleName = type.title))
             this.add(MovieDataModel(movies = movies.toModel()))
         }
     }
