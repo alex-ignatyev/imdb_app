@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -15,11 +16,11 @@ fun GradientView(
     modifier: Modifier = Modifier,
     startColor: Color = Color.Black,
     endColor: Color = Color.Transparent,
-    height: Int = 80
+    height: Dp = 80.dp
 ) {
     Box(
         modifier = modifier
-            .height(height.dp)
+            .height(height)
             .fillMaxWidth()
             .background(
                 brush = Brush.verticalGradient(
