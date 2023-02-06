@@ -17,7 +17,6 @@
         <action
             android:id="@+id/to_moviesFragment"
             app:destination="@id/moviesFragment" />
-
     </fragment>
 
     <fragment
