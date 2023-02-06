@@ -1,23 +1,23 @@
 package com.sideki.imdb_app.domain
 
+import com.sideki.imdb_app.data.DataStorePref
 import com.sideki.imdb_app.data.api.ImdbApi
-import com.sideki.imdb_app.data.response.MovieDataResponse
-import com.sideki.imdb_app.db.MoviesDao
-import com.sideki.imdb_app.db.entity.MovieEntity
-import com.sideki.imdb_app.db.entity.MovieEntity.MovieType
-import com.sideki.imdb_app.db.entity.MovieEntity.MovieType.COMING_SOON_MOVIES
-import com.sideki.imdb_app.db.entity.MovieEntity.MovieType.MOST_POPULAR_MOVIES
-import com.sideki.imdb_app.db.entity.MovieEntity.MovieType.TOP_250_MOVIES
-import com.sideki.imdb_app.db.entity.MovieEntity.MovieType.TOP_250_TVS
-import com.sideki.imdb_app.db.entity.toEntity
-import com.sideki.imdb_app.di.DataStorePreferences
+import com.sideki.imdb_app.data.db.MoviesDao
+import com.sideki.imdb_app.model.entity.MovieEntity
+import com.sideki.imdb_app.model.entity.MovieEntity.MovieType
+import com.sideki.imdb_app.model.entity.MovieEntity.MovieType.COMING_SOON_MOVIES
+import com.sideki.imdb_app.model.entity.MovieEntity.MovieType.MOST_POPULAR_MOVIES
+import com.sideki.imdb_app.model.entity.MovieEntity.MovieType.TOP_250_MOVIES
+import com.sideki.imdb_app.model.entity.MovieEntity.MovieType.TOP_250_TVS
+import com.sideki.imdb_app.model.entity.toEntity
+import com.sideki.imdb_app.model.response.MovieDataResponse
 import java.time.LocalDate
 import javax.inject.Inject
 
 class MoviesRepository @Inject constructor(
     private val moviesDao: MoviesDao,
     private val imdbApi: ImdbApi,
-    private val preferences: DataStorePreferences
+    private val store: DataStorePref
 ) {
 
     suspend fun getMostPopularMovies(): List<MovieEntity> {
@@ -44,23 +44,21 @@ class MoviesRepository @Inject constructor(
         }
     }
 
-    suspend fun clearAllMovies(){
-        val currentDate = LocalDate.now().toString()
-        val dateFromPreferences = preferences.getDate()
-        if (currentDate != dateFromPreferences) {
+    suspend fun clearAllMovies() {
+        val today = LocalDate.now().toString()
+        val prefDate = store.getDate()
+        if (today != prefDate) {
             moviesDao.clearAllMovies()
-            preferences.saveDate(currentDate)
+            store.saveDate(today)
         }
     }
 
     private suspend inline fun getMoviesByType(type: MovieType, request: () -> MovieDataResponse): List<MovieEntity> {
         val moviesFromDb = moviesDao.getMoviesByType(type)
-        return if (moviesFromDb.isEmpty()) {
+        return moviesFromDb.ifEmpty {
             val moviesFromInternet = request.invoke().movies.toEntity(type)
             moviesDao.insertMovies(moviesFromInternet)
             moviesFromInternet
-        } else {
-            moviesFromDb
         }
     }
 }
