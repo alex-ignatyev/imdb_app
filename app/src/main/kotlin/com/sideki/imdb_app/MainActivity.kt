@@ -2,6 +2,7 @@ package com.sideki.imdb_app
 
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.core.view.isGone
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -22,12 +23,10 @@ class MainActivity : FragmentActivity() {
         setContentView(binding.root)
         initNavHost()
         binding.bottomNavigation.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.moviesFragment -> bottomNavigation(R.id.moviesFragment, it)
-                R.id.profileFragment -> bottomNavigation(R.id.profileFragment, it)
-            }
+            bottomMenuNavigate(it.itemId, it)
             return@setOnItemSelectedListener true
         }
+        showBottomNavBar(navController)
     }
 
     private fun initNavHost() {
@@ -40,8 +39,15 @@ class MainActivity : FragmentActivity() {
         binding.bottomNavigation.setupWithNavController(navController)
     }
 
-    private fun bottomNavigation(fragmentId: Int, item: MenuItem) {
+    private fun bottomMenuNavigate(fragmentId: Int, item: MenuItem) {
         NavigationUI.onNavDestinationSelected(item, navController)
         navController.navigate(fragmentId)
+    }
+
+    private fun showBottomNavBar(navController: NavController) {
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            binding.bottomNavigation.isGone =
+                destination.id == R.id.loginFragment || destination.id == R.id.registrationFragment
+        }
     }
 }
