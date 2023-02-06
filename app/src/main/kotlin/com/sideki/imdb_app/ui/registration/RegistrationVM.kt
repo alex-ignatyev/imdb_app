@@ -1,6 +1,5 @@
 package com.sideki.imdb_app.ui.registration
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sideki.imdb_app.db.entity.AccountEntity
@@ -17,44 +16,28 @@ class RegistrationVM @Inject constructor(
     private val accountRepository: AccountRepository
 ) : ViewModel() {
 
-
-    val login = MutableStateFlow("")
-    val loginError = MutableLiveData<String?>()
-    val name = MutableStateFlow("")
-    val nameError = MutableLiveData<String?>()
-    val password = MutableStateFlow("")
-    val passwordError = MutableLiveData<String?>()
-    val repeatPassword = MutableStateFlow("")
-    val repeatPasswordError = MutableLiveData<String?>()
-    val isButtonEnabled = MutableLiveData<Boolean>()
-    val isAccountCreated = MutableLiveData<Boolean>()
+    val state = MutableStateFlow(RegistrationState())
 
     fun loginValidation(input: String) {
-        login.value = input
-        disableButton()
-        loginError.value = if (input.length < 8) "Minimum 8 character" else null
-    }
-
-    fun nameValidation(input: String) {
-        name.value = input
-        disableButton()
-        nameError.value = if (input.isEmpty()) "The field must be filled in" else null
+        state.value =
+            state.value.copy(login = input, loginError = showError(input))
     }
 
     fun passwordValidation(input: String) {
-        password.value = input
-        disableButton()
-        passwordEqualityCheck()
-        passwordError.value = if (input.length < 8) "Minimum 8 character" else null
+        state.value =
+            state.value.copy(password = input, passwordError = showError(input))
     }
 
     fun repeatPasswordValidation(input: String) {
-        repeatPassword.value = input
-        disableButton()
-        passwordEqualityCheck()
-        repeatPasswordError.value = if (input.length < 8) "Minimum 8 character" else null
+        state.value =
+            state.value.copy(repeatPassword = input, repeatPasswordError = showError(input))
     }
 
+    fun disableButton(): Boolean {
+        return with(state.value) {
+            login.trim().isNotEmpty() && password.trim().isNotEmpty() && repeatPassword.trim()
+                .isNotEmpty() && password == repeatPassword
+        }
     private fun passwordEqualityCheck() {
         if (password.value != repeatPassword.value) {
             passwordError.value = "Password mismatch"
@@ -71,6 +54,8 @@ class RegistrationVM @Inject constructor(
                 .isNotEmpty() && repeatPassword.value.trim().isNotEmpty() && password.value == repeatPassword.value
     }
 
+    private fun showError(input: String) = if (input.length < 8) "Minimum 8 character" else null
+
     fun createAccount() {
         viewModelScope.launch {
             val userAccount = accountRepository.getAccount(login.value)
@@ -85,3 +70,12 @@ class RegistrationVM @Inject constructor(
         }
     }
 }
+
+data class RegistrationState(
+    val login: String = "",
+    val password: String = "",
+    val repeatPassword: String = "",
+    val loginError: String? = null,
+    val passwordError: String? = null,
+    val repeatPasswordError: String? = null
+)

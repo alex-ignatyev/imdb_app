@@ -15,13 +15,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.sideki.imdb_app.domain.model.MovieInfoModel
+import com.sideki.imdb_app.model.model.MovieInfoModel
 import com.sideki.imdb_app.util.compose_view.GradientView
 
 @Preview
 @Composable
 fun MovieInfoScreen(
     movie: MovieInfoModel = MovieInfoModel(),
+    onActorClick: (String) -> Unit = { },
     onBackClick: () -> Unit = { }
 ) {
     ConstraintLayout() {
@@ -37,11 +38,11 @@ fun MovieInfoScreen(
                 .constrainAs(contentRef) {
                     top.linkTo(parent.top)
                 },
-            movie = movie
+            movie = movie,
+            onActorClick = onActorClick
         )
 
         GradientView(
-            height = 80,
             modifier = Modifier.constrainAs(gradientRef) {
                 top.linkTo(parent.top)
             })

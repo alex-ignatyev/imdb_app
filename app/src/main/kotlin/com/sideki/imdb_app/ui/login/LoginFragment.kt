@@ -1,17 +1,13 @@
 package com.sideki.imdb_app.ui.login
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.sideki.imdb_app.R
 import com.sideki.imdb_app.databinding.FragmentLoginBinding
-import com.sideki.imdb_app.databinding.FragmentRegistrationBinding
-import com.sideki.imdb_app.ui.registration.RegistrationVM
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -38,7 +34,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             vm.logIn()
         }
         binding.signUp.setOnClickListener {
-            findNavController().navigate(R.id.registrationFragment)
+            findNavController().navigate(LoginFragmentDirections.toRegistrationFragment())
         }
     }
 }
