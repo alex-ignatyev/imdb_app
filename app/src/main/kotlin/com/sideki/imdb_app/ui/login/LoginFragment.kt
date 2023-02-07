@@ -27,10 +27,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         binding.passwordInput.doAfterTextChanged {
             vm.passwordValidation(it.toString())
         }
-        vm.passwordError.observe(viewLifecycleOwner){
+        vm.passwordError.observe(viewLifecycleOwner) {
             binding.passwordField.error = it
         }
-        binding.buttonLogIn.setOnClickListener {
+        binding.logIn.setOnClickListener {
             vm.logIn()
         }
         binding.signUp.setOnClickListener {

@@ -6,6 +6,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.sideki.imdb_app.R
 import com.sideki.imdb_app.databinding.FragmentRegistrationBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,12 +34,12 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
                 binding.loginField.error = it.loginError
                 binding.passwordField.error = it.passwordError
                 binding.repeatPasswordField.error = it.repeatPasswordError
-            }
-        }
-        binding.createAccount.setOnClickListener {
-            vm.createAccount()
-            vm.isAccountCreated.observe(viewLifecycleOwner) {
-                if (it == true) findNavController().popBackStack()
+                binding.createAccount.setOnClickListener {
+                    vm.createAccount()
+                    vm.isAbleToCreateAccount.observe(viewLifecycleOwner) {
+                        if (it == true) findNavController().popBackStack()
+                    }
+                }
             }
         }
         binding.back.setOnClickListener {

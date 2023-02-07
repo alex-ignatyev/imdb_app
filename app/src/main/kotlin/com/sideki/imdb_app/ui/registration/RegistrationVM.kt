@@ -1,9 +1,10 @@
 package com.sideki.imdb_app.ui.registration
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sideki.imdb_app.db.entity.AccountEntity
 import com.sideki.imdb_app.domain.AccountRepository
+import com.sideki.imdb_app.model.entity.AccountEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
@@ -17,20 +18,30 @@ class RegistrationVM @Inject constructor(
 ) : ViewModel() {
 
     val state = MutableStateFlow(RegistrationState())
+    val isAbleToCreateAccount = MutableLiveData<Boolean>()
 
     fun loginValidation(input: String) {
         state.value =
-            state.value.copy(login = input, loginError = showError(input))
+            state.value.copy(login = input, loginError = if (input.length < 8) "Minimum 8 character" else null)
     }
 
     fun passwordValidation(input: String) {
-        state.value =
-            state.value.copy(password = input, passwordError = showError(input))
+        with(state.value) {
+            if (input.length < 8) state.value = copy(password = input, passwordError = "Minimum 8 character")
+            else if (password != repeatPassword) state.value =
+                copy(passwordError = "Password mismatch", repeatPasswordError = "Password mismatch")
+            else state.value = copy(passwordError = null, repeatPasswordError = null)
+        }
     }
 
     fun repeatPasswordValidation(input: String) {
-        state.value =
-            state.value.copy(repeatPassword = input, repeatPasswordError = showError(input))
+        with(state.value) {
+            if (input.length < 8) state.value =
+                copy(repeatPassword = input, repeatPasswordError = "Minimum 8 character")
+            else if (password != repeatPassword) state.value =
+                copy(passwordError = "Password mismatch", repeatPasswordError = "Password mismatch")
+            else state.value = copy(passwordError = null, repeatPasswordError = null)
+        }
     }
 
     fun disableButton(): Boolean {
@@ -38,34 +49,18 @@ class RegistrationVM @Inject constructor(
             login.trim().isNotEmpty() && password.trim().isNotEmpty() && repeatPassword.trim()
                 .isNotEmpty() && password == repeatPassword
         }
-    private fun passwordEqualityCheck() {
-        if (password.value != repeatPassword.value) {
-            passwordError.value = "Password mismatch"
-            repeatPasswordError.value = "Password mismatch"
-        } else {
-            passwordError.value = null
-            repeatPasswordError.value = null
-        }
     }
-
-    private fun disableButton() {
-        isButtonEnabled.value =
-            login.value.trim().isNotEmpty() && name.value.trim().isNotEmpty() && password.value.trim()
-                .isNotEmpty() && repeatPassword.value.trim().isNotEmpty() && password.value == repeatPassword.value
-    }
-
-    private fun showError(input: String) = if (input.length < 8) "Minimum 8 character" else null
 
     fun createAccount() {
         viewModelScope.launch {
-            val userAccount = accountRepository.getAccount(login.value)
+            val userAccount = accountRepository.getAccount(state.value.login)
             if (userAccount != null) {
-                loginError.value = "Account already exist"
+                state.value = state.value.copy(loginError = "Account already exist")
             } else {
                 withContext(Dispatchers.IO) {
-                    accountRepository.insertAccount(AccountEntity(0, name.value, login.value, password.value))
+                    accountRepository.insertAccount(AccountEntity(0, state.value.login, state.value.password))
                 }
-                isAccountCreated.value = true
+                isAbleToCreateAccount.value = true
             }
         }
     }
@@ -75,7 +70,8 @@ data class RegistrationState(
     val login: String = "",
     val password: String = "",
     val repeatPassword: String = "",
-    val loginError: String? = null,
-    val passwordError: String? = null,
-    val repeatPasswordError: String? = null
+    var loginError: String? = null,
+    var passwordError: String? = null,
+    var repeatPasswordError: String? = null,
+    var passwordMismatchError: String? = null
 )
