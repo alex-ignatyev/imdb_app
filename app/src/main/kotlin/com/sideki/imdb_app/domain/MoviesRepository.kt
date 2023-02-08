@@ -56,7 +56,7 @@ class MoviesRepository @Inject constructor(
     }
 
     private fun getLocalDate(): Flow<String> = callbackFlow {
-        LocalDate.now().toString()
+        LocalDate.now()
     }
 
     private suspend inline fun getMoviesByType(type: MovieType, request: () -> MovieDataResponse): List<MovieEntity> {
