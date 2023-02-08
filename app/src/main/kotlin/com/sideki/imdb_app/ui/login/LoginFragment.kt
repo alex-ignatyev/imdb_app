@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import com.sideki.imdb_app.R
 import com.sideki.imdb_app.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class LoginFragment : Fragment(R.layout.fragment_login) {
@@ -33,7 +32,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 binding.passwordField.error = it.passwordError
                 binding.buttonLogIn.setOnClickListener {
                     vm.logIn()
-                    vm.isFilledCorrectly.observe(viewLifecycleOwner) { isFilledCorrectly ->
+                    vm.hasCorrectFields.observe(viewLifecycleOwner) { isFilledCorrectly ->
                         if (isFilledCorrectly == true) findNavController().navigate(LoginFragmentDirections.actionLoginFragment2ToMoviesFragment())
                     }
                 }

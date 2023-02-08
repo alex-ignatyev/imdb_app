@@ -15,7 +15,7 @@ class LoginVM @Inject constructor(
 ) : ViewModel() {
 
     val state = MutableStateFlow(LogInState())
-    val isFilledCorrectly = MutableLiveData<Boolean>()
+    val hasCorrectFields = MutableLiveData<Boolean>()
 
     fun loginValidation(input: String) {
         state.value = state.value.copy(login = input, loginError = null)
@@ -38,7 +38,7 @@ class LoginVM @Inject constructor(
                 if (userAccount != null) {
                     state.value = copy(loginError = null)
                     if (userAccount.password == password) {
-                        isFilledCorrectly.value = true
+                        hasCorrectFields.value = true
                     } else {
                         state.value = copy(passwordError = "Invalid password")
                     }
