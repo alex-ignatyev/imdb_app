@@ -34,7 +34,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 binding.buttonLogIn.setOnClickListener {
                     vm.logIn()
                     vm.isFilledCorrectly.observe(viewLifecycleOwner) { isFilledCorrectly ->
-                        if (isFilledCorrectly == true) findNavController().navigate(R.id.moviesFragment)
+                        if (isFilledCorrectly == true) findNavController().navigate(LoginFragmentDirections.actionLoginFragment2ToMoviesFragment())
                     }
                 }
             }
