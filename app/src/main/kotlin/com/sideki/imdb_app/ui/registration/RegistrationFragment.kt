@@ -36,8 +36,8 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
                 binding.repeatPasswordField.error = it.repeatPasswordError
                 binding.createAccount.setOnClickListener {
                     vm.createAccount()
-                    vm.isAbleToCreateAccount.observe(viewLifecycleOwner) {
-                        if (it == true) findNavController().popBackStack()
+                    vm.isAbleToCreateAccount.observe(viewLifecycleOwner) { isAbleToCreateAccount ->
+                        if (isAbleToCreateAccount == true) findNavController().popBackStack()
                     }
                 }
             }
