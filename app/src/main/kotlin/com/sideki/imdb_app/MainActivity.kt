@@ -20,10 +20,8 @@ class MainActivity : FragmentActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
-
     @Inject
     lateinit var dataStorePreferenceStorage: DataStorePreferenceStorage
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
