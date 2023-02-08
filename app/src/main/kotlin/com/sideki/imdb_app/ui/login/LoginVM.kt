@@ -18,11 +18,11 @@ class LoginVM @Inject constructor(
     val isFilledCorrectly = MutableLiveData<Boolean>()
 
     fun loginValidation(input: String) {
-        state.value = state.value.copy(login = input)
+        state.value = state.value.copy(login = input, loginError = null)
     }
 
     fun passwordValidation(input: String) {
-        state.value = state.value.copy(login = input)
+        state.value = state.value.copy(password = input, passwordError = null)
     }
 
     fun disableButton(): Boolean {

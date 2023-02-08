@@ -27,18 +27,20 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             vm.passwordValidation(it.toString())
         }
         lifecycleScope.launchWhenStarted {
-            vm.state.collect{
-                binding.
-            }
-        }
-        binding.buttonLogIn.setOnClickListener {
-            vm.logIn()
-            vm.isFilledCorrectly.observe(viewLifecycleOwner) {
-                if (it == true) findNavController().navigate(R.id.moviesFragment)
+            vm.state.collect {
+                binding.buttonLogIn.isEnabled = vm.disableButton()
+                binding.loginField.error = it.loginError
+                binding.passwordField.error = it.passwordError
+                binding.buttonLogIn.setOnClickListener {
+                    vm.logIn()
+                    vm.isFilledCorrectly.observe(viewLifecycleOwner) { isFilledCorrectly ->
+                        if (isFilledCorrectly == true) findNavController().navigate(R.id.moviesFragment)
+                    }
+                }
             }
         }
         binding.signUp.setOnClickListener {
-            findNavController().navigate(R.id.registrationFragment)
+            findNavController().navigate(LoginFragmentDirections.actionLoginFragment2ToRegistrationFragment())
         }
     }
 }
