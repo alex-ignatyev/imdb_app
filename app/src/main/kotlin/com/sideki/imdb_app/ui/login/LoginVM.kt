@@ -1,8 +1,8 @@
 package com.sideki.imdb_app.ui.login
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sideki.imdb_app.db.DataStorePreferenceStorage
 import com.sideki.imdb_app.domain.AccountRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -11,11 +11,11 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class LoginVM @Inject constructor(
-    private val accountRepository: AccountRepository
+    private val accountRepository: AccountRepository,
+    private val preferences: DataStorePreferenceStorage
 ) : ViewModel() {
 
     val state = MutableStateFlow(LogInState())
-    val hasCorrectFields = MutableLiveData<Boolean>()
 
     fun loginValidation(input: String) {
         state.value = state.value.copy(login = input, loginError = null)
@@ -38,7 +38,8 @@ class LoginVM @Inject constructor(
                 if (userAccount != null) {
                     state.value = copy(loginError = null)
                     if (userAccount.password == password) {
-                        hasCorrectFields.value = true
+                        state.value = copy(hasCorrectFields = true)
+                        preferences.saveLoggedInState(hasCorrectFields)
                     } else {
                         state.value = copy(passwordError = "Invalid password")
                     }
@@ -54,5 +55,6 @@ data class LogInState(
     val login: String = "",
     val password: String = "",
     val loginError: String? = null,
-    val passwordError: String? = null
+    val passwordError: String? = null,
+    val hasCorrectFields: Boolean = false
 )

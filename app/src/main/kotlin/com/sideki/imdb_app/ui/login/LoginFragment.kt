@@ -30,13 +30,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 binding.buttonLogIn.isEnabled = vm.disableButton()
                 binding.loginField.error = it.loginError
                 binding.passwordField.error = it.passwordError
-                binding.buttonLogIn.setOnClickListener {
-                    vm.logIn()
-                    vm.hasCorrectFields.observe(viewLifecycleOwner) { isFilledCorrectly ->
-                        if (isFilledCorrectly == true) findNavController().navigate(LoginFragmentDirections.actionLoginFragment2ToMoviesFragment())
-                    }
-                }
             }
+        }
+        binding.buttonLogIn.setOnClickListener {
+            vm.logIn()
+            if (vm.state.value.hasCorrectFields) findNavController().navigate(LoginFragmentDirections.actionLoginFragment2ToMoviesFragment())
         }
         binding.signUp.setOnClickListener {
             findNavController().navigate(LoginFragmentDirections.actionLoginFragment2ToRegistrationFragment())
