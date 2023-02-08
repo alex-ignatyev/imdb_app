@@ -14,41 +14,45 @@ class LoginVM @Inject constructor(
     private val accountRepository: AccountRepository
 ) : ViewModel() {
 
-    val login = MutableStateFlow("")
-    val password = MutableStateFlow("")
-    val loginError = MutableLiveData<String?>()
-    val passwordError = MutableLiveData<String?>()
-    val isButtonEnabled = MutableLiveData<Boolean>()
+    val state = MutableStateFlow(LogInState())
     val isFilledCorrectly = MutableLiveData<Boolean>()
 
     fun loginValidation(input: String) {
-        login.value = input
-        disableButton()
+        state.value = state.value.copy(login = input)
     }
 
     fun passwordValidation(input: String) {
-        password.value = input
-        disableButton()
+        state.value = state.value.copy(login = input)
     }
 
-    private fun disableButton() {
-        isButtonEnabled.value =
-            login.value.trim().isNotEmpty() && password.value.trim().isNotEmpty()
+    fun disableButton(): Boolean {
+        return with(state.value) {
+            login.trim().isNotEmpty() && password.trim().isNotEmpty()
+        }
     }
 
     fun logIn() {
         viewModelScope.launch {
-            val userAccount = accountRepository.getAccount(login.value)
-            if (userAccount != null) {
-                loginError.value = null
-                if (userAccount.password == password.value) {
-                    isFilledCorrectly.value = true
+            with(state.value) {
+                val userAccount = accountRepository.getAccount(login)
+                if (userAccount != null) {
+                    state.value = copy(loginError = null)
+                    if (userAccount.password == password) {
+                        isFilledCorrectly.value = true
+                    } else {
+                        state.value = copy(passwordError = "Invalid password")
+                    }
                 } else {
-                    passwordError.value = "Invalid password"
+                    state.value = copy(loginError = "Account with this name does not exist")
                 }
-            } else {
-                loginError.value = "Account with this name does not exist"
             }
         }
     }
 }
+
+data class LogInState(
+    val login: String = "",
+    val password: String = "",
+    val loginError: String? = null,
+    val passwordError: String? = null
+)

@@ -5,10 +5,12 @@ import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.sideki.imdb_app.R
 import com.sideki.imdb_app.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class LoginFragment : Fragment(R.layout.fragment_login) {
@@ -21,17 +23,13 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         binding.loginInput.doAfterTextChanged {
             vm.loginValidation(it.toString())
         }
-        vm.loginError.observe(viewLifecycleOwner) {
-            binding.loginField.error = it
-        }
         binding.passwordInput.doAfterTextChanged {
             vm.passwordValidation(it.toString())
         }
-        vm.passwordError.observe(viewLifecycleOwner) {
-            binding.passwordField.error = it
-        }
-        vm.isButtonEnabled.observe(viewLifecycleOwner) {
-            binding.buttonLogIn.isEnabled = it
+        lifecycleScope.launchWhenStarted {
+            vm.state.collect{
+                binding.
+            }
         }
         binding.buttonLogIn.setOnClickListener {
             vm.logIn()
