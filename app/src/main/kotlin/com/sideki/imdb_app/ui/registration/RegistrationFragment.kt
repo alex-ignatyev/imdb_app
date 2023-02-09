@@ -34,13 +34,11 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
                 binding.loginField.error = it.loginError
                 binding.passwordField.error = it.passwordError
                 binding.repeatPasswordField.error = it.repeatPasswordError
-                binding.createAccount.setOnClickListener {
-                    vm.createAccount()
-                    vm.isAbleToCreateAccount.observe(viewLifecycleOwner) { isAbleToCreateAccount ->
-                        if (isAbleToCreateAccount == true) findNavController().popBackStack()
-                    }
-                }
             }
+        }
+        binding.createAccount.setOnClickListener {
+            vm.createAccount()
+            if (vm.state.value.isAbleToCreateAccount) findNavController().popBackStack()
         }
         binding.back.setOnClickListener {
             findNavController().popBackStack()

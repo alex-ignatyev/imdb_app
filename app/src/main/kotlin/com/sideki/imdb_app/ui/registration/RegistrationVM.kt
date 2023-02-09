@@ -18,7 +18,6 @@ class RegistrationVM @Inject constructor(
 ) : ViewModel() {
 
     val state = MutableStateFlow(RegistrationState())
-    val isAbleToCreateAccount = MutableLiveData<Boolean>()
 
     fun loginValidation(input: String) {
         state.value =
@@ -60,7 +59,7 @@ class RegistrationVM @Inject constructor(
                 withContext(Dispatchers.IO) {
                     accountRepository.insertAccount(AccountEntity(0, state.value.login, state.value.password))
                 }
-                isAbleToCreateAccount.value = true
+                state.value = state.value.copy(isAbleToCreateAccount = true)
             }
         }
     }
@@ -73,5 +72,6 @@ data class RegistrationState(
     var loginError: String? = null,
     var passwordError: String? = null,
     var repeatPasswordError: String? = null,
-    var passwordMismatchError: String? = null
+    var passwordMismatchError: String? = null,
+    val isAbleToCreateAccount: Boolean = false
 )
