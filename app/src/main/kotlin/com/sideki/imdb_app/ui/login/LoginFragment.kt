@@ -21,14 +21,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         binding.loginInput.doAfterTextChanged {
             vm.loginValidation(it.toString())
         }
-        vm.loginError.observe(viewLifecycleOwner){
-            binding.loginField.error = it
-        }
         binding.passwordInput.doAfterTextChanged {
             vm.passwordValidation(it.toString())
-        }
-        vm.passwordError.observe(viewLifecycleOwner) {
-            binding.passwordField.error = it
         }
         binding.logIn.setOnClickListener {
             vm.logIn()
