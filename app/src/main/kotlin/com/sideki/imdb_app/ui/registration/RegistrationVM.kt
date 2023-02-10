@@ -4,9 +4,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sideki.imdb_app.domain.AccountRepository
+import com.sideki.imdb_app.domain.use_case.GetAccountUseCase
+import com.sideki.imdb_app.domain.use_case.InsertAccountUseCase
 import com.sideki.imdb_app.model.entity.AccountEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlin.random.Random
+import kotlin.random.Random.Default
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -14,7 +18,9 @@ import kotlinx.coroutines.withContext
 
 @HiltViewModel
 class RegistrationVM @Inject constructor(
-    private val accountRepository: AccountRepository
+    private val accountRepository: AccountRepository,
+    private val insertAccountUseCase: InsertAccountUseCase,
+    private val getAccountUseCase: GetAccountUseCase
 ) : ViewModel() {
 
     val state = MutableStateFlow(RegistrationState())
@@ -52,13 +58,11 @@ class RegistrationVM @Inject constructor(
 
     fun createAccount() {
         viewModelScope.launch {
-            val userAccount = accountRepository.getAccount(state.value.login)
+            val userAccount = getAccountUseCase.getAccount(state.value.login)
             if (userAccount != null) {
                 state.value = state.value.copy(loginError = "Account already exist")
             } else {
-                withContext(Dispatchers.IO) {
-                    accountRepository.insertAccount(AccountEntity(0, state.value.login, state.value.password))
-                }
+               insertAccountUseCase.insertAccount(AccountEntity(Random.nextInt()))
                 state.value = state.value.copy(isAbleToCreateAccount = true)
             }
         }
