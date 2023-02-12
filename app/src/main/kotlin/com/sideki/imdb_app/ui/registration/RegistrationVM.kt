@@ -25,23 +25,23 @@ class RegistrationVM @Inject constructor(
 
     fun passwordValidation(input: String) {
         with(state.value) {
-            if (input.length < 8) state.value = copy(password = input, passwordError = "Minimum 8 character")
-            else if (password != repeatPassword) state.value =
-                copy(passwordError = "Password mismatch", repeatPasswordError = "Password mismatch")
-            else state.value = copy(passwordError = null, repeatPasswordError = null)
+            state.value = copy(
+                password = input,
+                passwordError = if (input.length < 8) "Minimum 8 character"
+                else if ((input != repeatPassword)) "Password mismatch" else null,
+                repeatPasswordError = if ((input != repeatPassword)) "Password mismatch" else null
+            )
         }
     }
 
     fun repeatPasswordValidation(input: String) {
         with(state.value) {
-            when (input.length < 8) {
-                true -> state.value = copy(repeatPassword = input, repeatPasswordError = "Minimum 8 character")
-                else -> when (password != repeatPassword) {
-                    true -> state.value =
-                        copy(passwordError = "Password mismatch", repeatPasswordError = "Password mismatch")
-                    else -> state.value = copy(passwordError = null, repeatPasswordError = null)
-                }
-            }
+            state.value = copy(
+                repeatPassword = input,
+                repeatPasswordError = if (input.length < 8) "Minimum 8 character" else if ((input != password))
+                    "Password mismatch" else null,
+                passwordError = if ((input != password)) "Password mismatch" else null
+            )
         }
     }
 

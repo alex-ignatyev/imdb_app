@@ -37,11 +37,9 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
             }
         }
         binding.createAccount.setOnClickListener {
+            vm.createAccount()
+            if (vm.state.value.isAbleToCreateAccount) findNavController().popBackStack()
 
-            if (vm.state.value.isAbleToCreateAccount){
-                vm.createAccount()
-                findNavController().popBackStack()
-            }
         }
         binding.back.setOnClickListener {
             findNavController().popBackStack()
