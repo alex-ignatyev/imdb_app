@@ -1,9 +1,7 @@
 package com.sideki.imdb_app.ui.login
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sideki.imdb_app.domain.AccountRepository
 import com.sideki.imdb_app.domain.use_case.GetAccountUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -19,11 +17,11 @@ class LoginVM @Inject constructor(
     val password = MutableStateFlow("")
 
     fun loginValidation(input: String) {
-        login.value = input
+        //Todo
     }
 
     fun passwordValidation(input: String) {
-        password.value = input
+        //Todo
     }
 
     fun logIn() {

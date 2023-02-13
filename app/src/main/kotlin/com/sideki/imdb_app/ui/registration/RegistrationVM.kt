@@ -18,12 +18,12 @@ class RegistrationVM @Inject constructor(
 
     val state = MutableStateFlow(RegistrationState())
 
-    fun loginValidation(input: String) {
+    fun obtainLoginChanges(input: String) {
         state.value =
             state.value.copy(login = input, loginError = if (input.length < 8) "Minimum 8 character" else null)
     }
 
-    fun passwordValidation(input: String) {
+    fun obtainPasswordChanges(input: String) {
         with(state.value) {
             state.value = copy(
                 password = input,
@@ -34,7 +34,7 @@ class RegistrationVM @Inject constructor(
         }
     }
 
-    fun repeatPasswordValidation(input: String) {
+    fun obtainRepeatPasswordChanges(input: String) {
         with(state.value) {
             state.value = copy(
                 repeatPassword = input,

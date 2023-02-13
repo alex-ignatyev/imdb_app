@@ -20,13 +20,13 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentRegistrationBinding.bind(view)
         binding.loginInput.doAfterTextChanged {
-            vm.loginValidation(it.toString())
+            vm.obtainLoginChanges(it.toString())
         }
         binding.passwordInput.doAfterTextChanged {
-            vm.passwordValidation(it.toString())
+            vm.obtainPasswordChanges(it.toString())
         }
         binding.repeatPasswordInput.doAfterTextChanged {
-            vm.repeatPasswordValidation(it.toString())
+            vm.obtainRepeatPasswordChanges(it.toString())
         }
         lifecycleScope.launchWhenStarted {
             vm.state.collect {
