@@ -28,8 +28,8 @@ class RegistrationVM @Inject constructor(
             state.value = copy(
                 password = input,
                 passwordError = if (input.length < 8) "Minimum 8 character"
-                else if ((input != repeatPassword)) "Password mismatch" else null,
-                repeatPasswordError = if ((input != repeatPassword)) "Password mismatch" else null
+                else if (input != repeatPassword) "Password mismatch" else null,
+                repeatPasswordError = if (input != repeatPassword) "Password mismatch" else null
             )
         }
     }
@@ -38,9 +38,9 @@ class RegistrationVM @Inject constructor(
         with(state.value) {
             state.value = copy(
                 repeatPassword = input,
-                repeatPasswordError = if (input.length < 8) "Minimum 8 character" else if ((input != password))
+                repeatPasswordError = if (input.length < 8) "Minimum 8 character" else if (input != password)
                     "Password mismatch" else null,
-                passwordError = if ((input != password)) "Password mismatch" else null
+                passwordError = if (input != password) "Password mismatch" else null
             )
         }
     }
@@ -72,10 +72,10 @@ class RegistrationVM @Inject constructor(
 
 data class RegistrationState(
     val login: String = "",
-    val password: String = "",
-    val repeatPassword: String = "",
     var loginError: String? = null,
+    val password: String = "",
     var passwordError: String? = null,
+    val repeatPassword: String = "",
     var repeatPasswordError: String? = null,
     var isAbleToCreateAccount: Boolean = false
 )
