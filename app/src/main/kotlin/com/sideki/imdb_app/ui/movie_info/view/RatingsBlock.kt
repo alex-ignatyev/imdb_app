@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.sideki.imdb_app.domain.model.MovieInfoModel.RatingsModel
+import com.sideki.imdb_app.model.model.MovieInfoModel.RatingsModel
 
 
 @Preview
@@ -91,13 +91,13 @@ private fun getRatingColor(rating: String): Color {
         }
     } else {
         Color.Green
-        /*val ratingInt = rating.toInt()
+        val ratingInt = rating.toInt()
         if (ratingInt <= 40) {
             Color.Red
         } else if (ratingInt in 41..69) {
             Color.DarkGray
         } else {
             Color.Green
-        }*/
+        }
     }
 }

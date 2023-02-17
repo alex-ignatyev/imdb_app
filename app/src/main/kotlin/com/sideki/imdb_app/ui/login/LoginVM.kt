@@ -1,9 +1,8 @@
 package com.sideki.imdb_app.ui.login
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sideki.imdb_app.domain.AccountRepository
+import com.sideki.imdb_app.domain.use_case.GetAccountUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,7 +10,7 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class LoginVM @Inject constructor(
-    private val accountRepository: AccountRepository
+    private val getAccountUseCase: GetAccountUseCase
 ) : ViewModel() {
 
     val state = MutableStateFlow(LogInState())

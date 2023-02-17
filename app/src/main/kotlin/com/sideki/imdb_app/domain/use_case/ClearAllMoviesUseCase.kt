@@ -10,7 +10,7 @@ class ClearAllMoviesUseCase @Inject constructor(
 ) {
 
     suspend fun clearAllMoviesIfNeeded() {
-        withContext(Dispatchers.IO){
+        withContext(Dispatchers.IO) {
             repo.clearAllMovies()
         }
     }

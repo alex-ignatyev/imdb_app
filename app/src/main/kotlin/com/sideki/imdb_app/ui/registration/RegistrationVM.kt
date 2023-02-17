@@ -1,10 +1,10 @@
 package com.sideki.imdb_app.ui.registration
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sideki.imdb_app.db.entity.AccountEntity
-import com.sideki.imdb_app.domain.AccountRepository
+import com.sideki.imdb_app.domain.use_case.GetAccountUseCase
+import com.sideki.imdb_app.domain.use_case.InsertAccountUseCase
+import com.sideki.imdb_app.model.entity.AccountEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
@@ -14,74 +14,69 @@ import kotlinx.coroutines.withContext
 
 @HiltViewModel
 class RegistrationVM @Inject constructor(
-    private val accountRepository: AccountRepository
+    private val insertAccountUseCase: InsertAccountUseCase,
+    private val getAccountUseCase: GetAccountUseCase
 ) : ViewModel() {
 
+    val state = MutableStateFlow(RegistrationState())
 
-    val login = MutableStateFlow("")
-    val loginError = MutableLiveData<String?>()
-    val name = MutableStateFlow("")
-    val nameError = MutableLiveData<String?>()
-    val password = MutableStateFlow("")
-    val passwordError = MutableLiveData<String?>()
-    val repeatPassword = MutableStateFlow("")
-    val repeatPasswordError = MutableLiveData<String?>()
-    val isButtonEnabled = MutableLiveData<Boolean>()
-    val isAccountCreated = MutableLiveData<Boolean>()
-
-    fun loginValidation(input: String) {
-        login.value = input
-        disableButton()
-        loginError.value = if (input.length < 8) "Minimum 8 character" else null
+    fun obtainLoginChanges(input: String) {
+        state.value =
+            state.value.copy(login = input, loginError = if (input.length < 8) "Minimum 8 character" else null)
     }
 
-    fun nameValidation(input: String) {
-        name.value = input
-        disableButton()
-        nameError.value = if (input.isEmpty()) "The field must be filled in" else null
-    }
-
-    fun passwordValidation(input: String) {
-        password.value = input
-        disableButton()
-        passwordEqualityCheck()
-        passwordError.value = if (input.length < 8) "Minimum 8 character" else null
-    }
-
-    fun repeatPasswordValidation(input: String) {
-        repeatPassword.value = input
-        disableButton()
-        passwordEqualityCheck()
-        repeatPasswordError.value = if (input.length < 8) "Minimum 8 character" else null
-    }
-
-    private fun passwordEqualityCheck() {
-        if (password.value != repeatPassword.value) {
-            passwordError.value = "Password mismatch"
-            repeatPasswordError.value = "Password mismatch"
-        } else {
-            passwordError.value = null
-            repeatPasswordError.value = null
+    fun obtainPasswordChanges(input: String) {
+        with(state.value) {
+            state.value = copy(
+                password = input,
+                passwordError = if (input.length < 8) "Minimum 8 character"
+                else if (input != repeatPassword) "Password mismatch" else null,
+                repeatPasswordError = if (input != repeatPassword) "Password mismatch" else null
+            )
         }
     }
 
-    private fun disableButton() {
-        isButtonEnabled.value =
-            login.value.trim().isNotEmpty() && name.value.trim().isNotEmpty() && password.value.trim()
-                .isNotEmpty() && repeatPassword.value.trim().isNotEmpty() && password.value == repeatPassword.value
+    fun obtainRepeatPasswordChanges(input: String) {
+        with(state.value) {
+            state.value = copy(
+                repeatPassword = input,
+                repeatPasswordError = if (input.length < 8) "Minimum 8 character" else if (input != password)
+                    "Password mismatch" else null,
+                passwordError = if (input != password) "Password mismatch" else null
+            )
+        }
     }
 
-    fun createAccount() {
-        viewModelScope.launch {
-            val userAccount = accountRepository.getAccount(login.value)
+    fun disableButton(): Boolean {
+        return with(state.value) {
+            login.trim().isNotEmpty() && password.trim().isNotEmpty() && repeatPassword.trim()
+                .isNotEmpty() && password == repeatPassword
+        }
+    }
+
+    fun createAccount(userAdded: () -> Unit) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val userAccount = getAccountUseCase.getAccount(state.value.login)
             if (userAccount != null) {
-                loginError.value = "Account already exist"
+                state.value = state.value.copy(loginError = "Account already exist")
             } else {
-                withContext(Dispatchers.IO) {
-                    accountRepository.insertAccount(AccountEntity(0, name.value, login.value, password.value))
-                }
-                isAccountCreated.value = true
+                insertAccountUseCase.insertAccount(
+                    AccountEntity(
+                        login = state.value.login,
+                        password = state.value.password
+                    )
+                )
+                withContext(Dispatchers.Main) { userAdded.invoke() }
             }
         }
     }
 }
+
+data class RegistrationState(
+    val login: String = "",
+    var loginError: String? = null,
+    val password: String = "",
+    var passwordError: String? = null,
+    val repeatPassword: String = "",
+    var repeatPasswordError: String? = null,
+)
