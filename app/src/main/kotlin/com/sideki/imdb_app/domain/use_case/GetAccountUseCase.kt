@@ -11,8 +11,6 @@ class GetAccountUseCase @Inject constructor(
 ) {
 
     suspend fun getAccount(account: String): AccountEntity? {
-      return withContext(Dispatchers.IO) {
-            repo.getAccount(account)
-        }
+        return repo.getAccount(account)
     }
 }

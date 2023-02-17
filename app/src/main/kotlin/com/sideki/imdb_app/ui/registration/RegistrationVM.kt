@@ -7,8 +7,10 @@ import com.sideki.imdb_app.domain.use_case.InsertAccountUseCase
 import com.sideki.imdb_app.model.entity.AccountEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @HiltViewModel
 class RegistrationVM @Inject constructor(
@@ -52,8 +54,8 @@ class RegistrationVM @Inject constructor(
         }
     }
 
-    fun createAccount() {
-        viewModelScope.launch {
+    fun createAccount(userAdded: () -> Unit) {
+        viewModelScope.launch(Dispatchers.IO) {
             val userAccount = getAccountUseCase.getAccount(state.value.login)
             if (userAccount != null) {
                 state.value = state.value.copy(loginError = "Account already exist")
@@ -64,7 +66,7 @@ class RegistrationVM @Inject constructor(
                         password = state.value.password
                     )
                 )
-                state.value.isAbleToCreateAccount = true
+                withContext(Dispatchers.Main) { userAdded.invoke() }
             }
         }
     }
@@ -77,5 +79,4 @@ data class RegistrationState(
     var passwordError: String? = null,
     val repeatPassword: String = "",
     var repeatPasswordError: String? = null,
-    var isAbleToCreateAccount: Boolean = false
 )
