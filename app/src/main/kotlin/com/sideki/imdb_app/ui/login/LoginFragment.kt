@@ -20,26 +20,23 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentLoginBinding.bind(view)
         binding.loginInput.doAfterTextChanged {
-            vm.loginValidation(it.toString())
+            vm.obtainLoginChanges(it.toString())
         }
         binding.passwordInput.doAfterTextChanged {
-            vm.passwordValidation(it.toString())
+            vm.obtainPasswordChanges(it.toString())
         }
         lifecycleScope.launchWhenStarted {
             vm.state.collect {
-                binding.buttonLogIn.isEnabled = vm.disableButton()
+                binding.logIn.isEnabled = vm.disableButton()
                 binding.loginField.error = it.loginError
                 binding.passwordField.error = it.passwordError
-                binding.buttonLogIn.setOnClickListener {
-                    vm.logIn()
-                    vm.hasCorrectFields.observe(viewLifecycleOwner) { isFilledCorrectly ->
-                        if (isFilledCorrectly == true) findNavController().navigate(LoginFragmentDirections.actionLoginFragment2ToMoviesFragment())
-                    }
-                }
             }
         }
+        binding.logIn.setOnClickListener {
+            vm.logIn { findNavController().navigate(LoginFragmentDirections.toMoviesFragment()) }
+        }
         binding.signUp.setOnClickListener {
-            findNavController().navigate(LoginFragmentDirections.actionLoginFragment2ToRegistrationFragment())
+            findNavController().navigate(LoginFragmentDirections.toRegistrationFragment())
         }
     }
 }
