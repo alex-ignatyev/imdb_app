@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -17,24 +16,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layoutId
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.text.style.TextDecoration.Companion
-import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.Dimension
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.sideki.imdb_app.R
 import com.sideki.imdb_app.util.setContent
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
+
+    private val vm by viewModels<ProfileVM>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,7 +70,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             LogOut(
                 text = "Log Out", modifier = Modifier
                     .layoutId("logOut")
-                    .padding(16.dp), findNavController()
+                    .padding(16.dp), findNavController(), userLoggedOut = vm.logOut()
             )
         }
     }
@@ -160,13 +161,15 @@ fun ChangePassword(text: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun LogOut(text: String, modifier: Modifier = Modifier, navController: NavController) {
+fun LogOut(text: String, modifier: Modifier = Modifier, navController: NavController, userLoggedOut: Unit) {
     Box(modifier = modifier) {
         Text(
             text = text,
             color = Color.Red,
             fontSize = 20.sp,
             fontStyle = FontStyle.Italic,
-            modifier = Modifier.clickable { navController.navigate(ProfileFragmentDirections.toLoginFragment2()) })
+            modifier = Modifier.clickable {
+                navController.navigate(ProfileFragmentDirections.toLoginFragment2())
+            })
     }
 }
