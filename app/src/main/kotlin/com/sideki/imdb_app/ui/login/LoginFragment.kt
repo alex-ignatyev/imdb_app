@@ -5,6 +5,7 @@ import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.sideki.imdb_app.R
 import com.sideki.imdb_app.databinding.FragmentLoginBinding
@@ -19,13 +20,20 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentLoginBinding.bind(view)
         binding.loginInput.doAfterTextChanged {
-            vm.loginValidation(it.toString())
+            vm.obtainLoginChanges(it.toString())
         }
         binding.passwordInput.doAfterTextChanged {
-            vm.passwordValidation(it.toString())
+            vm.obtainPasswordChanges(it.toString())
+        }
+        lifecycleScope.launchWhenStarted {
+            vm.state.collect {
+                binding.logIn.isEnabled = vm.disableButton()
+                binding.loginField.error = it.loginError
+                binding.passwordField.error = it.passwordError
+            }
         }
         binding.logIn.setOnClickListener {
-            vm.logIn()
+            vm.logIn { findNavController().navigate(LoginFragmentDirections.toMoviesFragment()) }
         }
         binding.signUp.setOnClickListener {
             findNavController().navigate(LoginFragmentDirections.toRegistrationFragment())
