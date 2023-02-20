@@ -27,7 +27,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
         lifecycleScope.launchWhenStarted {
             vm.state.collect {
-                binding.buttonLogIn.isEnabled = vm.disableButton()
                 binding.loginField.error = it.loginError
                 binding.passwordField.error = it.passwordError
             }

@@ -18,11 +18,15 @@ class LoginVM @Inject constructor(
     val state = MutableStateFlow(LogInState())
 
     fun loginValidation(input: String) {
-        state.value = state.value.copy(login = input, loginError = null)
+        state.value =
+            state.value.copy(login = input, loginError = null)
     }
 
     fun passwordValidation(input: String) {
-        state.value = state.value.copy(password = input, passwordError = null)
+        state.value = state.value.copy(
+            password = input,
+            passwordError = null
+        )
     }
 
     fun disableButton(): Boolean {
@@ -41,10 +45,18 @@ class LoginVM @Inject constructor(
                         state.value = copy(hasCorrectFields = true)
                         preferences.saveLoggedInState(hasCorrectFields)
                     } else {
-                        state.value = copy(passwordError = "Invalid password")
+                        state.value =
+                            copy(
+                                passwordError = if (state.value.password.isEmpty()) "The field must be filled in"
+                                else "Invalid password"
+                            )
                     }
                 } else {
-                    state.value = copy(loginError = "Account with this name does not exist")
+                    state.value =
+                        copy(
+                            loginError = if (state.value.login.isEmpty()) "The field must be filled in"
+                            else "Account with this name does not exist"
+                        )
                 }
             }
         }
