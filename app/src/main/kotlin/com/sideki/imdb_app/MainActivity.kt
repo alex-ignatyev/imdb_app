@@ -20,6 +20,7 @@ class MainActivity : FragmentActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+
     @Inject
     lateinit var dataStorePreferenceStorage: DataStorePreferenceStorage
 
@@ -33,7 +34,6 @@ class MainActivity : FragmentActivity() {
             return@setOnItemSelectedListener true
         }
         showBottomNavBar(navController)
-        visibilityNavElements(navController)
         lifecycleScope.launchWhenStarted {
             dataStorePreferenceStorage.isLoggedIn.collect { isLoggedIn ->
                 if (isLoggedIn) {

@@ -1,8 +1,8 @@
 package com.sideki.imdb_app.domain
 
-import com.sideki.imdb_app.data.DataStorePref
 import com.sideki.imdb_app.data.api.ImdbApi
 import com.sideki.imdb_app.data.db.MoviesDao
+import com.sideki.imdb_app.db.DataStorePreferenceStorage
 import com.sideki.imdb_app.model.entity.MovieEntity
 import com.sideki.imdb_app.model.entity.MovieEntity.MovieType
 import com.sideki.imdb_app.model.entity.MovieEntity.MovieType.COMING_SOON_MOVIES
@@ -46,17 +46,13 @@ class MoviesRepository @Inject constructor(
         }
     }
 
+
     suspend fun clearAllMovies() {
-        val currentDate = getLocalDate()
-        val dateFromPreferences = prefs.date
-        if (currentDate != dateFromPreferences) {
-    suspend fun clearAllMovies() {
-        val today = LocalDate.now().toString()
-        val prefDate = store.getDate()
+        val today = getLocalDate()
+        val prefDate = prefs.date
         if (today != prefDate) {
             moviesDao.clearAllMovies()
-            prefs.saveDate(currentDate.toString())
-            store.saveDate(today)
+            prefs.saveDate(today.toString())
         }
     }
 
