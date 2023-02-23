@@ -43,7 +43,7 @@ class LoginVM @Inject constructor(
                     state.value = copy(loginError = null)
                     if (userAccount.password == password) {
                         state.value = copy(hasCorrectFields = true)
-                        preferences.saveLoggedInState(hasCorrectFields)
+                        preferences.saveLoggedInState(true)
                     } else {
                         state.value =
                             copy(

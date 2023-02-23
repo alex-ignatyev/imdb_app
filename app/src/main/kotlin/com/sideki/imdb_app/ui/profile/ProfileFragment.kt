@@ -42,7 +42,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         container: ViewGroup?, savedInstanceState: Bundle?
     ) = setContent {
 
-
         ConstraintLayout(constraintSet = ConstraintsOfScreen(), modifier = Modifier.fillMaxSize()) {
             Background()
             Title(
@@ -59,7 +58,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             ChangePassword(
                 text = "Change password", modifier = Modifier
                     .padding(10.dp)
-                    .layoutId("changePassword")
+                    .layoutId("changePassword"), findNavController()
             )
             DividerLine(
                 modifier = Modifier
@@ -154,9 +153,16 @@ fun DividerLine(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun ChangePassword(text: String, modifier: Modifier = Modifier) {
+fun ChangePassword(text: String, modifier: Modifier = Modifier, navController: NavController) {
     Box(modifier = modifier) {
-        Text(text = text, fontWeight = FontWeight.Bold, fontSize = 20.sp, color = Color.White)
+        Text(
+            text = text,
+            fontWeight = FontWeight.Bold,
+            fontSize = 20.sp,
+            color = Color.White,
+            modifier = Modifier.clickable {
+                navController.navigate(ProfileFragmentDirections.toChangePasswordFragment())
+            })
     }
 }
 

@@ -29,16 +29,19 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.sideki.imdb_app.ui.profile.ProfileFragment"
-        android:label="ProfileFragment" >
+        android:label="ProfileFragment">
         <action
             android:id="@+id/to_loginFragment2"
             app:destination="@id/loginFragment2" />
+        <action
+            android:id="@+id/to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment2"
         android:name="com.sideki.imdb_app.ui.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment2_to_registrationFragment"
             app:destination="@id/registrationFragment" />
@@ -51,4 +54,9 @@
         android:name="com.sideki.imdb_app.ui.registration.RegistrationFragment"
         android:label="fragment_registration"
         tools:layout="@layout/fragment_registration" />
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.sideki.imdb_app.ui.change_password.ChangePasswordFragment"
+        android:label="fragment_change_password"
+        tools:layout="@layout/fragment_change_password" />
 </navigation>
