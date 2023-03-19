@@ -6,8 +6,11 @@ import com.sideki.imdb_app.db.DataStorePreferenceStorage
 import com.sideki.imdb_app.domain.AccountRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @HiltViewModel
 class LoginVM @Inject constructor(
@@ -42,8 +45,11 @@ class LoginVM @Inject constructor(
                 if (userAccount != null) {
                     state.value = copy(loginError = null)
                     if (userAccount.password == password) {
-                        state.value = copy(hasCorrectFields = true)
-                        preferences.saveLoggedInState(true)
+                        val job = launch {
+                            preferences.saveLoggedInState(true)
+                            preferences.saveCurrentAccountLoggedIn(login)
+                        }
+                        job.join()
                     } else {
                         state.value =
                             copy(

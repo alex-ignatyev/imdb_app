@@ -15,4 +15,8 @@ class AccountRepository @Inject constructor(
     suspend fun getAccount(account: String): AccountEntity? {
         return accountDao.getAccount(account)
     }
+
+    suspend fun changePassword(password: String) {
+        return accountDao.changePassword(password)
+    }
 }
