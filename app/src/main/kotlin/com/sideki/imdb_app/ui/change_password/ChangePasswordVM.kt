@@ -1,68 +1,34 @@
 package com.sideki.imdb_app.ui.change_password
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.sideki.imdb_app.db.DataStorePreferenceStorage
-import com.sideki.imdb_app.domain.use_case.ChangePasswordUseCase
-import com.sideki.imdb_app.domain.use_case.GetAccountUseCase
+import com.sideki.imdb_app.ui.base.Store
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.flow.StateFlow
 
 @HiltViewModel
-class ChangePasswordVM @Inject constructor(
-    private val changePasswordUseCase: ChangePasswordUseCase,
-    private val getAccountUseCase: GetAccountUseCase,
-    private val preferences: DataStorePreferenceStorage
-) : ViewModel() {
+class ChangePasswordVM @Inject constructor() : ViewModel() {
 
-    val state = MutableStateFlow(ChangePasswordState())
+    private val store = Store(
+        initialState = ChangePasswordState(),
+        reducer = ChangePasswordReducer()
+    )
+
+    val state: StateFlow<ChangePasswordState> = store.state
 
     fun obtainCurrentPasswordChanges(input: String) {
-        if (input.length <= 20) state.value = state.value.copy(currentPassword = input)
+        val action = ChangePasswordAction.CurrentPasswordChanged(input)
+        store.dispatch(action)
     }
 
     fun obtainNewPasswordChanges(input: String) {
-        if (input.length <= 20) state.value = state.value.copy(
-            newPassword = input,
-            newPasswordError = input.length < 8 || input != state.value.repeatNewPassword,
-            repeatNewPasswordError = false
-        )
+        val action = ChangePasswordAction.NewPasswordChanged(input)
+        store.dispatch(action)
     }
 
     fun obtainRepeatNewPasswordChanges(input: String) {
-        if (input.length <= 20) state.value = state.value.copy(
-            repeatNewPassword = input,
-            repeatNewPasswordError = input.length < 8 || input != state.value.newPassword,
-            newPasswordError = false
-        )
+        val action = ChangePasswordAction.RepeatNewPasswordChanged(input)
+        store.dispatch(action)
     }
 
-    fun changePassword(passwordChanged: () -> Unit) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                val account = getAccountUseCase.getAccount(preferences.currentAccountLoggedIn.first())
-                val currentPassword = account?.password
-                if (currentPassword != state.value.currentPassword) state.value =
-                    state.value.copy(currentPasswordError = true)
-                else if (currentPassword != state.value.currentPassword && state.value.newPassword == state.value.repeatNewPassword) {
-                    changePasswordUseCase.changePassword(state.value.newPassword)
-                    withContext(Dispatchers.Main) { passwordChanged.invoke() }
-                }
-            }
-        }
-    }
 }
-
-data class ChangePasswordState(
-    val currentPassword: String = "",
-    val currentPasswordError: Boolean = false,
-    val newPassword: String = "",
-    val newPasswordError: Boolean = false,
-    val repeatNewPassword: String = "",
-    val repeatNewPasswordError: Boolean = false,
-)

@@ -40,7 +40,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
 import com.sideki.imdb_app.R
 import com.sideki.imdb_app.util.setContent
@@ -88,9 +87,6 @@ class ChangePasswordFragment : Fragment() {
                 error = state.value.repeatNewPasswordError,
                 onValueChange = { vm.obtainRepeatNewPasswordChanges(it) }
             )
-            OutLineButton(
-                text = "Change password",
-                action = { vm.changePassword { findNavController().popBackStack() } })
             OutLineButton(text = "Back", action = { findNavController().popBackStack() })
         }
     }
@@ -118,12 +114,10 @@ fun OutLineTextField(
     text: String,
     input: String,
     error: Boolean,
-    vm: ChangePasswordVM = viewModel(),
     onValueChange: (String) -> Unit
 ) {
     var isPasswordVisible by remember { mutableStateOf(false) }
     val maxCharacter = 20
-    val state = vm.state.collectAsState()
     Column(modifier = Modifier.fillMaxWidth()) {
         OutlinedTextField(
             value = input,
@@ -161,7 +155,6 @@ fun OutLineTextField(
             Text(
                 text = if (error) {
                     if (input.length < 8) "Minimum 8 character"
-                    else if (state.value.newPassword != state.value.repeatNewPassword) "Password mismatch"
                     else ""
                 } else "",
                 textAlign = TextAlign.Start,
