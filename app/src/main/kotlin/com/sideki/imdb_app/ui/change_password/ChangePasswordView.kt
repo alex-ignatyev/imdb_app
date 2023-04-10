@@ -1,8 +1,5 @@
 package com.sideki.imdb_app.ui.change_password
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -23,7 +20,6 @@ import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -38,57 +34,49 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import com.sideki.imdb_app.R
-import com.sideki.imdb_app.util.setContent
-import dagger.hilt.android.AndroidEntryPoint
+import com.sideki.imdb_app.R.drawable
+import com.sideki.imdb_app.ui.change_password.ChangePasswordAction.CurrentPasswordChanged
+import com.sideki.imdb_app.ui.change_password.ChangePasswordAction.NewPasswordChanged
+import com.sideki.imdb_app.ui.change_password.ChangePasswordAction.OnChangePasswordButtonClicked
+import com.sideki.imdb_app.ui.change_password.ChangePasswordAction.RepeatNewPasswordChanged
+import com.sideki.imdb_app.util.base.UIAction
 
-@AndroidEntryPoint
-class ChangePasswordFragment : Fragment() {
+@Composable
+fun ChangePasswordView(state: ChangePasswordState, actionHandler: (UIAction) -> Unit) {
 
-    private val vm by viewModels<ChangePasswordVM>()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?, savedInstanceState: Bundle?
-    ) = setContent {
-        val state = vm.state.collectAsState()
-        Background()
-        Column(
+    Background()
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        OutLineTextField(
             modifier = Modifier
-                .fillMaxSize()
-        ) {
-            OutLineTextField(
-                modifier = Modifier
-                    .padding(start = 36.dp, end = 36.dp, top = 20.dp)
-                    .fillMaxWidth(),
-                "Current password",
-                input = state.value.currentPassword,
-                error = state.value.currentPasswordError,
-                onValueChange = { vm.obtainCurrentPasswordChanges(it) }
-            )
-            OutLineTextField(
-                modifier = Modifier
-                    .padding(start = 36.dp, end = 36.dp, top = 20.dp)
-                    .fillMaxWidth(),
-                "New password",
-                input = state.value.newPassword,
-                error = state.value.newPasswordError,
-                onValueChange = { vm.obtainNewPasswordChanges(it) }
-            )
-            OutLineTextField(
-                modifier = Modifier
-                    .padding(start = 36.dp, end = 36.dp, top = 20.dp)
-                    .fillMaxWidth(),
-                "Repeat new password",
-                input = state.value.repeatNewPassword,
-                error = state.value.repeatNewPasswordError,
-                onValueChange = { vm.obtainRepeatNewPasswordChanges(it) }
-            )
-            OutLineButton(text = "Back", action = { findNavController().popBackStack() })
-        }
+                .padding(start = 36.dp, end = 36.dp, top = 20.dp)
+                .fillMaxWidth(),
+            "Current password",
+            input = state.currentPassword,
+            error = state.currentPasswordError,
+            onValueChange = { actionHandler.invoke(CurrentPasswordChanged(it)) }
+        )
+        OutLineTextField(
+            modifier = Modifier
+                .padding(start = 36.dp, end = 36.dp, top = 20.dp)
+                .fillMaxWidth(),
+            "New password",
+            input = state.newPassword,
+            error = state.newPasswordError,
+            onValueChange = { actionHandler.invoke(NewPasswordChanged(it)) }
+        )
+        OutLineTextField(
+            modifier = Modifier
+                .padding(start = 36.dp, end = 36.dp, top = 20.dp)
+                .fillMaxWidth(),
+            "Repeat new password",
+            input = state.repeatNewPassword,
+            error = state.repeatNewPasswordError,
+            onValueChange = { actionHandler.invoke(RepeatNewPasswordChanged(it)) }
+        )
+        OutLineButton(text = "Back", actionHandler = actionHandler)
     }
 }
 
@@ -102,7 +90,8 @@ fun Background() {
                     colors = listOf(
                         Color.DarkGray,
                         Color.Black
-                    ), endY = 1100f
+                    ),
+                    endY = 1100f
                 )
             )
     )
@@ -113,7 +102,7 @@ fun OutLineTextField(
     modifier: Modifier = Modifier,
     text: String,
     input: String,
-    error: Boolean,
+    error: String,
     onValueChange: (String) -> Unit
 ) {
     var isPasswordVisible by remember { mutableStateOf(false) }
@@ -122,7 +111,7 @@ fun OutLineTextField(
         OutlinedTextField(
             value = input,
             onValueChange = onValueChange,
-            label = { Text(text, style = TextStyle(color = if (error) Color.Red else Color.White)) },
+            label = { Text(text, style = TextStyle(color = if (error.isNotEmpty()) Color.Red else Color.White)) },
             singleLine = true,
             placeholder = { Text(text, style = TextStyle(color = Color.White)) },
             visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
@@ -136,8 +125,8 @@ fun OutLineTextField(
             },
             trailingIcon = {
                 val image = if (isPasswordVisible)
-                    painterResource(id = R.drawable.ic_visibility_off)
-                else painterResource(id = R.drawable.ic_visibility)
+                    painterResource(id = drawable.ic_visibility_off)
+                else painterResource(id = drawable.ic_visibility)
                 val description = if (isPasswordVisible) "Hide password" else "Show password"
                 IconButton(onClick = { isPasswordVisible = !isPasswordVisible }) {
                     Icon(painter = image, description, tint = Color.White)
@@ -145,18 +134,15 @@ fun OutLineTextField(
             },
             modifier = modifier,
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = if (error) Color.Red else Color.White,
-                unfocusedBorderColor = if (error) Color.Red else Color.White,
-                textColor = if (error) Color.Red else Color.White,
-                cursorColor = if (error) Color.Red else Color.White
+                focusedBorderColor = if (error.isNotEmpty()) Color.Red else Color.White,
+                unfocusedBorderColor = if (error.isNotEmpty()) Color.Red else Color.White,
+                textColor = if (error.isNotEmpty()) Color.Red else Color.White,
+                cursorColor = if (error.isNotEmpty()) Color.Red else Color.White
             )
         )
         Row(modifier = Modifier.fillMaxWidth()) {
             Text(
-                text = if (error) {
-                    if (input.length < 8) "Minimum 8 character"
-                    else ""
-                } else "",
+                text = error,
                 textAlign = TextAlign.Start,
                 style = MaterialTheme.typography.caption,
                 modifier = Modifier
@@ -170,16 +156,16 @@ fun OutLineTextField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(end = 36.dp),
-                color = if (error) Color.Red else Color.White
+                color = if (error.isNotEmpty()) Color.Red else Color.White
             )
         }
     }
 }
 
 @Composable
-fun OutLineButton(text: String, modifier: Modifier = Modifier, action: () -> Unit) {
+fun OutLineButton(text: String, modifier: Modifier = Modifier, actionHandler: (UIAction) -> Unit) {
     OutlinedButton(
-        onClick = action,
+        onClick = { actionHandler.invoke(OnChangePasswordButtonClicked()) },
         colors = ButtonDefaults.buttonColors(
             contentColor = Color.White,
             backgroundColor = Color.Transparent
@@ -192,3 +178,4 @@ fun OutLineButton(text: String, modifier: Modifier = Modifier, action: () -> Uni
         Text(text, color = Color.White)
     }
 }
+

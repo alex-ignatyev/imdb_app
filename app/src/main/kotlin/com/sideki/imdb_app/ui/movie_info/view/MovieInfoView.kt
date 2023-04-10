@@ -20,7 +20,7 @@ import com.sideki.imdb_app.util.compose_view.GradientView
 
 @Preview
 @Composable
-fun MovieInfoScreen(
+fun MovieInfoView(
     movie: MovieInfoModel = MovieInfoModel(),
     onBackClick: () -> Unit = { }
 ) {
