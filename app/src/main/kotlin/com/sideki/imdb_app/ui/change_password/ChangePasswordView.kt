@@ -157,7 +157,7 @@ fun OutLineTextField(
 }
 
 @Composable
-fun OutLineButton(text: String, modifier: Modifier = Modifier, actionHandler: (UIAction) -> Unit = {}) {
+fun OutLineButton(text: String, modifier: Modifier = Modifier, actionHandler: (UIAction) -> Unit) {
     OutlinedButton(
         onClick = {
             if (text == "Change password") actionHandler.invoke(OnChangePasswordButtonClicked())
