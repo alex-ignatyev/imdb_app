@@ -5,7 +5,7 @@ import androidx.compose.runtime.DisallowComposableCalls
 import androidx.compose.runtime.remember
 
 @Composable
-public fun <T : MVIViewModel> ViewModel(
+fun <T : MVIViewModel> ViewModel(
     factory: @DisallowComposableCalls () -> T,
     content: @Composable (T) -> Unit
 ) {

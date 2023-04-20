@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import com.sideki.imdb_app.R.drawable
 import com.sideki.imdb_app.ui.change_password.ChangePasswordAction.CurrentPasswordChanged
 import com.sideki.imdb_app.ui.change_password.ChangePasswordAction.NewPasswordChanged
+import com.sideki.imdb_app.ui.change_password.ChangePasswordAction.OnBackButtonClicked
 import com.sideki.imdb_app.ui.change_password.ChangePasswordAction.OnChangePasswordButtonClicked
 import com.sideki.imdb_app.ui.change_password.ChangePasswordAction.RepeatNewPasswordChanged
 import com.sideki.imdb_app.util.base.UIAction
@@ -50,32 +51,24 @@ fun ChangePasswordView(state: ChangePasswordState, actionHandler: (UIAction) -> 
             .fillMaxSize()
     ) {
         OutLineTextField(
-            modifier = Modifier
-                .padding(start = 36.dp, end = 36.dp, top = 20.dp)
-                .fillMaxWidth(),
-            "Current password",
+            text = "Current password",
             input = state.currentPassword,
             error = state.currentPasswordError,
             onValueChange = { actionHandler.invoke(CurrentPasswordChanged(it)) }
         )
         OutLineTextField(
-            modifier = Modifier
-                .padding(start = 36.dp, end = 36.dp, top = 20.dp)
-                .fillMaxWidth(),
-            "New password",
+            text = "New password",
             input = state.newPassword,
             error = state.newPasswordError,
             onValueChange = { actionHandler.invoke(NewPasswordChanged(it)) }
         )
         OutLineTextField(
-            modifier = Modifier
-                .padding(start = 36.dp, end = 36.dp, top = 20.dp)
-                .fillMaxWidth(),
-            "Repeat new password",
+            text = "Repeat new password",
             input = state.repeatNewPassword,
             error = state.repeatNewPasswordError,
             onValueChange = { actionHandler.invoke(RepeatNewPasswordChanged(it)) }
         )
+        OutLineButton(text = "Change password", actionHandler = actionHandler)
         OutLineButton(text = "Back", actionHandler = actionHandler)
     }
 }
@@ -99,7 +92,6 @@ fun Background() {
 
 @Composable
 fun OutLineTextField(
-    modifier: Modifier = Modifier,
     text: String,
     input: String,
     error: String,
@@ -132,7 +124,9 @@ fun OutLineTextField(
                     Icon(painter = image, description, tint = Color.White)
                 }
             },
-            modifier = modifier,
+            modifier = Modifier
+                .padding(start = 36.dp, end = 36.dp, top = 20.dp)
+                .fillMaxWidth(),
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = if (error.isNotEmpty()) Color.Red else Color.White,
                 unfocusedBorderColor = if (error.isNotEmpty()) Color.Red else Color.White,
@@ -163,9 +157,12 @@ fun OutLineTextField(
 }
 
 @Composable
-fun OutLineButton(text: String, modifier: Modifier = Modifier, actionHandler: (UIAction) -> Unit) {
+fun OutLineButton(text: String, modifier: Modifier = Modifier, actionHandler: (UIAction) -> Unit = {}) {
     OutlinedButton(
-        onClick = { actionHandler.invoke(OnChangePasswordButtonClicked()) },
+        onClick = {
+            if (text == "Change password") actionHandler.invoke(OnChangePasswordButtonClicked())
+            else actionHandler.invoke(OnBackButtonClicked())
+        },
         colors = ButtonDefaults.buttonColors(
             contentColor = Color.White,
             backgroundColor = Color.Transparent
@@ -178,4 +175,3 @@ fun OutLineButton(text: String, modifier: Modifier = Modifier, actionHandler: (U
         Text(text, color = Color.White)
     }
 }
-

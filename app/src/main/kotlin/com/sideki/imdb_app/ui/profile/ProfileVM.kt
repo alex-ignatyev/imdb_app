@@ -14,10 +14,8 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class ProfileVM @Inject constructor(
-
+    private val preferences: DataStorePreferenceStorage
 ) : BaseMVIViewModel<ProfileState>(ProfileState()) {
-
-    var preferences: DataStorePreferenceStorage? = null
 
     override fun handleAction(action: UIAction) {
         when (action) {
@@ -26,9 +24,9 @@ class ProfileVM @Inject constructor(
         }
     }
 
-    fun logOut() {
+    private fun logOut() {
         viewModelScope.launch {
-            preferences?.saveLoggedInState(false)
+            preferences.saveLoggedInState(false)
             setEffect(OpenLoginScreen())
         }
     }

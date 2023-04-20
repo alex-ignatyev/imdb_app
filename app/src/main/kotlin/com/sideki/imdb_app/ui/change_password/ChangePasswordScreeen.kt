@@ -5,21 +5,31 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.compose.runtime.collectAsState
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.sideki.imdb_app.db.DataStorePreferenceStorage
+import com.sideki.imdb_app.domain.use_case.ChangePasswordUseCase
+import com.sideki.imdb_app.domain.use_case.GetAccountUseCase
 import com.sideki.imdb_app.ui.change_password.ChangePasswordEffect.OpenProfileScreen
 import com.sideki.imdb_app.util.base.ViewModel
 import com.sideki.imdb_app.util.setContent
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ChangePasswordScreen : Fragment() {
+
+    @Inject
+    lateinit var preferences: DataStorePreferenceStorage
+    @Inject
+    lateinit var changePasswordUseCase: ChangePasswordUseCase
+    @Inject
+    lateinit var getAccountUseCase: GetAccountUseCase
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?, savedInstanceState: Bundle?,
     ) = setContent {
-        ViewModel(factory = { ChangePasswordVM() }) { viewModel ->
+        ViewModel(factory = { ChangePasswordVM(preferences, changePasswordUseCase, getAccountUseCase) }) { viewModel ->
             val state = viewModel.uiState.collectAsState()
             val effect = viewModel.uiEffect.collectAsState(initial = null)
 

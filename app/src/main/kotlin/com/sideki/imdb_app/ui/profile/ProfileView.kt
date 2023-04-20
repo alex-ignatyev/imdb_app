@@ -28,7 +28,7 @@ import com.sideki.imdb_app.ui.profile.ProfileAction.OnLogOutTextClicked
 import com.sideki.imdb_app.util.base.UIAction
 
 @Composable
-fun ProfileView(state: ProfileState, actionHandler: (UIAction) -> Unit) {
+fun ProfileView(actionHandler: (UIAction) -> Unit) {
 
     ConstraintLayout(constraintSet = ConstraintsOfScreen(), modifier = Modifier.fillMaxSize()) {
         Background()

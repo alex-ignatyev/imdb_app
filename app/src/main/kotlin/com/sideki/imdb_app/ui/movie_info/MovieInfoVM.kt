@@ -8,6 +8,7 @@ import com.sideki.imdb_app.data.api.ImdbApi
 import com.sideki.imdb_app.domain.model.MovieInfoModel
 import com.sideki.imdb_app.domain.model.toDomain
 import com.sideki.imdb_app.ui.movie_info.MovieInfoAction.OnBackButtonClicked
+import com.sideki.imdb_app.ui.movie_info.MovieInfoEffect.OpenMoviesScreen
 import com.sideki.imdb_app.util.base.BaseMVIViewModel
 import com.sideki.imdb_app.util.base.UIAction
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,6 +22,12 @@ class MovieInfoVM @Inject constructor(
 
     var data by mutableStateOf((MovieInfoModel()))
 
+    override fun handleAction(action: UIAction) {
+        when(action){
+            is OnBackButtonClicked -> openMoviesScreen()
+        }
+    }
+
     fun getMovieInfo(id: String) {
         viewModelScope.launch {
             val response = api.getMovieInfo(titleId = id)
@@ -28,9 +35,5 @@ class MovieInfoVM @Inject constructor(
         }
     }
 
-    override fun handleAction(action: UIAction) {
-        when(action){
-            is OnBackButtonClicked -> Unit
-        }
-    }
+    private fun openMoviesScreen() = setEffect(OpenMoviesScreen())
 }

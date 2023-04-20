@@ -4,9 +4,10 @@ import androidx.lifecycle.viewModelScope
 import com.sideki.imdb_app.db.DataStorePreferenceStorage
 import com.sideki.imdb_app.domain.use_case.ChangePasswordUseCase
 import com.sideki.imdb_app.domain.use_case.GetAccountUseCase
-import com.sideki.imdb_app.ui.change_password.ChangePasswordAction.OnChangePasswordButtonClicked
 import com.sideki.imdb_app.ui.change_password.ChangePasswordAction.CurrentPasswordChanged
 import com.sideki.imdb_app.ui.change_password.ChangePasswordAction.NewPasswordChanged
+import com.sideki.imdb_app.ui.change_password.ChangePasswordAction.OnBackButtonClicked
+import com.sideki.imdb_app.ui.change_password.ChangePasswordAction.OnChangePasswordButtonClicked
 import com.sideki.imdb_app.ui.change_password.ChangePasswordAction.RepeatNewPasswordChanged
 import com.sideki.imdb_app.ui.change_password.ChangePasswordEffect.OpenProfileScreen
 import com.sideki.imdb_app.util.base.BaseMVIViewModel
@@ -19,11 +20,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @HiltViewModel
-class ChangePasswordVM @Inject constructor() : BaseMVIViewModel<ChangePasswordState>(ChangePasswordState()) {
-
-    @Inject lateinit var preferences: DataStorePreferenceStorage
-    @Inject lateinit var changePasswordUseCase: ChangePasswordUseCase
-    @Inject lateinit var getAccountUseCase: GetAccountUseCase
+class ChangePasswordVM @Inject constructor(
+    private val preferences: DataStorePreferenceStorage,
+    private val changePasswordUseCase: ChangePasswordUseCase,
+    private val getAccountUseCase: GetAccountUseCase
+) : BaseMVIViewModel<ChangePasswordState>(ChangePasswordState()) {
 
     override fun handleAction(action: UIAction) {
         when (action) {
@@ -31,6 +32,7 @@ class ChangePasswordVM @Inject constructor() : BaseMVIViewModel<ChangePasswordSt
             is NewPasswordChanged -> obtainNewPasswordChanges(action.newPassword)
             is RepeatNewPasswordChanged -> obtainRepeatNewPasswordChanges(action.repeatNewPassword)
             is OnChangePasswordButtonClicked -> changePassword()
+            is OnBackButtonClicked -> openProfileScreen()
         }
     }
 
@@ -39,24 +41,26 @@ class ChangePasswordVM @Inject constructor() : BaseMVIViewModel<ChangePasswordSt
     }
 
     private fun obtainNewPasswordChanges(input: String) {
-        val error = if (input.length < 8) "Minimum 8 character"
-        else if (input != currentState.repeatNewPassword) "Password mismatch" else ""
+        val error = if (input.length < 8) "Minimum 8 character" else ""
         if (input.length <= 20) setState(currentState.copy(newPassword = input, newPasswordError = error))
     }
 
     private fun obtainRepeatNewPasswordChanges(input: String) {
         val error = if (input.length < 8) "Minimum 8 character"
         else if (input != currentState.newPassword) "Password mismatch" else ""
-        if (input.length <= 20) setState(currentState.copy(repeatNewPassword = input, repeatNewPasswordError = error))
+        if (input.length <= 20 && currentState.newPassword.isNotEmpty()) setState(
+            currentState.copy(repeatNewPassword = input, repeatNewPasswordError = error))
+        if (currentState.newPassword != currentState.repeatNewPassword && currentState.repeatNewPassword.length >= 8)
+            setState(currentState.copy(newPasswordError = "Password mismatch")
+        ) else setState(currentState.copy(newPasswordError = ""))
     }
 
-
-    fun changePassword() {
+    private fun changePassword() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 val account = getAccountUseCase.getAccount(preferences.currentAccountLoggedIn.first())
-                val isOldPasswordValid = currentState.currentPassword.contains(account?.password ?: "")
-                if (isOldPasswordValid) {
+                setState(currentState.copy(currentPasswordError = ""))
+                if (currentState.currentPassword == account?.password) {
                     changePasswordUseCase.changePassword(currentState.currentPassword)
                     setEffect(OpenProfileScreen())
                 } else {
@@ -65,4 +69,7 @@ class ChangePasswordVM @Inject constructor() : BaseMVIViewModel<ChangePasswordSt
             }
         }
     }
+
+    private fun openProfileScreen() = setEffect(OpenProfileScreen())
+
 }
