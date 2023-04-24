@@ -25,7 +25,8 @@ class ProfileScreen : Fragment(R.layout.fragment_profile) {
     private val vm by viewModels<ProfileVM>()
     @Inject
     lateinit var preferences: DataStorePreferenceStorage
-    @Inject lateinit var getSelectedMoviesUseCase: GetSelectedMoviesUseCase
+    @Inject
+    lateinit var getSelectedMoviesUseCase: GetSelectedMoviesUseCase
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,8 +34,8 @@ class ProfileScreen : Fragment(R.layout.fragment_profile) {
     ) = setContent {
         ViewModel(factory = { ProfileVM(preferences, getSelectedMoviesUseCase) }) { viewModel ->
             val effect = viewModel.uiEffect.collectAsState(initial = null)
-
-            ProfileView(movies =) {
+            vm.getSelectedMovies()
+            ProfileView(movies = vm.data) {
                 viewModel.handleAction(it)
             }
 
