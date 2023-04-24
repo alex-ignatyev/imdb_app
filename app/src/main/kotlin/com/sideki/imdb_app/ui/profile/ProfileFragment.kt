@@ -25,17 +25,12 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.Dimension
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.sideki.imdb_app.R
 import com.sideki.imdb_app.util.setContent
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
-
-    private val vm by viewModels<ProfileVM>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -70,7 +65,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             LogOut(
                 text = "Log Out", modifier = Modifier
                     .layoutId("logOut")
-                    .padding(16.dp), findNavController(), userLoggedOut = vm.logOut()
+                    .padding(16.dp), findNavController()
             )
         }
     }
@@ -161,15 +156,13 @@ fun ChangePassword(text: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun LogOut(text: String, modifier: Modifier = Modifier, navController: NavController, userLoggedOut: Unit) {
+fun LogOut(text: String, modifier: Modifier = Modifier, navController: NavController) {
     Box(modifier = modifier) {
         Text(
             text = text,
             color = Color.Red,
             fontSize = 20.sp,
             fontStyle = FontStyle.Italic,
-            modifier = Modifier.clickable {
-                navController.navigate(ProfileFragmentDirections.toLoginFragment2())
-            })
+            modifier = Modifier.clickable { navController.navigate(ProfileFragmentDirections.toLoginFragment()) })
     }
 }

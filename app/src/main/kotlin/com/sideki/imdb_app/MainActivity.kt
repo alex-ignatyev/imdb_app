@@ -2,7 +2,7 @@ package com.sideki.imdb_app
 
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
+import androidx.core.view.isGone
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -20,6 +20,7 @@ class MainActivity : FragmentActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+
     @Inject
     lateinit var dataStorePreferenceStorage: DataStorePreferenceStorage
 
@@ -29,13 +30,10 @@ class MainActivity : FragmentActivity() {
         setContentView(binding.root)
         initNavHost()
         binding.bottomNavigation.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.moviesFragment -> bottomNavigation(R.id.moviesFragment, it)
-                R.id.profileFragment -> bottomNavigation(R.id.profileFragment, it)
-            }
+            bottomMenuNavigate(it.itemId, it)
             return@setOnItemSelectedListener true
         }
-        visibilityNavElements(navController)
+        showBottomNavBar(navController)
         lifecycleScope.launchWhenStarted {
             dataStorePreferenceStorage.isLoggedIn.collect { isLoggedIn ->
                 if (isLoggedIn) {
@@ -61,18 +59,15 @@ class MainActivity : FragmentActivity() {
         binding.bottomNavigation.setupWithNavController(navController)
     }
 
-    private fun bottomNavigation(fragmentId: Int, item: MenuItem) {
+    private fun bottomMenuNavigate(fragmentId: Int, item: MenuItem) {
         NavigationUI.onNavDestinationSelected(item, navController)
         navController.navigate(fragmentId)
     }
 
-    private fun visibilityNavElements(navController: NavController) {
+    private fun showBottomNavBar(navController: NavController) {
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.loginFragment2 -> binding.bottomNavigation?.visibility = View.GONE
-                R.id.registrationFragment -> binding.bottomNavigation?.visibility = View.GONE
-                else -> binding.bottomNavigation?.visibility = View.VISIBLE
-            }
+            binding.bottomNavigation.isGone =
+                destination.id == R.id.loginFragment || destination.id == R.id.registrationFragment
         }
     }
 }

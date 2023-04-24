@@ -2,9 +2,11 @@ package com.sideki.imdb_app.di
 
 import android.content.Context
 import androidx.room.Room
-import com.sideki.imdb_app.db.AccountDao
-import com.sideki.imdb_app.db.MoviesDao
-import com.sideki.imdb_app.db.MoviesDB
+import com.sideki.imdb_app.data.DataStoreImpl
+import com.sideki.imdb_app.data.DataStorePref
+import com.sideki.imdb_app.data.db.AccountsDao
+import com.sideki.imdb_app.data.db.MoviesDB
+import com.sideki.imdb_app.data.db.MoviesDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,12 +20,17 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideMoviesDB(@ApplicationContext context: Context): MoviesDB = Room.databaseBuilder(
-        context,
-        MoviesDB::class.java,
-        "MoviesDB"
-    ).fallbackToDestructiveMigration()
-        .build()
+    fun provideDataStore(@ApplicationContext context: Context): DataStorePref = DataStoreImpl(context)
+
+    @Provides
+    @Singleton
+    fun provideMoviesDB(@ApplicationContext context: Context): MoviesDB {
+        return Room.databaseBuilder(
+            context,
+            MoviesDB::class.java,
+            "MoviesDB"
+        ).fallbackToDestructiveMigration().build()
+    }
 
     @Provides
     @Singleton
@@ -31,5 +38,5 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideAccountDao(accountDb: MoviesDB): AccountDao = accountDb.accountDao()
+    fun provideAccountsDao(accountsDb: MoviesDB): AccountsDao = accountsDb.accountsDao()
 }
