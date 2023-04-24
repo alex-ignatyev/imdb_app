@@ -191,7 +191,8 @@ fun MovieInfoBlock(
             onActorClick = onActorClick,
             modifier = Modifier.constrainAs(actorsRef) {
                 top.linkTo(ratingsRef.bottom)
-            }, actionHandler = actionHandler )
+            }, actionHandler = actionHandler
+        )
 
         SimilarMoviesBlock(
             similars = movie.similarMovies,

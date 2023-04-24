@@ -49,10 +49,12 @@ class ChangePasswordVM @Inject constructor(
         val error = if (input.length < 8) "Minimum 8 character"
         else if (input != currentState.newPassword) "Password mismatch" else ""
         if (input.length <= 20 && currentState.newPassword.isNotEmpty()) setState(
-            currentState.copy(repeatNewPassword = input, repeatNewPasswordError = error))
+            currentState.copy(repeatNewPassword = input, repeatNewPasswordError = error)
+        )
         if (currentState.newPassword != currentState.repeatNewPassword && currentState.repeatNewPassword.length >= 8)
-            setState(currentState.copy(newPasswordError = "Password mismatch")
-        ) else setState(currentState.copy(newPasswordError = ""))
+            setState(
+                currentState.copy(newPasswordError = "Password mismatch")
+            ) else setState(currentState.copy(newPasswordError = ""))
     }
 
     private fun changePassword() {

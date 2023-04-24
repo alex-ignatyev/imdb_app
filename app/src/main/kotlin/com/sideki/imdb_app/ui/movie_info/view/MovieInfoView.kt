@@ -54,7 +54,7 @@ fun MovieInfoView(
                 top.linkTo(parent.top)
             }
         ) {
-            IconButton(onClick = {actionHandler.invoke(OnBackButtonClicked())}) {
+            IconButton(onClick = { actionHandler.invoke(OnBackButtonClicked()) }) {
                 Icon(
                     Filled.ArrowBack,
                     tint = Color.White,

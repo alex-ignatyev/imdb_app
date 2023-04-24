@@ -1,7 +1,6 @@
 package com.sideki.imdb_app.ui.movie_info
 
 import androidx.lifecycle.viewModelScope
-import com.sideki.imdb_app.data.api.ImdbApi
 import com.sideki.imdb_app.domain.use_case.GetMovieInfoUseCase
 import com.sideki.imdb_app.model.model.MovieInfoModel
 import com.sideki.imdb_app.ui.movie_info.MovieInfoAction.OnActorImageClicked
@@ -18,12 +17,12 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class MovieInfoVM @Inject constructor(
     private var getMovieInfoUseCase: GetMovieInfoUseCase
-): BaseMVIViewModel<MovieInfoState>(MovieInfoState()) {
+) : BaseMVIViewModel<MovieInfoState>(MovieInfoState()) {
 
     var movieInfo = MutableStateFlow((MovieInfoModel()))
 
     override fun handleAction(action: UIAction) {
-        when(action){
+        when (action) {
             is OnBackButtonClicked -> openMoviesScreen()
             is OnActorImageClicked -> openActorInfoScreen()
         }
