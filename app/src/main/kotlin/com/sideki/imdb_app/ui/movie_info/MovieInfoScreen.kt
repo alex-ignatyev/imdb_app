@@ -41,11 +41,7 @@ class MovieInfoScreen : Fragment() {
 
             when (effect.value) {
                 is OpenMoviesScreen -> findNavController().popBackStack()
-                is OpenActorInfoScreen -> findNavController().navigate(
-                    MovieInfoScreenDirections.toActorInfoFragment(
-                        args.movieId
-                    )
-                )
+                is OpenActorInfoScreen -> findNavController().navigate(MovieInfoScreenDirections.toActorInfoFragment())
                 else -> Unit
             }
         }
