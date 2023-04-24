@@ -12,10 +12,9 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.sideki.imdb_app.domain.model.MovieInfoModel
+import com.sideki.imdb_app.model.model.MovieInfoModel
 import com.sideki.imdb_app.ui.movie_info.MovieInfoAction.OnBackButtonClicked
 import com.sideki.imdb_app.util.base.UIAction
 import com.sideki.imdb_app.util.compose_view.GradientView
@@ -39,7 +38,8 @@ fun MovieInfoView(
                     top.linkTo(parent.top)
                 },
             movie = movie,
-            onActorClick = onActorClick
+            onActorClick = {},
+            actionHandler = actionHandler
         )
 
         GradientView(

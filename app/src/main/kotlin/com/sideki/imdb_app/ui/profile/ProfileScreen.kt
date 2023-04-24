@@ -34,7 +34,7 @@ class ProfileScreen : Fragment(R.layout.fragment_profile) {
 
             when (effect.value) {
                 is OpenChangePasswordScreen -> findNavController().navigate(ProfileScreenDirections.toChangePasswordFragment())
-                is OpenLoginScreen -> findNavController().navigate(ProfileScreenDirections.toLoginFragment2())
+                is OpenLoginScreen -> findNavController().navigate(ProfileScreenDirections.toLoginFragment())
                 else -> Unit
             }
         }

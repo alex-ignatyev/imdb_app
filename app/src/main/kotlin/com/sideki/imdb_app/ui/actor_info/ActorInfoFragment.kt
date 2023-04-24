@@ -25,7 +25,6 @@ class ActorInfoFragment : Fragment() {
         vm.getActorInfo(args.actorId)
         Imdb_appTheme {
             val actorInfo by vm.actorInfo.collectAsState()
-
         }
     }
 }

@@ -26,7 +26,7 @@ class LoginVM @Inject constructor(
         state.value = state.value.copy(password = input, passwordError = null)
     }
 
-    fun logIn() {
+    fun logIn(userLoggedIn: () -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
             with(state.value) {
                 val userAccount = getAccountUseCase.getAccount(login)

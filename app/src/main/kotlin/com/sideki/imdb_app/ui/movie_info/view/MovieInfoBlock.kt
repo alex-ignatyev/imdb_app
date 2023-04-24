@@ -20,6 +20,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImage
 import com.sideki.imdb_app.R.drawable
 import com.sideki.imdb_app.model.model.MovieInfoModel
+import com.sideki.imdb_app.util.base.UIAction
 import com.sideki.imdb_app.util.compose_view.GradientView
 import com.sideki.imdb_app.util.debugPlaceholder
 
@@ -28,7 +29,8 @@ import com.sideki.imdb_app.util.debugPlaceholder
 fun MovieInfoBlock(
     modifier: Modifier = Modifier,
     movie: MovieInfoModel = MovieInfoModel(),
-    onActorClick: (String) -> Unit = { }
+    onActorClick: (String) -> Unit = { },
+    actionHandler: (UIAction) -> Unit
 ) {
     ConstraintLayout(
         modifier = modifier
@@ -189,7 +191,7 @@ fun MovieInfoBlock(
             onActorClick = onActorClick,
             modifier = Modifier.constrainAs(actorsRef) {
                 top.linkTo(ratingsRef.bottom)
-            })
+            }, actionHandler = actionHandler )
 
         SimilarMoviesBlock(
             similars = movie.similarMovies,

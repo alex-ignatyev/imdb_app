@@ -61,7 +61,7 @@ class ChangePasswordVM @Inject constructor(
                 val account = getAccountUseCase.getAccount(preferences.currentAccountLoggedIn.first())
                 setState(currentState.copy(currentPasswordError = ""))
                 if (currentState.currentPassword == account?.password) {
-                    changePasswordUseCase.changePassword(currentState.currentPassword)
+                    changePasswordUseCase.changePassword(currentState.newPassword)
                     setEffect(OpenProfileScreen())
                 } else {
                     setState(currentState.copy(currentPasswordError = "Password mismatch"))
@@ -71,5 +71,4 @@ class ChangePasswordVM @Inject constructor(
     }
 
     private fun openProfileScreen() = setEffect(OpenProfileScreen())
-
 }

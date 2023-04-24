@@ -32,14 +32,16 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImage
 import com.sideki.imdb_app.R.drawable
 import com.sideki.imdb_app.model.model.MovieInfoModel.ActorModel
+import com.sideki.imdb_app.ui.movie_info.MovieInfoAction.OnActorImageClicked
+import com.sideki.imdb_app.util.base.UIAction
 import com.sideki.imdb_app.util.debugPlaceholder
 
-@Preview
 @Composable
 fun ActorsBlock(
     @PreviewParameter(ActorPreviewProvider::class, 1) actors: List<ActorModel>,
     modifier: Modifier = Modifier,
-    onActorClick: (String) -> Unit = { }
+    onActorClick: (String) -> Unit = { },
+    actionHandler: (UIAction) -> Unit
 ) {
     ConstraintLayout(
         modifier = modifier
@@ -99,24 +101,24 @@ fun ActorsBlock(
                 .padding(start = 8.dp)
         ) {
             items(actors) { item ->
-                Actor(item, onActorClick)
+                Actor(item, onActorClick, actionHandler)
             }
         }
     }
 }
 
-@Preview
 @Composable
 fun Actor(
     actor: ActorModel = ActorModel(),
-    onActorClick: (String) -> Unit = { }
+    onActorClick: (String) -> Unit = { },
+    actionHandler: (UIAction) -> Unit
 ) {
     Row(
         modifier = Modifier
             .wrapContentSize()
             .padding(end = 8.dp)
             .background(Color.Black)
-            .clickable { onActorClick(actor.actorId) }
+            .clickable { actionHandler.invoke(OnActorImageClicked()) }
     ) {
         AsyncImage(
             model = actor.image,
