@@ -3,11 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment2">
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.sideki.imdb_app.ui.login.LoginFragment"
+        android:label="fragmentLogin"
+        tools:layout="@layout/fragment_login">
+
+        <action
+            android:id="@+id/to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+        <action
+            android:id="@+id/to_moviesFragment"
+            app:destination="@id/moviesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.sideki.imdb_app.ui.registration.RegistrationFragment"
+        android:label="fragment_registration"
+        tools:layout="@layout/fragment_registration" />
 
     <fragment
         android:id="@+id/moviesFragment"
-        android:name="com.sideki.imdb_app.ui.movies_list.MoviesFragment"
+        android:name="com.sideki.imdb_app.ui.movies.MoviesFragment"
         android:label="fragment_movies"
         tools:layout="@layout/fragment_movies">
 
@@ -24,6 +44,20 @@
         <argument
             android:name="movieId"
             app:argType="string" />
+
+        <action
+            android:id="@+id/to_actorInfoFragment"
+            app:destination="@id/actorInfoFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/actorInfoFragment"
+        android:name="com.sideki.imdb_app.ui.actor_info.ActorInfoFragment"
+        android:label="ActorInfoFragment">
+
+        <argument
+            android:name="actorId"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -31,32 +65,15 @@
         android:name="com.sideki.imdb_app.ui.profile.ProfileFragment"
         android:label="ProfileFragment">
         <action
-            android:id="@+id/to_loginFragment2"
-            app:destination="@id/loginFragment2" />
+            android:id="@+id/to_loginFragment"
+            app:destination="@id/loginFragment" />
         <action
             android:id="@+id/to_changePasswordFragment"
             app:destination="@id/changePasswordFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/loginFragment2"
-        android:name="com.sideki.imdb_app.ui.login.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login">
-        <action
-            android:id="@+id/action_loginFragment2_to_registrationFragment"
-            app:destination="@id/registrationFragment" />
-        <action
-            android:id="@+id/action_loginFragment2_to_moviesFragment"
-            app:destination="@id/moviesFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/registrationFragment"
-        android:name="com.sideki.imdb_app.ui.registration.RegistrationFragment"
-        android:label="fragment_registration"
-        tools:layout="@layout/fragment_registration" />
+
     <fragment
         android:id="@+id/changePasswordFragment"
         android:name="com.sideki.imdb_app.ui.change_password.ChangePasswordFragment"
-        android:label="fragment_change_password"
-        tools:layout="@layout/fragment_change_password" />
+        android:label="fragment_change_password" />
 </navigation>

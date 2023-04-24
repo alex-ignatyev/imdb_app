@@ -1,19 +1,19 @@
 package com.sideki.imdb_app.domain
 
-import com.sideki.imdb_app.db.AccountDao
-import com.sideki.imdb_app.db.entity.AccountEntity
+import com.sideki.imdb_app.data.db.AccountsDao
+import com.sideki.imdb_app.model.entity.AccountEntity
 import javax.inject.Inject
 
 class AccountRepository @Inject constructor(
-    private val accountDao: AccountDao
+    private val accountsDao: AccountsDao
 ) {
 
     suspend fun insertAccount(account: AccountEntity) {
-        return accountDao.insertAccount(account)
+        return accountsDao.insertAccount(account)
     }
 
     suspend fun getAccount(account: String): AccountEntity? {
-        return accountDao.getAccount(account)
+        return accountsDao.getAccount(account)
     }
 
     suspend fun changePassword(password: String) {

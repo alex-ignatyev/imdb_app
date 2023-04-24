@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.sideki.imdb_app.db.entity.AccountEntity
+import com.sideki.imdb_app.model.entity.AccountEntity
 
 @Dao
 interface AccountDao {

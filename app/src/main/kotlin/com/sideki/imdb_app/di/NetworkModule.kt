@@ -19,8 +19,8 @@ private const val TIMEOUT = 10L
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    private val HTTP_SCHEME = "https://"
-    private val API_PATH = "imdb-api.com/ru/API/"
+    private const val HTTP_SCHEME = "https://"
+    private const val API_PATH = "imdb-api.com/ru/API/"
 
     @Provides
     @Singleton
@@ -38,12 +38,13 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(client: OkHttpClient) = Retrofit.Builder()
+    fun provideRetrofit(client: OkHttpClient): Retrofit = Retrofit.Builder()
         .baseUrl("$HTTP_SCHEME$API_PATH")
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
     @Provides
-    fun provideApi(retrofit: Retrofit) = retrofit.create(ImdbApi::class.java)
+    @Singleton
+    fun provideApi(retrofit: Retrofit): ImdbApi = retrofit.create(ImdbApi::class.java)
 }
