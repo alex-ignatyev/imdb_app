@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImage
 import com.sideki.imdb_app.R.drawable
-import com.sideki.imdb_app.domain.model.MovieInfoModel
+import com.sideki.imdb_app.model.model.MovieInfoModel
 import com.sideki.imdb_app.util.compose_view.GradientView
 import com.sideki.imdb_app.util.debugPlaceholder
 
@@ -27,7 +27,8 @@ import com.sideki.imdb_app.util.debugPlaceholder
 @Composable
 fun MovieInfoBlock(
     modifier: Modifier = Modifier,
-    movie: MovieInfoModel = MovieInfoModel()
+    movie: MovieInfoModel = MovieInfoModel(),
+    onActorClick: (String) -> Unit = { }
 ) {
     ConstraintLayout(
         modifier = modifier
@@ -63,7 +64,7 @@ fun MovieInfoBlock(
             },
             Color.Transparent,
             Color.Black,
-            height = 100
+            height = 100.dp
         )
 
         Text(
@@ -170,14 +171,12 @@ fun MovieInfoBlock(
             fontSize = 14.sp,
         )
 
-        if (movie.images.isNotEmpty()) {
-            ImagesBlock(
-                images = movie.images,
-                modifier = Modifier.constrainAs(imagesRef) {
-                    top.linkTo(descriptionRef.bottom)
-                }
-            )
-        }
+        ImagesBlock(
+            images = movie.images,
+            modifier = Modifier.constrainAs(imagesRef) {
+                top.linkTo(descriptionRef.bottom)
+            }
+        )
 
         RatingsBlock(
             ratings = movie.ratings,
@@ -185,21 +184,18 @@ fun MovieInfoBlock(
                 top.linkTo(imagesRef.bottom)
             })
 
-        if (movie.actors.isNotEmpty()) {
-            ActorsBlock(
-                actors = movie.actors,
-                modifier = Modifier.constrainAs(actorsRef) {
-                    top.linkTo(ratingsRef.bottom)
-                })
-        }
+        ActorsBlock(
+            actors = movie.actors,
+            onActorClick = onActorClick,
+            modifier = Modifier.constrainAs(actorsRef) {
+                top.linkTo(ratingsRef.bottom)
+            })
 
-        if (movie.similarMovies.isNotEmpty()) {
-            SimilarMoviesBlock(
-                similars = movie.similarMovies,
-                modifier = Modifier.constrainAs(similarsRef) {
-                    top.linkTo(actorsRef.bottom)
-                }
-            )
-        }
+        SimilarMoviesBlock(
+            similars = movie.similarMovies,
+            modifier = Modifier.constrainAs(similarsRef) {
+                top.linkTo(actorsRef.bottom)
+            }
+        )
     }
 }
