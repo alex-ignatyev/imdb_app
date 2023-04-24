@@ -2,6 +2,7 @@ package com.sideki.imdb_app.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sideki.imdb_app.db.DataStorePreferenceStorage
 import com.sideki.imdb_app.domain.use_case.GetAccountUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -12,7 +13,8 @@ import kotlinx.coroutines.withContext
 
 @HiltViewModel
 class LoginVM @Inject constructor(
-    private val getAccountUseCase: GetAccountUseCase
+    private val getAccountUseCase: GetAccountUseCase,
+    private val preferences: DataStorePreferenceStorage
 ) : ViewModel() {
 
     val state = MutableStateFlow(LogInState())
@@ -39,6 +41,7 @@ class LoginVM @Inject constructor(
                     state.value = copy(loginError = null)
                     if (userAccount.password == password) {
                         withContext(Dispatchers.Main) { userLoggedIn.invoke() }
+                        preferences.saveLoggedInState(true)
                     } else {
                         state.value = copy(passwordError = "Invalid password")
                     }

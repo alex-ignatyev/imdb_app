@@ -1,8 +1,8 @@
 package com.sideki.imdb_app.domain
 
-import com.sideki.imdb_app.data.DataStorePref
 import com.sideki.imdb_app.data.api.ImdbApi
 import com.sideki.imdb_app.data.db.MoviesDao
+import com.sideki.imdb_app.db.DataStorePreferenceStorage
 import com.sideki.imdb_app.model.entity.MovieEntity
 import com.sideki.imdb_app.model.entity.MovieEntity.MovieType
 import com.sideki.imdb_app.model.entity.MovieEntity.MovieType.COMING_SOON_MOVIES
@@ -13,11 +13,13 @@ import com.sideki.imdb_app.model.entity.toEntity
 import com.sideki.imdb_app.model.response.MovieDataResponse
 import java.time.LocalDate
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 
 class MoviesRepository @Inject constructor(
     private val moviesDao: MoviesDao,
     private val imdbApi: ImdbApi,
-    private val store: DataStorePref
+    private val prefs: DataStorePreferenceStorage
 ) {
 
     suspend fun getMostPopularMovies(): List<MovieEntity> {
@@ -44,13 +46,18 @@ class MoviesRepository @Inject constructor(
         }
     }
 
+
     suspend fun clearAllMovies() {
-        val today = LocalDate.now().toString()
-        val prefDate = store.getDate()
+        val today = getLocalDate()
+        val prefDate = prefs.date
         if (today != prefDate) {
             moviesDao.clearAllMovies()
-            store.saveDate(today)
+            prefs.saveDate(today.toString())
         }
+    }
+
+    private fun getLocalDate(): Flow<String> = callbackFlow {
+        LocalDate.now()
     }
 
     private suspend inline fun getMoviesByType(type: MovieType, request: () -> MovieDataResponse): List<MovieEntity> {
