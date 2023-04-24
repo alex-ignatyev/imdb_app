@@ -38,7 +38,7 @@
 
     <fragment
         android:id="@+id/movieInfoFragment"
-        android:name="com.sideki.imdb_app.ui.movie_info.MovieInfoFragment"
+        android:name="com.sideki.imdb_app.ui.movie_info.MovieInfoScreen"
         android:label="MovieInfoFragment">
 
         <argument
@@ -62,7 +62,7 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.sideki.imdb_app.ui.profile.ProfileFragment"
+        android:name="com.sideki.imdb_app.ui.profile.ProfileScreen"
         android:label="ProfileFragment">
         <action
             android:id="@+id/to_loginFragment"
@@ -74,6 +74,6 @@
 
     <fragment
         android:id="@+id/changePasswordFragment"
-        android:name="com.sideki.imdb_app.ui.change_password.ChangePasswordFragment"
+        android:name="com.sideki.imdb_app.ui.change_password.ChangePasswordScreen"
         android:label="fragment_change_password" />
 </navigation>

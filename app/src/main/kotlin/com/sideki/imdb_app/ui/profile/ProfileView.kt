@@ -1,8 +1,5 @@
 package com.sideki.imdb_app.ui.profile
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -24,54 +21,44 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.Dimension
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
-import com.sideki.imdb_app.R
-import com.sideki.imdb_app.util.setContent
-import dagger.hilt.android.AndroidEntryPoint
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import com.sideki.imdb_app.ui.profile.ProfileAction.OnChangePasswordTextClicked
+import com.sideki.imdb_app.ui.profile.ProfileAction.OnLogOutTextClicked
+import com.sideki.imdb_app.util.base.UIAction
 
-@AndroidEntryPoint
-class ProfileFragment : Fragment(R.layout.fragment_profile) {
+@Composable
+fun ProfileView(actionHandler: (UIAction) -> Unit) {
 
-    private val vm by viewModels<ProfileVM>()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?, savedInstanceState: Bundle?
-    ) = setContent {
-
-        ConstraintLayout(constraintSet = ConstraintsOfScreen(), modifier = Modifier.fillMaxSize()) {
-            Background()
-            Title(
-                text = "Profile", modifier = Modifier
-                    .padding(16.dp)
-                    .layoutId("title")
-            )
-            DividerLine(
-                modifier = Modifier
-                    .layoutId("dividerTop")
-                    .padding(10.dp)
-                    .height(1.dp)
-            )
-            ChangePassword(
-                text = "Change password", modifier = Modifier
-                    .padding(10.dp)
-                    .layoutId("changePassword"), findNavController()
-            )
-            DividerLine(
-                modifier = Modifier
-                    .layoutId("dividerBottom")
-                    .padding(4.dp)
-                    .height(1.dp)
-            )
-            LogOut(
-                text = "Log Out", modifier = Modifier
-                    .layoutId("logOut")
-                    .padding(16.dp), findNavController(), userLoggedOut = vm.logOut()
-            )
-        }
+    ConstraintLayout(constraintSet = ConstraintsOfScreen(), modifier = Modifier.fillMaxSize()) {
+        Background()
+        Title(
+            text = "Profile", modifier = Modifier
+                .padding(16.dp)
+                .layoutId("title")
+        )
+        DividerLine(
+            modifier = Modifier
+                .layoutId("dividerTop")
+                .padding(10.dp)
+                .height(1.dp)
+        )
+        ChangePassword(
+            text = "Change password", modifier = Modifier
+                .padding(10.dp)
+                .layoutId("changePassword"), actionHandler
+        )
+        DividerLine(
+            modifier = Modifier
+                .layoutId("dividerBottom")
+                .padding(4.dp)
+                .height(1.dp)
+        )
+        LogOut(
+            text = "Log Out", modifier = Modifier
+                .layoutId("logOut")
+                .padding(16.dp), userLoggedOut = actionHandler
+        )
     }
 }
 
@@ -153,7 +140,7 @@ fun DividerLine(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun ChangePassword(text: String, modifier: Modifier = Modifier, navController: NavController) {
+fun ChangePassword(text: String, modifier: Modifier = Modifier, actionHandler: (UIAction) -> Unit) {
     Box(modifier = modifier) {
         Text(
             text = text,
@@ -161,19 +148,21 @@ fun ChangePassword(text: String, modifier: Modifier = Modifier, navController: N
             fontSize = 20.sp,
             color = Color.White,
             modifier = Modifier.clickable {
-                navController.navigate(ProfileFragmentDirections.toChangePasswordFragment())
+                actionHandler.invoke(OnChangePasswordTextClicked())
             })
     }
 }
 
 @Composable
-fun LogOut(text: String, modifier: Modifier = Modifier, navController: NavController, userLoggedOut: Unit) {
+fun LogOut(text: String, modifier: Modifier = Modifier, userLoggedOut: (UIAction) -> Unit) {
     Box(modifier = modifier) {
         Text(
             text = text,
             color = Color.Red,
             fontSize = 20.sp,
             fontStyle = FontStyle.Italic,
-            modifier = Modifier.clickable { navController.navigate(ProfileFragmentDirections.toLoginFragment()) })
+            modifier = Modifier.clickable {
+                userLoggedOut.invoke(OnLogOutTextClicked())
+            })
     }
 }

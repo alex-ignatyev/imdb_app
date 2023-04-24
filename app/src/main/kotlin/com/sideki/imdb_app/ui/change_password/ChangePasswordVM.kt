@@ -1,68 +1,75 @@
 package com.sideki.imdb_app.ui.change_password
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sideki.imdb_app.db.DataStorePreferenceStorage
 import com.sideki.imdb_app.domain.use_case.ChangePasswordUseCase
 import com.sideki.imdb_app.domain.use_case.GetAccountUseCase
+import com.sideki.imdb_app.ui.change_password.ChangePasswordAction.CurrentPasswordChanged
+import com.sideki.imdb_app.ui.change_password.ChangePasswordAction.NewPasswordChanged
+import com.sideki.imdb_app.ui.change_password.ChangePasswordAction.OnBackButtonClicked
+import com.sideki.imdb_app.ui.change_password.ChangePasswordAction.OnChangePasswordButtonClicked
+import com.sideki.imdb_app.ui.change_password.ChangePasswordAction.RepeatNewPasswordChanged
+import com.sideki.imdb_app.ui.change_password.ChangePasswordEffect.OpenProfileScreen
+import com.sideki.imdb_app.util.base.BaseMVIViewModel
+import com.sideki.imdb_app.util.base.UIAction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @HiltViewModel
 class ChangePasswordVM @Inject constructor(
+    private val preferences: DataStorePreferenceStorage,
     private val changePasswordUseCase: ChangePasswordUseCase,
-    private val getAccountUseCase: GetAccountUseCase,
-    private val preferences: DataStorePreferenceStorage
-) : ViewModel() {
+    private val getAccountUseCase: GetAccountUseCase
+) : BaseMVIViewModel<ChangePasswordState>(ChangePasswordState()) {
 
-    val state = MutableStateFlow(ChangePasswordState())
-
-    fun obtainCurrentPasswordChanges(input: String) {
-        if (input.length <= 20) state.value = state.value.copy(currentPassword = input)
+    override fun handleAction(action: UIAction) {
+        when (action) {
+            is CurrentPasswordChanged -> obtainCurrentPasswordChanges(action.currentPassword)
+            is NewPasswordChanged -> obtainNewPasswordChanges(action.newPassword)
+            is RepeatNewPasswordChanged -> obtainRepeatNewPasswordChanges(action.repeatNewPassword)
+            is OnChangePasswordButtonClicked -> changePassword()
+            is OnBackButtonClicked -> openProfileScreen()
+        }
     }
 
-    fun obtainNewPasswordChanges(input: String) {
-        if (input.length <= 20) state.value = state.value.copy(
-            newPassword = input,
-            newPasswordError = input.length < 8 || input != state.value.repeatNewPassword,
-            repeatNewPasswordError = false
-        )
+    private fun obtainCurrentPasswordChanges(input: String) {
+        if (input.length <= 20) setState(currentState.copy(currentPassword = input))
     }
 
-    fun obtainRepeatNewPasswordChanges(input: String) {
-        if (input.length <= 20) state.value = state.value.copy(
-            repeatNewPassword = input,
-            repeatNewPasswordError = input.length < 8 || input != state.value.newPassword,
-            newPasswordError = false
-        )
+    private fun obtainNewPasswordChanges(input: String) {
+        val error = if (input.length < 8) "Minimum 8 character" else ""
+        if (input.length <= 20) setState(currentState.copy(newPassword = input, newPasswordError = error))
     }
 
-    fun changePassword(passwordChanged: () -> Unit) {
+    private fun obtainRepeatNewPasswordChanges(input: String) {
+        val error = if (input.length < 8) "Minimum 8 character"
+        else if (input != currentState.newPassword) "Password mismatch" else ""
+        if (input.length <= 20 && currentState.newPassword.isNotEmpty()) setState(
+            currentState.copy(repeatNewPassword = input, repeatNewPasswordError = error))
+        if (currentState.newPassword != currentState.repeatNewPassword && currentState.repeatNewPassword.length >= 8)
+            setState(currentState.copy(newPasswordError = "Password mismatch")
+        ) else setState(currentState.copy(newPasswordError = ""))
+    }
+
+    private fun changePassword() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 val account = getAccountUseCase.getAccount(preferences.currentAccountLoggedIn.first())
-                val currentPassword = account?.password
-                if (currentPassword != state.value.currentPassword) state.value =
-                    state.value.copy(currentPasswordError = true)
-                else if (currentPassword != state.value.currentPassword && state.value.newPassword == state.value.repeatNewPassword) {
-                    changePasswordUseCase.changePassword(state.value.newPassword)
-                    withContext(Dispatchers.Main) { passwordChanged.invoke() }
+                setState(currentState.copy(currentPasswordError = ""))
+                if (currentState.currentPassword == account?.password) {
+                    changePasswordUseCase.changePassword(currentState.currentPassword)
+                    setEffect(OpenProfileScreen())
+                } else {
+                    setState(currentState.copy(currentPasswordError = "Password mismatch"))
                 }
             }
         }
     }
-}
 
-data class ChangePasswordState(
-    val currentPassword: String = "",
-    val currentPasswordError: Boolean = false,
-    val newPassword: String = "",
-    val newPasswordError: Boolean = false,
-    val repeatNewPassword: String = "",
-    val repeatNewPasswordError: Boolean = false,
-)
+    private fun openProfileScreen() = setEffect(OpenProfileScreen())
+
+}

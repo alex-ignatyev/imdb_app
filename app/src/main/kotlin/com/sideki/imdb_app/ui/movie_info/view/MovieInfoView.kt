@@ -15,15 +15,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.sideki.imdb_app.model.model.MovieInfoModel
+import com.sideki.imdb_app.domain.model.MovieInfoModel
+import com.sideki.imdb_app.ui.movie_info.MovieInfoAction.OnBackButtonClicked
+import com.sideki.imdb_app.util.base.UIAction
 import com.sideki.imdb_app.util.compose_view.GradientView
 
-@Preview
 @Composable
-fun MovieInfoScreen(
+fun MovieInfoView(
     movie: MovieInfoModel = MovieInfoModel(),
-    onActorClick: (String) -> Unit = { },
-    onBackClick: () -> Unit = { }
+    actionHandler: (UIAction) -> Unit
 ) {
     ConstraintLayout() {
         val toolbarRef = createRef()
@@ -54,7 +54,7 @@ fun MovieInfoScreen(
                 top.linkTo(parent.top)
             }
         ) {
-            IconButton(onClick = onBackClick) {
+            IconButton(onClick = {actionHandler.invoke(OnBackButtonClicked())}) {
                 Icon(
                     Filled.ArrowBack,
                     tint = Color.White,
@@ -64,4 +64,3 @@ fun MovieInfoScreen(
         }
     }
 }
-
