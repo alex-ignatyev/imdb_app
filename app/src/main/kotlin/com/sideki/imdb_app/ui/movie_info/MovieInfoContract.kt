@@ -7,6 +7,7 @@ import com.sideki.imdb_app.util.base.UIState
 
 sealed class MovieInfoAction : UIAction {
     class OnBackButtonClicked : MovieInfoAction()
+    class OnAddMovieClicked : MovieInfoAction()
 }
 
 data class MovieInfoState(

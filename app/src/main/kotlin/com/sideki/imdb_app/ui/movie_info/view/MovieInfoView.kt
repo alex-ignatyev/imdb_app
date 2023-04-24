@@ -38,7 +38,8 @@ fun MovieInfoView(
                 .constrainAs(contentRef) {
                     top.linkTo(parent.top)
                 },
-            movie = movie
+            movie = movie,
+            handleAction = actionHandler
         )
 
         GradientView(

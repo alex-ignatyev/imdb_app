@@ -7,8 +7,17 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Divider
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons.Filled
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -20,14 +29,16 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImage
 import com.sideki.imdb_app.R.drawable
 import com.sideki.imdb_app.domain.model.MovieInfoModel
+import com.sideki.imdb_app.ui.movie_info.MovieInfoAction.OnAddMovieClicked
+import com.sideki.imdb_app.util.base.UIAction
 import com.sideki.imdb_app.util.compose_view.GradientView
 import com.sideki.imdb_app.util.debugPlaceholder
 
-@Preview
 @Composable
 fun MovieInfoBlock(
     modifier: Modifier = Modifier,
-    movie: MovieInfoModel = MovieInfoModel()
+    movie: MovieInfoModel = MovieInfoModel(),
+    handleAction: (UIAction) -> Unit
 ) {
     ConstraintLayout(
         modifier = modifier
@@ -44,6 +55,7 @@ fun MovieInfoBlock(
         val similarsRef = createRef()
         val imagesRef = createRef()
         val ratingsRef = createRef()
+        var isMovieAdded by remember { mutableStateOf(false) }
 
         AsyncImage(
             model = movie.imageUrl,
@@ -65,6 +77,28 @@ fun MovieInfoBlock(
             Color.Black,
             height = 100
         )
+
+        FloatingActionButton(
+            modifier = Modifier
+                .constrainAs(createRef()) {
+                    bottom.linkTo(imageRef.bottom)
+                    end.linkTo(parent.end)
+                }
+                .padding(10.dp),
+            onClick = {
+                if (!isMovieAdded) {
+                    handleAction.invoke(OnAddMovieClicked())
+                    isMovieAdded = true
+                } else isMovieAdded = false
+            },
+            backgroundColor = if (!isMovieAdded) Color.Green else Color.Red,
+            contentColor = Color.White
+        ) {
+            if (!isMovieAdded) Icon(Filled.Add, "Add movie to selected") else Icon(
+                Filled.Delete,
+                "Remove movie from selected"
+            )
+        }
 
         Text(
             text = movie.title,

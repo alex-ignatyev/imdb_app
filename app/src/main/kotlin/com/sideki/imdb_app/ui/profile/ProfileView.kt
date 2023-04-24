@@ -3,16 +3,24 @@ package com.sideki.imdb_app.ui.profile
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
@@ -23,12 +31,16 @@ import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.Dimension
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import coil.compose.AsyncImage
+import com.sideki.imdb_app.R.drawable
+import com.sideki.imdb_app.db.entity.SelectedMoviesEntity
 import com.sideki.imdb_app.ui.profile.ProfileAction.OnChangePasswordTextClicked
 import com.sideki.imdb_app.ui.profile.ProfileAction.OnLogOutTextClicked
 import com.sideki.imdb_app.util.base.UIAction
+import com.sideki.imdb_app.util.debugPlaceholder
 
 @Composable
-fun ProfileView(actionHandler: (UIAction) -> Unit) {
+fun ProfileView(actionHandler: (UIAction) -> Unit, movies: List<SelectedMoviesEntity>) {
 
     ConstraintLayout(constraintSet = ConstraintsOfScreen(), modifier = Modifier.fillMaxSize()) {
         Background()
@@ -54,6 +66,7 @@ fun ProfileView(actionHandler: (UIAction) -> Unit) {
                 .padding(4.dp)
                 .height(1.dp)
         )
+        SelectedMovies(movies = movies)
         LogOut(
             text = "Log Out", modifier = Modifier
                 .layoutId("logOut")
@@ -70,6 +83,7 @@ fun ConstraintsOfScreen(): ConstraintSet {
         val changePassword = createRefFor("changePassword")
         val dividerBottom = createRefFor("dividerBottom")
         val logOut = createRefFor("logOut")
+        val selectedMovies = createRefFor("selectedMovies")
 
         constrain(title) {
             top.linkTo(parent.top)
@@ -94,6 +108,13 @@ fun ConstraintsOfScreen(): ConstraintSet {
             top.linkTo(changePassword.bottom)
             start.linkTo(parent.start)
             end.linkTo(parent.end)
+        }
+
+        constrain(selectedMovies){
+            top.linkTo(dividerBottom.bottom)
+            start.linkTo(parent.start)
+            end.linkTo(parent.end)
+            bottom.linkTo(parent.bottom)
         }
 
         constrain(logOut) {
@@ -165,4 +186,27 @@ fun LogOut(text: String, modifier: Modifier = Modifier, userLoggedOut: (UIAction
                 userLoggedOut.invoke(OnLogOutTextClicked())
             })
     }
+}
+
+@Composable
+fun SelectedMovies(modifier: Modifier = Modifier, movies: List<SelectedMoviesEntity>) {
+    LazyVerticalGrid(columns = GridCells.Fixed(2), content = {
+        items(movies) { item ->
+            Column {
+                AsyncImage(
+                    model = item.image, contentDescription = "Selected movies image",
+                    placeholder = debugPlaceholder(debugPreview = drawable.ic_launcher_background),
+                    contentScale = ContentScale.Crop,
+                    modifier = modifier
+                        .width(210.dp)
+                        .height(405.dp)
+                        .padding(4.dp)
+                )
+                Text(
+                    text = item.title,
+                    color = Color.White
+                )
+            }
+        }
+    })
 }

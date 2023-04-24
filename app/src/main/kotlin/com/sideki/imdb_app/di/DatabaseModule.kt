@@ -3,8 +3,9 @@ package com.sideki.imdb_app.di
 import android.content.Context
 import androidx.room.Room
 import com.sideki.imdb_app.db.AccountDao
-import com.sideki.imdb_app.db.MoviesDao
 import com.sideki.imdb_app.db.MoviesDB
+import com.sideki.imdb_app.db.MoviesDao
+import com.sideki.imdb_app.db.SelectedMoviesDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,4 +33,8 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideAccountDao(accountDb: MoviesDB): AccountDao = accountDb.accountDao()
+
+    @Provides
+    @Singleton
+    fun provideSelectedMoviesDao(moviesDb: MoviesDB): SelectedMoviesDao = moviesDb.selectedMoviesDao()
 }
