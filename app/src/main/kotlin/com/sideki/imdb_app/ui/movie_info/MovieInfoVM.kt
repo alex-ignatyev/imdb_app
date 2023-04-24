@@ -5,10 +5,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
 import com.sideki.imdb_app.data.api.ImdbApi
-import com.sideki.imdb_app.db.entity.SelectedMoviesEntity
 import com.sideki.imdb_app.db.entity.toEntity
 import com.sideki.imdb_app.domain.model.MovieInfoModel
 import com.sideki.imdb_app.domain.model.toDomain
+import com.sideki.imdb_app.domain.use_case.InsertSelectedMovieUseCase
 import com.sideki.imdb_app.domain.use_case.SelectedMoviesRepository
 import com.sideki.imdb_app.ui.movie_info.MovieInfoAction.OnAddMovieClicked
 import com.sideki.imdb_app.ui.movie_info.MovieInfoAction.OnBackButtonClicked
@@ -24,7 +24,7 @@ import kotlinx.coroutines.withContext
 @HiltViewModel
 class MovieInfoVM @Inject constructor(
     private val api: ImdbApi,
-    private val repo: SelectedMoviesRepository
+    private val insertSelectedMovieUseCase: InsertSelectedMovieUseCase
 ) : BaseMVIViewModel<MovieInfoState>(MovieInfoState()) {
 
     var data by mutableStateOf((MovieInfoModel()))
@@ -47,7 +47,7 @@ class MovieInfoVM @Inject constructor(
         viewModelScope.launch {
             withContext(Dispatchers.IO){
                 val response = api.getMovieInfo(titleId = id)
-                repo.insertMovie(response.toEntity())
+                insertSelectedMovieUseCase.insertSelectedMovie(response.toEntity())
             }
         }
     }

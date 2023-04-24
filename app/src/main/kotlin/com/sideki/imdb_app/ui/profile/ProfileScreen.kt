@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.sideki.imdb_app.R
 import com.sideki.imdb_app.db.DataStorePreferenceStorage
+import com.sideki.imdb_app.domain.use_case.GetSelectedMoviesUseCase
 import com.sideki.imdb_app.domain.use_case.SelectedMoviesRepository
 import com.sideki.imdb_app.ui.movie_info.MovieInfoVM
 import com.sideki.imdb_app.ui.profile.ProfileEffect.OpenChangePasswordScreen
@@ -24,13 +25,13 @@ class ProfileScreen : Fragment(R.layout.fragment_profile) {
     private val vm by viewModels<ProfileVM>()
     @Inject
     lateinit var preferences: DataStorePreferenceStorage
-    @Inject lateinit var repo: SelectedMoviesRepository
+    @Inject lateinit var getSelectedMoviesUseCase: GetSelectedMoviesUseCase
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?, savedInstanceState: Bundle?
     ) = setContent {
-        ViewModel(factory = { ProfileVM(preferences, repo) }) { viewModel ->
+        ViewModel(factory = { ProfileVM(preferences, getSelectedMoviesUseCase) }) { viewModel ->
             val effect = viewModel.uiEffect.collectAsState(initial = null)
 
             ProfileView(movies =) {

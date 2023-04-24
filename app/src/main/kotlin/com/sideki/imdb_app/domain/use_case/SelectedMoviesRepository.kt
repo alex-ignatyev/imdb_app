@@ -8,7 +8,7 @@ class SelectedMoviesRepository @Inject constructor(
     private val selectedMoviesDao: SelectedMoviesDao
 ) {
 
-    suspend fun insertMovie(movie: SelectedMoviesEntity){
+    suspend fun insertSelectedMovie(movie: SelectedMoviesEntity){
         return selectedMoviesDao.insertSelectedMovie(movie)
     }
 

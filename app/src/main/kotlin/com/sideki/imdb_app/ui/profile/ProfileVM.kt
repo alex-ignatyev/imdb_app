@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.sideki.imdb_app.db.DataStorePreferenceStorage
 import com.sideki.imdb_app.db.entity.SelectedMoviesEntity
 import com.sideki.imdb_app.domain.model.MovieInfoModel
+import com.sideki.imdb_app.domain.use_case.GetSelectedMoviesUseCase
 import com.sideki.imdb_app.domain.use_case.SelectedMoviesRepository
 import com.sideki.imdb_app.ui.profile.ProfileAction.OnChangePasswordTextClicked
 import com.sideki.imdb_app.ui.profile.ProfileAction.OnLogOutTextClicked
@@ -23,7 +24,7 @@ import kotlinx.coroutines.withContext
 @HiltViewModel
 class ProfileVM @Inject constructor(
     private val preferences: DataStorePreferenceStorage,
-    private val repo: SelectedMoviesRepository
+    private val getSelectedMoviesUseCase: GetSelectedMoviesUseCase
 ) : BaseMVIViewModel<ProfileState>(ProfileState()) {
 
     var data by mutableStateOf(List<SelectedMoviesEntity>())
@@ -38,7 +39,7 @@ class ProfileVM @Inject constructor(
     fun getSelectedMovies(){
         viewModelScope.launch {
             withContext(Dispatchers.IO){
-                data = repo.getSelectedMovies()
+                data = getSelectedMoviesUseCase.getSelectedMovies()
             }
         }
     }
