@@ -27,12 +27,6 @@ class LoginVM @Inject constructor(
         state.value = state.value.copy(password = input, passwordError = null)
     }
 
-    fun disableButton(): Boolean {
-        return with(state.value) {
-            login.trim().isNotEmpty() && password.trim().isNotEmpty()
-        }
-    }
-
     fun logIn(userLoggedIn: () -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
             with(state.value) {
