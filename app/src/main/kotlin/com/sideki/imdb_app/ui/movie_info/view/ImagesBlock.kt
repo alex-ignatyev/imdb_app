@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.sideki.imdb_app.R.drawable
-import com.sideki.imdb_app.domain.model.MovieInfoModel.ImageModel
+import com.sideki.imdb_app.model.model.MovieInfoModel.ImageModel
 import com.sideki.imdb_app.util.debugPlaceholder
 
 @Preview

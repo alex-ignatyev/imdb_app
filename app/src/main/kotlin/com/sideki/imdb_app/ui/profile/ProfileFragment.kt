@@ -174,8 +174,6 @@ fun LogOut(text: String, modifier: Modifier = Modifier, navController: NavContro
             color = Color.Red,
             fontSize = 20.sp,
             fontStyle = FontStyle.Italic,
-            modifier = Modifier.clickable {
-                navController.navigate(ProfileFragmentDirections.toLoginFragment2())
-            })
+            modifier = Modifier.clickable { navController.navigate(ProfileFragmentDirections.toLoginFragment()) })
     }
 }

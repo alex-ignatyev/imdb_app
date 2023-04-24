@@ -3,46 +3,38 @@ package com.sideki.imdb_app.ui.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sideki.imdb_app.db.DataStorePreferenceStorage
-import com.sideki.imdb_app.domain.AccountRepository
+import com.sideki.imdb_app.domain.use_case.GetAccountUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @HiltViewModel
 class LoginVM @Inject constructor(
-    private val accountRepository: AccountRepository,
+    private val getAccountUseCase: GetAccountUseCase,
     private val preferences: DataStorePreferenceStorage
 ) : ViewModel() {
 
     val state = MutableStateFlow(LogInState())
 
-    fun loginValidation(input: String) {
-        state.value =
-            state.value.copy(login = input, loginError = null)
+    fun obtainLoginChanges(input: String) {
+        state.value = state.value.copy(login = input, loginError = null)
     }
 
-    fun passwordValidation(input: String) {
-        state.value = state.value.copy(
-            password = input,
-            passwordError = null
-        )
+    fun obtainPasswordChanges(input: String) {
+        state.value = state.value.copy(password = input, passwordError = null)
     }
 
-    fun disableButton(): Boolean {
-        return with(state.value) {
-            login.trim().isNotEmpty() && password.trim().isNotEmpty()
-        }
-    }
-
-    fun logIn() {
-        viewModelScope.launch {
+    fun logIn(userLoggedIn: () -> Unit) {
+        viewModelScope.launch(Dispatchers.IO) {
             with(state.value) {
-                val userAccount = accountRepository.getAccount(login)
+                val userAccount = getAccountUseCase.getAccount(login)
                 if (userAccount != null) {
                     state.value = copy(loginError = null)
                     if (userAccount.password == password) {
-                        state.value = copy(hasCorrectFields = true)
+                        withContext(Dispatchers.Main) { userLoggedIn.invoke() }
                         preferences.saveLoggedInState(true)
                     } else {
                         state.value =
@@ -65,8 +57,7 @@ class LoginVM @Inject constructor(
 
 data class LogInState(
     val login: String = "",
-    val password: String = "",
     val loginError: String? = null,
-    val passwordError: String? = null,
-    val hasCorrectFields: Boolean = false
+    val password: String = "",
+    val passwordError: String? = null
 )
