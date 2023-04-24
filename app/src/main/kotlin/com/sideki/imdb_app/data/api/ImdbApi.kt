@@ -25,17 +25,17 @@ interface ImdbApi {
 
     @GET("MostPopularMovies/{api_key}")
     suspend fun getMostPopularMovies(
-        @Path(value = "api_key", encoded = true) apiKey: String = "k_zu9ilkcn"
+        @Path(value = "api_key", encoded = true) apiKey: String = "k_ekjecmoc"
     ): MovieDataResponse
 
     @GET("Top250Movies/{api_key}")
     suspend fun getTop250Movies(
-        @Path(value = "api_key", encoded = true) apiKey: String = "k_zu9ilkcn"
+        @Path(value = "api_key", encoded = true) apiKey: String = "k_ekjecmoc"
     ): MovieDataResponse
 
     @GET("Top250TVs/{api_key}")
     suspend fun getTop250TVs(
-        @Path(value = "api_key", encoded = true) apiKey: String = "k_zu9ilkcn"
+        @Path(value = "api_key", encoded = true) apiKey: String = "k_ekjecmoc"
     ): MovieDataResponse
 
     @GET("ComingSoon/{api_key}")

@@ -39,9 +39,10 @@ class MovieInfoScreen : Fragment() {
                 viewModel.handleAction(it)
             }
 
-            when (effect.value) {
+
+            when (val effectValue = effect.value) {
                 is OpenMoviesScreen -> findNavController().popBackStack()
-                is OpenActorInfoScreen -> findNavController().navigate(MovieInfoScreenDirections.toActorInfoFragment())
+                is OpenActorInfoScreen -> findNavController().navigate(MovieInfoScreenDirections.toActorInfoFragment(effectValue.actorId))
                 else -> Unit
             }
         }

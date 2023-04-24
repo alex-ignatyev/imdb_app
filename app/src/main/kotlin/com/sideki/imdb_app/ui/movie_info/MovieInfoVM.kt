@@ -24,7 +24,7 @@ class MovieInfoVM @Inject constructor(
     override fun handleAction(action: UIAction) {
         when (action) {
             is OnBackButtonClicked -> openMoviesScreen()
-            is OnActorImageClicked -> openActorInfoScreen()
+            is OnActorImageClicked -> openActorInfoScreen(action.actorId)
         }
     }
 
@@ -36,5 +36,7 @@ class MovieInfoVM @Inject constructor(
 
     private fun openMoviesScreen() = setEffect(OpenMoviesScreen())
 
-    private fun openActorInfoScreen() = setEffect(OpenActorInfoScreen())
+    private fun openActorInfoScreen(actorId: String){
+        setEffect(OpenActorInfoScreen(actorId))
+    }
 }

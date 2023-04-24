@@ -117,7 +117,7 @@ fun Actor(
             .wrapContentSize()
             .padding(end = 8.dp)
             .background(Color.Black)
-            .clickable { actionHandler.invoke(OnActorImageClicked()) }
+            .clickable { actionHandler.invoke(OnActorImageClicked(actor.actorId)) }
     ) {
         AsyncImage(
             model = actor.image,

@@ -7,7 +7,7 @@ import com.sideki.imdb_app.util.base.UIState
 
 sealed class MovieInfoAction : UIAction {
     class OnBackButtonClicked : MovieInfoAction()
-    class OnActorImageClicked : MovieInfoAction()
+    data class OnActorImageClicked(val actorId: String) : MovieInfoAction()
 }
 
 data class MovieInfoState(
@@ -16,5 +16,5 @@ data class MovieInfoState(
 
 sealed class MovieInfoEffect : UIEffect {
     class OpenMoviesScreen : MovieInfoEffect()
-    class OpenActorInfoScreen : MovieInfoEffect()
+    data class OpenActorInfoScreen(val actorId: String) : MovieInfoEffect()
 }
