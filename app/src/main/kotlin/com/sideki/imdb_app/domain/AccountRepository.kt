@@ -17,6 +17,6 @@ class AccountRepository @Inject constructor(
     }
 
     suspend fun changePassword(password: String) {
-        return accountDao.changePassword(password)
+        return accountsDao.changePassword(password)
     }
 }

@@ -9,7 +9,6 @@ import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @HiltViewModel
 class LoginVM @Inject constructor(
@@ -27,7 +26,7 @@ class LoginVM @Inject constructor(
         state.value = state.value.copy(password = input, passwordError = null)
     }
 
-    fun logIn(userLoggedIn: () -> Unit) {
+    fun logIn() {
         viewModelScope.launch(Dispatchers.IO) {
             with(state.value) {
                 val userAccount = getAccountUseCase.getAccount(login)

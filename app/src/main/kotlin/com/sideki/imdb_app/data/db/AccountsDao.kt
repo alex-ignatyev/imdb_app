@@ -14,4 +14,7 @@ interface AccountsDao {
 
     @Query("SELECT * FROM account_table WHERE login LIKE :account")
     suspend fun getAccount(account: String): AccountEntity?
+
+    @Query("UPDATE account_table SET password = :password")
+    suspend fun changePassword(password: String)
 }
