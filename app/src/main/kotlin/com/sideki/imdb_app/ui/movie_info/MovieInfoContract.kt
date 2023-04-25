@@ -7,11 +7,13 @@ import com.sideki.imdb_app.util.base.UIState
 
 sealed class MovieInfoAction : UIAction {
     class OnBackButtonClicked : MovieInfoAction()
-    class OnAddMovieClicked : MovieInfoAction()
+    data class OnAddMovieClicked(val movie: MovieInfoModel) : MovieInfoAction()
+    data class OnDeleteMovieClicked(val movie: MovieInfoModel) : MovieInfoAction()
 }
 
 data class MovieInfoState(
-    val data: MovieInfoModel = MovieInfoModel()
+    val data: MovieInfoModel = MovieInfoModel(),
+    val isMovieAdded: Boolean = false
 ) : UIState
 
 sealed class MovieInfoEffect : UIEffect {

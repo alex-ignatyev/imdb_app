@@ -30,6 +30,8 @@ import coil.compose.AsyncImage
 import com.sideki.imdb_app.R.drawable
 import com.sideki.imdb_app.domain.model.MovieInfoModel
 import com.sideki.imdb_app.ui.movie_info.MovieInfoAction.OnAddMovieClicked
+import com.sideki.imdb_app.ui.movie_info.MovieInfoAction.OnDeleteMovieClicked
+import com.sideki.imdb_app.ui.movie_info.MovieInfoState
 import com.sideki.imdb_app.util.base.UIAction
 import com.sideki.imdb_app.util.compose_view.GradientView
 import com.sideki.imdb_app.util.debugPlaceholder
@@ -38,7 +40,8 @@ import com.sideki.imdb_app.util.debugPlaceholder
 fun MovieInfoBlock(
     modifier: Modifier = Modifier,
     movie: MovieInfoModel = MovieInfoModel(),
-    handleAction: (UIAction) -> Unit
+    handleAction: (UIAction) -> Unit,
+    state: MovieInfoState = MovieInfoState()
 ) {
     ConstraintLayout(
         modifier = modifier
@@ -55,7 +58,6 @@ fun MovieInfoBlock(
         val similarsRef = createRef()
         val imagesRef = createRef()
         val ratingsRef = createRef()
-        var isMovieAdded by remember { mutableStateOf(false) }
 
         AsyncImage(
             model = movie.imageUrl,
@@ -86,15 +88,14 @@ fun MovieInfoBlock(
                 }
                 .padding(10.dp),
             onClick = {
-                if (!isMovieAdded) {
-                    handleAction.invoke(OnAddMovieClicked())
-                    isMovieAdded = true
-                } else isMovieAdded = false
+                if (!state.isMovieAdded) {
+                    handleAction.invoke(OnAddMovieClicked(movie))
+                } else handleAction.invoke(OnDeleteMovieClicked(movie))
             },
-            backgroundColor = if (!isMovieAdded) Color.Green else Color.Red,
+            backgroundColor = if (!state.isMovieAdded) Color.Green else Color.Red,
             contentColor = Color.White
         ) {
-            if (!isMovieAdded) Icon(Filled.Add, "Add movie to selected") else Icon(
+            if (!state.isMovieAdded) Icon(Filled.Add, "Add movie to selected") else Icon(
                 Filled.Delete,
                 "Remove movie from selected"
             )

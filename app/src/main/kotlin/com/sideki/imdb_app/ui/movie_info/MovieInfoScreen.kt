@@ -9,6 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.sideki.imdb_app.data.api.ImdbApi
+import com.sideki.imdb_app.domain.use_case.DeleteSelectedMovieUseCase
+import com.sideki.imdb_app.domain.use_case.GetSelectedMovieUseCase
 import com.sideki.imdb_app.domain.use_case.InsertSelectedMovieUseCase
 import com.sideki.imdb_app.ui.movie_info.MovieInfoEffect.OpenMoviesScreen
 import com.sideki.imdb_app.ui.movie_info.view.MovieInfoView
@@ -23,17 +25,31 @@ class MovieInfoScreen : Fragment() {
     private val vm by viewModels<MovieInfoVM>()
     private val args by navArgs<MovieInfoScreenArgs>()
 
-    @Inject lateinit var api: ImdbApi
-    @Inject lateinit var insertSelectedMovieUseCase: InsertSelectedMovieUseCase
+    @Inject
+    lateinit var api: ImdbApi
+    @Inject
+    lateinit var insertSelectedMovieUseCase: InsertSelectedMovieUseCase
+    @Inject
+    lateinit var getSelectedMovieUseCase: GetSelectedMovieUseCase
+    @Inject
+    lateinit var deleteSelectedMovieUseCase: DeleteSelectedMovieUseCase
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?, savedInstanceState: Bundle?
     ) = setContent {
-        ViewModel(factory = { MovieInfoVM(api, insertSelectedMovieUseCase) }) { viewModel ->
+        ViewModel(factory = {
+            MovieInfoVM(
+                api,
+                insertSelectedMovieUseCase,
+                getSelectedMovieUseCase,
+                deleteSelectedMovieUseCase
+            )
+        }) { viewModel ->
             val effect = viewModel.uiEffect.collectAsState(initial = null)
+            vm.checkSelectedMovie(args.movieId)
             vm.getMovieInfo(args.movieId)
-            MovieInfoView(movie = vm.data) {
+            MovieInfoView(movie = vm.movieInfo) {
                 viewModel.handleAction(it)
             }
 

@@ -12,8 +12,8 @@ data class SelectedMoviesEntity(
     val image: String
 )
 
-fun MovieInfoResponse.toEntity() = SelectedMoviesEntity(
-    id = id ?: "",
-    title = title ?: "",
-    image = image ?: ""
+fun MovieInfoModel.toEntity() = SelectedMoviesEntity(
+    id = movieId,
+    title = title,
+    image = imageUrl
 )

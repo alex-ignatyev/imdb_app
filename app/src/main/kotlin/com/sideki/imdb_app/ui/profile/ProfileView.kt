@@ -40,7 +40,7 @@ import com.sideki.imdb_app.util.base.UIAction
 import com.sideki.imdb_app.util.debugPlaceholder
 
 @Composable
-fun ProfileView(actionHandler: (UIAction) -> Unit, movies: List<SelectedMoviesEntity>) {
+fun ProfileView(movies: List<SelectedMoviesEntity>,actionHandler: (UIAction) -> Unit) {
 
     ConstraintLayout(constraintSet = ConstraintsOfScreen(), modifier = Modifier.fillMaxSize()) {
         Background()

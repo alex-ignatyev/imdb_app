@@ -27,7 +27,7 @@ class ProfileVM @Inject constructor(
     private val getSelectedMoviesUseCase: GetSelectedMoviesUseCase
 ) : BaseMVIViewModel<ProfileState>(ProfileState()) {
 
-    var data by mutableStateOf(List<SelectedMoviesEntity>())
+    var data by mutableStateOf<List<SelectedMoviesEntity>>(listOf())
 
     override fun handleAction(action: UIAction) {
         when (action) {
@@ -38,9 +38,7 @@ class ProfileVM @Inject constructor(
 
     fun getSelectedMovies(){
         viewModelScope.launch {
-            withContext(Dispatchers.IO){
                 data = getSelectedMoviesUseCase.getSelectedMovies()
-            }
         }
     }
 
