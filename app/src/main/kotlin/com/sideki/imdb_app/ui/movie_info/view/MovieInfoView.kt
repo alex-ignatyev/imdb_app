@@ -17,12 +17,14 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.sideki.imdb_app.domain.model.MovieInfoModel
 import com.sideki.imdb_app.ui.movie_info.MovieInfoAction.OnBackButtonClicked
+import com.sideki.imdb_app.ui.movie_info.MovieInfoState
 import com.sideki.imdb_app.util.base.UIAction
 import com.sideki.imdb_app.util.compose_view.GradientView
 
 @Composable
 fun MovieInfoView(
     movie: MovieInfoModel = MovieInfoModel(),
+    state: MovieInfoState,
     actionHandler: (UIAction) -> Unit
 ) {
     ConstraintLayout() {
@@ -39,7 +41,8 @@ fun MovieInfoView(
                     top.linkTo(parent.top)
                 },
             movie = movie,
-            handleAction = actionHandler
+            handleAction = actionHandler,
+            state = state
         )
 
         GradientView(

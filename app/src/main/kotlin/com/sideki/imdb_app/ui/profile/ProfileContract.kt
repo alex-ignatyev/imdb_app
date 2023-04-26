@@ -7,6 +7,7 @@ import com.sideki.imdb_app.util.base.UIState
 sealed class ProfileAction : UIAction {
     class OnChangePasswordTextClicked : ProfileAction()
     class OnLogOutTextClicked : ProfileAction()
+    class OnSelectedMoviesTextClicked: ProfileAction()
 }
 
 class ProfileState : UIState
@@ -14,4 +15,5 @@ class ProfileState : UIState
 sealed class ProfileEffect : UIEffect {
     class OpenChangePasswordScreen : ProfileEffect()
     class OpenLoginScreen : ProfileEffect()
+    class OpenSelectedMoviesScreen: ProfileEffect()
 }

@@ -46,12 +46,13 @@ class MovieInfoVM @Inject constructor(
         }
     }
 
-    fun checkSelectedMovie(id: String){
+    fun checkSelectedMovie(id: String) {
         viewModelScope.launch {
-            println(movieInfo.toEntity() == getSelectedMovieUseCase.getSelectedMovie(id))
-            if(movieInfo.toEntity() == getSelectedMovieUseCase.getSelectedMovie(id)){
-                setState(currentState.copy(isMovieAdded = true))
-            } else setState(currentState.copy(isMovieAdded = false))
+            println("Is movie added to selected??? ${movieInfo.toEntity() == getSelectedMovieUseCase.getSelectedMovie(id)}")
+            setState(
+                currentState.copy(isMovieAdded = movieInfo.toEntity() == getSelectedMovieUseCase.getSelectedMovie(id))
+            )
+            println(" State is ${currentState.isMovieAdded}")
         }
     }
 
@@ -61,7 +62,7 @@ class MovieInfoVM @Inject constructor(
         }
     }
 
-    private fun deleteMovie(movie: MovieInfoModel){
+    private fun deleteMovie(movie: MovieInfoModel) {
         viewModelScope.launch {
             deleteSelectedMovieUseCase.deleteSelectedMovie(movie.toEntity())
         }

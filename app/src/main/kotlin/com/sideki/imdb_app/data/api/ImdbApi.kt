@@ -10,6 +10,7 @@ import retrofit2.http.Path
 
 //k_zu9ilkcn
 //k_ekjecmoc
+//k_1y22eta9
 
 //https://imdb-api.com/en/API/Top250Movies/k_zu9ilkcn
 //https://imdb-api.com/en/API/Top250TVs/k_zu9ilkcn
@@ -23,33 +24,33 @@ interface ImdbApi {
 
     @GET("MostPopularMovies/{api_key}")
     suspend fun getMostPopularMovies(
-        @Path(value = "api_key", encoded = true) apiKey: String = "k_ekjecmoc"
+        @Path(value = "api_key", encoded = true) apiKey: String = "k_1y22eta9"
     ): MovieDataResponse
 
     @GET("Title/{api_key}/{title_id}/Images,Trailer,Ratings")
     suspend fun getMovieInfo(
-        @Path(value = "api_key", encoded = true) apiKey: String = "k_ekjecmoc",
+        @Path(value = "api_key", encoded = true) apiKey: String = "k_1y22eta9",
         @Path(value = "title_id", encoded = true) titleId: String = "tt1375666"
     ): MovieInfoResponse
 
     @GET("Top250Movies/{api_key}")
     suspend fun getTop250Movies(
-        @Path(value = "api_key", encoded = true) apiKey: String = "k_ekjecmoc"
+        @Path(value = "api_key", encoded = true) apiKey: String = "k_1y22eta9"
     ): MovieDataResponse
 
     @GET("Top250TVs/{api_key}")
     suspend fun getTop250TVs(
-        @Path(value = "api_key", encoded = true) apiKey: String = "k_ekjecmoc"
+        @Path(value = "api_key", encoded = true) apiKey: String = "k_1y22eta9"
     ): MovieDataResponse
 
     @GET("ComingSoon/{api_key}")
     suspend fun getComingSoonMovies(
-        @Path(value = "api_key", encoded = true) apiKey: String = "k_ekjecmoc"
+        @Path(value = "api_key", encoded = true) apiKey: String = "k_1y22eta9"
     ): MovieDataResponse
 
     @GET("Name/{api_key}/{name_id}")
     suspend fun getActor(
-        @Path(value = "api_key", encoded = true) apiKey: String = "k_zu9ilkcn",
+        @Path(value = "api_key", encoded = true) apiKey: String = "k_ekjecmoc",
         @Path(value = "name_id", encoded = true) titleId: String = "nm0000154"
     ): ActorResponse
 

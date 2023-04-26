@@ -3,24 +3,19 @@ package com.sideki.imdb_app.ui.profile
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.Divider
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layoutId
-import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
@@ -29,18 +24,14 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.Dimension
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
-import coil.compose.AsyncImage
 import com.sideki.imdb_app.R.drawable
-import com.sideki.imdb_app.db.entity.SelectedMoviesEntity
 import com.sideki.imdb_app.ui.profile.ProfileAction.OnChangePasswordTextClicked
 import com.sideki.imdb_app.ui.profile.ProfileAction.OnLogOutTextClicked
+import com.sideki.imdb_app.ui.profile.ProfileAction.OnSelectedMoviesTextClicked
 import com.sideki.imdb_app.util.base.UIAction
-import com.sideki.imdb_app.util.debugPlaceholder
 
 @Composable
-fun ProfileView(movies: List<SelectedMoviesEntity>,actionHandler: (UIAction) -> Unit) {
+fun ProfileView(actionHandler: (UIAction) -> Unit) {
 
     ConstraintLayout(constraintSet = ConstraintsOfScreen(), modifier = Modifier.fillMaxSize()) {
         Background()
@@ -51,22 +42,36 @@ fun ProfileView(movies: List<SelectedMoviesEntity>,actionHandler: (UIAction) -> 
         )
         DividerLine(
             modifier = Modifier
-                .layoutId("dividerTop")
+                .layoutId("firstDivider")
                 .padding(10.dp)
-                .height(1.dp)
+                .height(2.dp)
         )
-        ChangePassword(
+        TextWithIcon(
             text = "Change password", modifier = Modifier
-                .padding(10.dp)
-                .layoutId("changePassword"), actionHandler
+                .padding(14.dp)
+                .layoutId("changePassword"), actionHandler,
+            id = drawable.ic_edit
         )
         DividerLine(
             modifier = Modifier
-                .layoutId("dividerBottom")
+                .layoutId("secondDivider")
                 .padding(4.dp)
-                .height(1.dp)
+                .height(2.dp)
         )
-        SelectedMovies(movies = movies)
+        TextWithIcon(
+            text = "Selected movies",
+            modifier = Modifier
+                .padding(14.dp)
+                .layoutId("selectedMovies"),
+            actionHandler = actionHandler,
+            id = drawable.ic_favorite
+        )
+        DividerLine(
+            modifier = Modifier
+                .layoutId("thirdDivider")
+                .padding(4.dp)
+                .height(2.dp)
+        )
         LogOut(
             text = "Log Out", modifier = Modifier
                 .layoutId("logOut")
@@ -79,11 +84,12 @@ fun ProfileView(movies: List<SelectedMoviesEntity>,actionHandler: (UIAction) -> 
 fun ConstraintsOfScreen(): ConstraintSet {
     val constraints = ConstraintSet {
         val title = createRefFor("title")
-        val dividerTop = createRefFor("dividerTop")
+        val firstDivider = createRefFor("firstDivider")
         val changePassword = createRefFor("changePassword")
-        val dividerBottom = createRefFor("dividerBottom")
-        val logOut = createRefFor("logOut")
+        val secondDivider = createRefFor("secondDivider")
         val selectedMovies = createRefFor("selectedMovies")
+        val thirdDivider = createRefFor("thirdDivider")
+        val logOut = createRefFor("logOut")
 
         constrain(title) {
             top.linkTo(parent.top)
@@ -91,30 +97,36 @@ fun ConstraintsOfScreen(): ConstraintSet {
             end.linkTo(parent.end)
         }
 
-        constrain(dividerTop) {
+        constrain(firstDivider) {
             top.linkTo(title.bottom)
             start.linkTo(parent.start)
             end.linkTo(parent.end)
         }
 
         constrain(changePassword) {
-            top.linkTo(dividerTop.bottom)
+            top.linkTo(firstDivider.bottom)
             start.linkTo(parent.start)
             width = Dimension.wrapContent
             height = Dimension.wrapContent
         }
 
-        constrain(dividerBottom) {
+        constrain(secondDivider) {
             top.linkTo(changePassword.bottom)
             start.linkTo(parent.start)
             end.linkTo(parent.end)
         }
 
-        constrain(selectedMovies){
-            top.linkTo(dividerBottom.bottom)
+        constrain(selectedMovies) {
+            top.linkTo(secondDivider.bottom)
+            start.linkTo(parent.start)
+            width = Dimension.wrapContent
+            height = Dimension.wrapContent
+        }
+
+        constrain(thirdDivider) {
+            top.linkTo(selectedMovies.bottom)
             start.linkTo(parent.start)
             end.linkTo(parent.end)
-            bottom.linkTo(parent.bottom)
         }
 
         constrain(logOut) {
@@ -161,16 +173,24 @@ fun DividerLine(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun ChangePassword(text: String, modifier: Modifier = Modifier, actionHandler: (UIAction) -> Unit) {
+fun TextWithIcon(text: String, modifier: Modifier = Modifier, actionHandler: (UIAction) -> Unit, id: Int) {
     Box(modifier = modifier) {
-        Text(
-            text = text,
-            fontWeight = FontWeight.Bold,
-            fontSize = 20.sp,
-            color = Color.White,
-            modifier = Modifier.clickable {
-                actionHandler.invoke(OnChangePasswordTextClicked())
-            })
+        Row(modifier = Modifier.padding(start = 20.dp, end = 8.dp)) {
+            Icon(painter = painterResource(id = id), contentDescription = "", tint = Color.White)
+            Text(
+                text = text,
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp,
+                color = Color.White,
+                modifier = Modifier
+                    .clickable {
+                        if (text == "Change password")
+                            actionHandler.invoke(OnChangePasswordTextClicked())
+                        else actionHandler.invoke(OnSelectedMoviesTextClicked())
+                    }
+                    .padding(start = 8.dp)
+            )
+        }
     }
 }
 
@@ -186,27 +206,4 @@ fun LogOut(text: String, modifier: Modifier = Modifier, userLoggedOut: (UIAction
                 userLoggedOut.invoke(OnLogOutTextClicked())
             })
     }
-}
-
-@Composable
-fun SelectedMovies(modifier: Modifier = Modifier, movies: List<SelectedMoviesEntity>) {
-    LazyVerticalGrid(columns = GridCells.Fixed(2), content = {
-        items(movies) { item ->
-            Column {
-                AsyncImage(
-                    model = item.image, contentDescription = "Selected movies image",
-                    placeholder = debugPlaceholder(debugPreview = drawable.ic_launcher_background),
-                    contentScale = ContentScale.Crop,
-                    modifier = modifier
-                        .width(210.dp)
-                        .height(405.dp)
-                        .padding(4.dp)
-                )
-                Text(
-                    text = item.title,
-                    color = Color.White
-                )
-            }
-        }
-    })
 }

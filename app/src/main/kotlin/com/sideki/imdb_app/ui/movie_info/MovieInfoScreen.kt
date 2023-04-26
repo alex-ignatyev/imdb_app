@@ -46,10 +46,11 @@ class MovieInfoScreen : Fragment() {
                 deleteSelectedMovieUseCase
             )
         }) { viewModel ->
+            val state = viewModel.uiState.collectAsState()
             val effect = viewModel.uiEffect.collectAsState(initial = null)
-            vm.checkSelectedMovie(args.movieId)
             vm.getMovieInfo(args.movieId)
-            MovieInfoView(movie = vm.movieInfo) {
+            vm.checkSelectedMovie(args.movieId)
+            MovieInfoView(movie = vm.movieInfo, state = state.value) {
                 viewModel.handleAction(it)
             }
 

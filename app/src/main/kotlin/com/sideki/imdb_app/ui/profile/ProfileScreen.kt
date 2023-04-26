@@ -14,6 +14,7 @@ import com.sideki.imdb_app.domain.use_case.SelectedMoviesRepository
 import com.sideki.imdb_app.ui.movie_info.MovieInfoVM
 import com.sideki.imdb_app.ui.profile.ProfileEffect.OpenChangePasswordScreen
 import com.sideki.imdb_app.ui.profile.ProfileEffect.OpenLoginScreen
+import com.sideki.imdb_app.ui.profile.ProfileEffect.OpenSelectedMoviesScreen
 import com.sideki.imdb_app.util.base.ViewModel
 import com.sideki.imdb_app.util.setContent
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,9 +23,9 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ProfileScreen : Fragment(R.layout.fragment_profile) {
 
-    private val vm by viewModels<ProfileVM>()
     @Inject
     lateinit var preferences: DataStorePreferenceStorage
+
     @Inject
     lateinit var getSelectedMoviesUseCase: GetSelectedMoviesUseCase
 
@@ -32,15 +33,16 @@ class ProfileScreen : Fragment(R.layout.fragment_profile) {
         inflater: LayoutInflater,
         container: ViewGroup?, savedInstanceState: Bundle?
     ) = setContent {
-        ViewModel(factory = { ProfileVM(preferences, getSelectedMoviesUseCase) }) { viewModel ->
+        ViewModel(factory = { ProfileVM(preferences) }) { viewModel ->
             val effect = viewModel.uiEffect.collectAsState(initial = null)
-            vm.getSelectedMovies()
-            ProfileView(movies = vm.data) {
+
+            ProfileView {
                 viewModel.handleAction(it)
             }
 
             when (effect.value) {
                 is OpenChangePasswordScreen -> findNavController().navigate(ProfileScreenDirections.toChangePasswordFragment())
+                is OpenSelectedMoviesScreen -> findNavController().navigate(ProfileScreenDirections.toSelectedMoviesScreen())
                 is OpenLoginScreen -> findNavController().navigate(ProfileScreenDirections.toLoginFragment2())
                 else -> Unit
             }

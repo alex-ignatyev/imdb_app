@@ -36,6 +36,9 @@
         <action
             android:id="@+id/to_changePasswordFragment"
             app:destination="@id/changePasswordFragment" />
+        <action
+            android:id="@+id/to_selectedMoviesScreen"
+            app:destination="@id/selectedMoviesScreen" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment2"
@@ -58,4 +61,12 @@
         android:id="@+id/changePasswordFragment"
         android:name="com.sideki.imdb_app.ui.change_password.ChangePasswordScreen"
         android:label="fragment_change_password" />
+    <fragment
+        android:id="@+id/selectedMoviesScreen"
+        android:name="com.sideki.imdb_app.ui.selected_movies.SelectedMoviesScreen"
+        android:label="SelectedMoviesScreen" >
+        <action
+            android:id="@+id/action_selectedMoviesScreen_to_movieInfoFragment"
+            app:destination="@id/movieInfoFragment" />
+    </fragment>
 </navigation>

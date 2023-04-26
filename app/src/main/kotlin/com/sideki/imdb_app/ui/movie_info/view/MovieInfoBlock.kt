@@ -41,7 +41,7 @@ fun MovieInfoBlock(
     modifier: Modifier = Modifier,
     movie: MovieInfoModel = MovieInfoModel(),
     handleAction: (UIAction) -> Unit,
-    state: MovieInfoState = MovieInfoState()
+    state: MovieInfoState
 ) {
     ConstraintLayout(
         modifier = modifier
