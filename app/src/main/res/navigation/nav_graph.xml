@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.sideki.imdb_app.ui.login.LoginFragment"
+        android:name="com.example.imdb_app.ui.login.LoginFragment"
         android:label="fragmentLogin"
         tools:layout="@layout/fragment_login">
 
@@ -21,13 +21,13 @@
 
     <fragment
         android:id="@+id/registrationFragment"
-        android:name="com.sideki.imdb_app.ui.registration.RegistrationFragment"
+        android:name="com.example.imdb_app.ui.registration.RegistrationFragment"
         android:label="fragment_registration"
         tools:layout="@layout/fragment_registration" />
 
     <fragment
         android:id="@+id/moviesFragment"
-        android:name="com.sideki.imdb_app.ui.movies.MoviesFragment"
+        android:name="com.example.imdb_app.ui.movies.MoviesFragment"
         android:label="fragment_movies"
         tools:layout="@layout/fragment_movies">
 
@@ -38,7 +38,7 @@
 
     <fragment
         android:id="@+id/movieInfoFragment"
-        android:name="com.sideki.imdb_app.ui.movie_info.MovieInfoScreen"
+        android:name="com.example.imdb_app.ui.movie_info.MovieInfoScreen"
         android:label="MovieInfoFragment">
 
         <argument
@@ -52,7 +52,7 @@
 
     <fragment
         android:id="@+id/actorInfoFragment"
-        android:name="com.sideki.imdb_app.ui.actor_info.ActorInfoFragment"
+        android:name="com.example.imdb_app.ui.actor_info.ActorInfoFragment"
         android:label="ActorInfoFragment">
 
         <argument
@@ -62,7 +62,7 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.sideki.imdb_app.ui.profile.ProfileScreen"
+        android:name="com.example.imdb_app.ui.profile.ProfileScreen"
         android:label="ProfileFragment">
         <action
             android:id="@+id/to_loginFragment"
@@ -74,6 +74,6 @@
 
     <fragment
         android:id="@+id/changePasswordFragment"
-        android:name="com.sideki.imdb_app.ui.change_password.ChangePasswordScreen"
+        android:name="com.example.imdb_app.ui.change_password.ChangePasswordScreen"
         android:label="fragment_change_password" />
 </navigation>

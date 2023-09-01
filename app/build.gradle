@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace 'com.sideki.imdb_app'
+    namespace 'com.example.imdb_app'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.sideki.imdb_app"
+        applicationId "com.example.imdb_app"
         minSdk 29
         targetSdk 33
         versionCode 1
