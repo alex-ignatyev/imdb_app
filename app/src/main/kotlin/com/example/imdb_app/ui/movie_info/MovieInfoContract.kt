@@ -1,6 +1,6 @@
 package com.example.imdb_app.ui.movie_info
 
-import com.example.imdb_app.model.model.MovieInfoModel
+import com.example.imdb_app.domain.model.MovieInfoModel
 import com.example.imdb_app.util.base.UIAction
 import com.example.imdb_app.util.base.UIEffect
 import com.example.imdb_app.util.base.UIState

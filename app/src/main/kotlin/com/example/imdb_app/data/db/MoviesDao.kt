@@ -4,8 +4,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.imdb_app.model.entity.MovieEntity
-import com.example.imdb_app.model.entity.MovieEntity.MovieType
+import com.example.imdb_app.data.db.entity.MovieEntity
+import com.example.imdb_app.data.db.entity.MovieEntity.MovieType
 
 @Dao
 interface MoviesDao {

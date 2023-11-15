@@ -1,10 +1,10 @@
-package com.example.imdb_app.db
+package com.example.imdb_app.data.db
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.imdb_app.model.entity.AccountEntity
+import com.example.imdb_app.data.db.entity.AccountEntity
 
 @Dao
 interface AccountDao {

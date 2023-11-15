@@ -1,12 +1,12 @@
-package com.example.imdb_app.model.model
+package com.example.imdb_app.domain.model
 
-import com.example.imdb_app.model.model.MovieInfoModel.ActorModel
-import com.example.imdb_app.model.model.MovieInfoModel.BoxOfficeModel
-import com.example.imdb_app.model.model.MovieInfoModel.ImageModel
-import com.example.imdb_app.model.model.MovieInfoModel.RatingsModel
-import com.example.imdb_app.model.model.MovieInfoModel.SimilarMovieModel
-import com.example.imdb_app.model.model.MovieInfoModel.TrailerModel
-import com.example.imdb_app.model.response.MovieInfoResponse
+import com.example.imdb_app.domain.model.MovieInfoModel.ActorModel
+import com.example.imdb_app.domain.model.MovieInfoModel.BoxOfficeModel
+import com.example.imdb_app.domain.model.MovieInfoModel.ImageModel
+import com.example.imdb_app.domain.model.MovieInfoModel.RatingsModel
+import com.example.imdb_app.domain.model.MovieInfoModel.SimilarMovieModel
+import com.example.imdb_app.domain.model.MovieInfoModel.TrailerModel
+import com.example.imdb_app.data.response.MovieInfoResponse
 
 data class MovieInfoModel(
     val movieId: String = "",

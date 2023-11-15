@@ -1,7 +1,7 @@
 package com.example.imdb_app.ui.profile
 
 import androidx.lifecycle.viewModelScope
-import com.example.imdb_app.db.DataStorePreferenceStorage
+import com.example.imdb_app.data.db.DataStorePreferenceStorage
 import com.example.imdb_app.ui.profile.ProfileAction.OnChangePasswordTextClicked
 import com.example.imdb_app.ui.profile.ProfileAction.OnLogOutTextClicked
 import com.example.imdb_app.ui.profile.ProfileEffect.OpenChangePasswordScreen

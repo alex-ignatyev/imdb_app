@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.imdb_app.databinding.ActivityMainBinding
-import com.example.imdb_app.db.DataStorePreferenceStorage
+import com.example.imdb_app.data.db.DataStorePreferenceStorage
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.imdb_app.databinding.ItemMovieGroupTitleBinding
 import com.example.imdb_app.databinding.ItemMoviesGroupBinding
-import com.example.imdb_app.model.model.MovieDataModel
+import com.example.imdb_app.domain.model.MovieDataModel
 import com.example.imdb_app.util.recycler.AdapterItem
 import com.example.imdb_app.util.recycler.BaseViewHolder
 import com.example.imdb_app.util.recycler.viewBinding

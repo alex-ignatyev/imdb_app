@@ -1,8 +1,7 @@
 package com.example.imdb_app.domain.use_case
 
-import com.example.imdb_app.domain.MovieInfoRepository
-import com.example.imdb_app.model.model.MovieInfoModel
-import com.example.imdb_app.model.model.toModel
+import com.example.imdb_app.domain.model.MovieInfoModel
+import com.example.imdb_app.domain.repository.MovieInfoRepository
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -13,7 +12,7 @@ class GetMovieInfoUseCase @Inject constructor(
 
     suspend fun getMovieInfo(movieId: String): MovieInfoModel {
         return withContext(Dispatchers.IO) {
-            repo.getMovieInfo(movieId).toModel()
+            repo.getMovieInfo(movieId)
         }
     }
 }

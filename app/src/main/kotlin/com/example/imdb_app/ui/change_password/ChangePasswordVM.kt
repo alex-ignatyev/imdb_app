@@ -1,7 +1,7 @@
 package com.example.imdb_app.ui.change_password
 
 import androidx.lifecycle.viewModelScope
-import com.example.imdb_app.db.DataStorePreferenceStorage
+import com.example.imdb_app.data.db.DataStorePreferenceStorage
 import com.example.imdb_app.domain.use_case.ChangePasswordUseCase
 import com.example.imdb_app.domain.use_case.GetAccountUseCase
 import com.example.imdb_app.ui.change_password.ChangePasswordAction.CurrentPasswordChanged

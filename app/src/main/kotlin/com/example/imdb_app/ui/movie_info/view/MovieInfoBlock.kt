@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImage
 import com.example.imdb_app.R
-import com.example.imdb_app.model.model.MovieInfoModel
+import com.example.imdb_app.domain.model.MovieInfoModel
 import com.example.imdb_app.util.base.UIAction
 import com.example.imdb_app.util.compose_view.GradientView
 import com.example.imdb_app.util.debugPlaceholder
@@ -188,7 +188,6 @@ fun MovieInfoBlock(
 
         ActorsBlock(
             actors = movie.actors,
-            onActorClick = onActorClick,
             modifier = Modifier.constrainAs(actorsRef) {
                 top.linkTo(ratingsRef.bottom)
             }, actionHandler = actionHandler

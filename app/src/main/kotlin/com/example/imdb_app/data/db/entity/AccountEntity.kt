@@ -1,4 +1,4 @@
-package com.example.imdb_app.model.entity
+package com.example.imdb_app.data.db.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -1,11 +1,11 @@
-package com.example.imdb_app.db
+package com.example.imdb_app.data.db
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
-import com.example.imdb_app.db.PreferenceStorage.PreferencesKey.CURRENT_ACCOUNT_LOGGED_IN_KEY
-import com.example.imdb_app.db.PreferenceStorage.PreferencesKey.CURRENT_DATE_KEY
-import com.example.imdb_app.db.PreferenceStorage.PreferencesKey.IS_LOGGED_IN_CHECK_KEY
+import com.example.imdb_app.data.db.PreferenceStorage.PreferencesKey.CURRENT_ACCOUNT_LOGGED_IN_KEY
+import com.example.imdb_app.data.db.PreferenceStorage.PreferencesKey.CURRENT_DATE_KEY
+import com.example.imdb_app.data.db.PreferenceStorage.PreferencesKey.IS_LOGGED_IN_CHECK_KEY
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.flow.Flow

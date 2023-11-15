@@ -1,4 +1,4 @@
-package com.example.imdb_app.model.response
+package com.example.imdb_app.data.response
 
 import com.google.gson.annotations.SerializedName
 

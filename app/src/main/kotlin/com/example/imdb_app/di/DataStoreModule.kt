@@ -7,9 +7,9 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.datastore.preferences.preferencesDataStoreFile
-import com.example.imdb_app.db.DataStorePreferenceStorage
-import com.example.imdb_app.db.DataStorePreferenceStorage.Companion.PREFERENCES_NAME
-import com.example.imdb_app.db.PreferenceStorage
+import com.example.imdb_app.data.db.DataStorePreferenceStorage
+import com.example.imdb_app.data.db.DataStorePreferenceStorage.Companion.PREFERENCES_NAME
+import com.example.imdb_app.data.db.PreferenceStorage
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,7 +21,7 @@ import kotlinx.coroutines.Dispatchers
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModule {
+object DataStoreModule {
 
     val Context.datastore by preferencesDataStore(
         name = PREFERENCES_NAME,

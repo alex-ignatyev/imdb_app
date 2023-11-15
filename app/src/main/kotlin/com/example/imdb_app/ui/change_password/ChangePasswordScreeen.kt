@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.compose.runtime.collectAsState
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.imdb_app.db.DataStorePreferenceStorage
+import com.example.imdb_app.data.db.DataStorePreferenceStorage
 import com.example.imdb_app.domain.use_case.ChangePasswordUseCase
 import com.example.imdb_app.domain.use_case.GetAccountUseCase
 import com.example.imdb_app.ui.change_password.ChangePasswordEffect.OpenProfileScreen

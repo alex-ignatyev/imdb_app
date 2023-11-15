@@ -1,9 +1,9 @@
-package com.example.imdb_app.model.entity
+package com.example.imdb_app.data.db.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.imdb_app.model.entity.MovieEntity.MovieType
-import com.example.imdb_app.model.response.MovieDataResponse.MovieResponse
+import com.example.imdb_app.data.db.entity.MovieEntity.MovieType
+import com.example.imdb_app.data.response.MovieDataResponse.MovieResponse
 
 @Entity(tableName = "movie_table")
 data class MovieEntity(

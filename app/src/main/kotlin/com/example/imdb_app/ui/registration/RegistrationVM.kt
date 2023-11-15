@@ -2,9 +2,9 @@ package com.example.imdb_app.ui.registration
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.imdb_app.domain.model.AccountModel
 import com.example.imdb_app.domain.use_case.GetAccountUseCase
 import com.example.imdb_app.domain.use_case.InsertAccountUseCase
-import com.example.imdb_app.model.entity.AccountEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
@@ -61,7 +61,7 @@ class RegistrationVM @Inject constructor(
                 state.value = state.value.copy(loginError = "Account already exist")
             } else {
                 insertAccountUseCase.insertAccount(
-                    AccountEntity(
+                    AccountModel(
                         login = state.value.login,
                         password = state.value.password
                     )

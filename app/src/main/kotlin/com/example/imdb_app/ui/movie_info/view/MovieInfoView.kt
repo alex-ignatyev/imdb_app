@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.example.imdb_app.model.model.MovieInfoModel
+import com.example.imdb_app.domain.model.MovieInfoModel
 import com.example.imdb_app.ui.movie_info.MovieInfoAction.OnBackButtonClicked
 import com.example.imdb_app.util.base.UIAction
 import com.example.imdb_app.util.compose_view.GradientView
@@ -38,7 +38,6 @@ fun MovieInfoView(
                     top.linkTo(parent.top)
                 },
             movie = movie,
-            onActorClick = {},
             actionHandler = actionHandler
         )
 

@@ -1,4 +1,4 @@
-package com.example.imdb_app.db
+package com.example.imdb_app.data.db
 
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey

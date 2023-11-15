@@ -1,7 +1,7 @@
-package com.example.imdb_app.model.model
+package com.example.imdb_app.domain.model
 
-import com.example.imdb_app.model.model.MovieDataModel.MovieModel
-import com.example.imdb_app.model.entity.MovieEntity
+import com.example.imdb_app.domain.model.MovieDataModel.MovieModel
+import com.example.imdb_app.data.db.entity.MovieEntity
 import com.example.imdb_app.util.recycler.AdapterItem
 import java.util.UUID
 

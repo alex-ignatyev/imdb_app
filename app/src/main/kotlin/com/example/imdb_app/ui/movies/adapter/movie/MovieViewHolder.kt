@@ -2,7 +2,7 @@ package com.example.imdb_app.ui.movies.adapter.movie
 
 import coil.load
 import com.example.imdb_app.databinding.ItemMovieBinding
-import com.example.imdb_app.model.model.MovieDataModel.MovieModel
+import com.example.imdb_app.domain.model.MovieDataModel.MovieModel
 import com.example.imdb_app.util.recycler.AdapterItem
 import com.example.imdb_app.util.recycler.BaseViewHolder
 

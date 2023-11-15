@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImage
 import com.example.imdb_app.R
-import com.example.imdb_app.model.model.MovieInfoModel.ActorModel
+import com.example.imdb_app.domain.model.MovieInfoModel.ActorModel
 import com.example.imdb_app.ui.movie_info.MovieInfoAction.OnActorImageClicked
 import com.example.imdb_app.util.base.UIAction
 import com.example.imdb_app.util.debugPlaceholder
@@ -39,7 +39,6 @@ import com.example.imdb_app.util.debugPlaceholder
 fun ActorsBlock(
     @PreviewParameter(ActorPreviewProvider::class, 1) actors: List<ActorModel>,
     modifier: Modifier = Modifier,
-    onActorClick: (String) -> Unit = { },
     actionHandler: (UIAction) -> Unit
 ) {
     ConstraintLayout(
@@ -100,7 +99,7 @@ fun ActorsBlock(
                 .padding(start = 8.dp)
         ) {
             items(actors) { item ->
-                Actor(item, onActorClick, actionHandler)
+                Actor(item, actionHandler)
             }
         }
     }
@@ -109,7 +108,6 @@ fun ActorsBlock(
 @Composable
 fun Actor(
     actor: ActorModel = ActorModel(),
-    onActorClick: (String) -> Unit = { },
     actionHandler: (UIAction) -> Unit
 ) {
     Row(

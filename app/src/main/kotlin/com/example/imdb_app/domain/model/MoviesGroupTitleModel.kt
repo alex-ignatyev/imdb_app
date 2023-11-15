@@ -1,4 +1,4 @@
-package com.example.imdb_app.model.model
+package com.example.imdb_app.domain.model
 
 import com.example.imdb_app.util.recycler.AdapterItem
 import java.util.UUID

@@ -2,7 +2,7 @@ package com.example.imdb_app.ui.movie_info
 
 import androidx.lifecycle.viewModelScope
 import com.example.imdb_app.domain.use_case.GetMovieInfoUseCase
-import com.example.imdb_app.model.model.MovieInfoModel
+import com.example.imdb_app.domain.model.MovieInfoModel
 import com.example.imdb_app.ui.movie_info.MovieInfoAction.OnActorImageClicked
 import com.example.imdb_app.ui.movie_info.MovieInfoAction.OnBackButtonClicked
 import com.example.imdb_app.ui.movie_info.MovieInfoEffect.OpenActorInfoScreen

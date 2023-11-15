@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.imdb_app.R
-import com.example.imdb_app.model.model.MovieInfoModel.ImageModel
+import com.example.imdb_app.domain.model.MovieInfoModel.ImageModel
 import com.example.imdb_app.util.debugPlaceholder
 
 @Preview

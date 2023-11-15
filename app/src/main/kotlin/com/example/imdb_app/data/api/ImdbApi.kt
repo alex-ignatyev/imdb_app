@@ -1,10 +1,10 @@
 package com.example.imdb_app.data.api
 
-import com.example.imdb_app.model.response.ActorResponse
-import com.example.imdb_app.model.response.MetacriticReviewsResponse
-import com.example.imdb_app.model.response.MovieDataResponse
-import com.example.imdb_app.model.response.MovieInfoResponse
-import com.example.imdb_app.model.response.ReviewsResponse
+import com.example.imdb_app.data.response.ActorResponse
+import com.example.imdb_app.data.response.MetacriticReviewsResponse
+import com.example.imdb_app.data.response.MovieDataResponse
+import com.example.imdb_app.data.response.MovieInfoResponse
+import com.example.imdb_app.data.response.ReviewsResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 

@@ -3,7 +3,7 @@ package com.example.imdb_app.ui.actor_info
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.imdb_app.domain.use_case.GetActorInfoUseCase
-import com.example.imdb_app.model.model.ActorInfoModel
+import com.example.imdb_app.domain.model.ActorInfoModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow

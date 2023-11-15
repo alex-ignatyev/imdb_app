@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImage
 import com.example.imdb_app.R
-import com.example.imdb_app.model.model.MovieInfoModel.SimilarMovieModel
+import com.example.imdb_app.domain.model.MovieInfoModel.SimilarMovieModel
 import com.example.imdb_app.util.debugPlaceholder
 
 @Preview

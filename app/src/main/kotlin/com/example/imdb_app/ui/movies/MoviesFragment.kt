@@ -27,3 +27,4 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
         }
     }
 }
+

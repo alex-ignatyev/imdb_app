@@ -1,6 +1,8 @@
-package com.example.imdb_app.model.model
+package com.example.imdb_app.domain.model
 
-import com.example.imdb_app.model.response.ActorResponse
+import com.example.imdb_app.domain.model.ActorInfoModel.CastMovieModel
+import com.example.imdb_app.domain.model.ActorInfoModel.KnownForModel
+import com.example.imdb_app.data.response.ActorResponse
 
 data class ActorInfoModel(
     val id: String = "Описание отсутствует",
@@ -55,7 +57,7 @@ fun ActorResponse.toModel() = ActorInfoModel(
     awards = awards.orEmpty(),
 
     knownFor = knownFor?.map {
-        ActorInfoModel.KnownForModel(
+        KnownForModel(
             id = it.id.orEmpty(),
             title = it.title.orEmpty(),
             fullTitle = it.fullTitle.orEmpty(),
@@ -66,7 +68,7 @@ fun ActorResponse.toModel() = ActorInfoModel(
     }.orEmpty(),
 
     castMovies = castMovies?.map {
-        ActorInfoModel.CastMovieModel(
+        CastMovieModel(
             id = it.id.orEmpty(),
             title = it.title.orEmpty(),
             description = it.description.orEmpty(),

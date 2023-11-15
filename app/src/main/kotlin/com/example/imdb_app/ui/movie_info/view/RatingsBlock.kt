@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.imdb_app.model.model.MovieInfoModel.RatingsModel
+import com.example.imdb_app.domain.model.MovieInfoModel.RatingsModel
 
 
 @Preview
